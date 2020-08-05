@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Student Calendar</string>
+
+    <string name="welcome1">Welcome to our app!</string>
+    <string name="welcome2">Good morning!</string>
+    <string name="welcome3">Have a nice day!</string>
+    <string name="welcome4">This app will organise your time</string>
+    <string name="welcome5">Hello, bonjour, hola!</string>
+    <string name="welcome6">Student calendar is here for you!</string>
+    <string name="welcome7">Surprise!</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
