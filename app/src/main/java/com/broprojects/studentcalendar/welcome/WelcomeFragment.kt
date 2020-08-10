@@ -24,16 +24,30 @@ class WelcomeFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
+        var color = R.color.appColor1
         viewModel.color.observe(viewLifecycleOwner, Observer {
+            color = it
             binding.layout.setBackgroundResource(it)
+        })
+
+        var drawable = R.drawable.ic_baseline_beach_access_140
+        viewModel.drawable.observe(viewLifecycleOwner, Observer {
+            drawable = it
+            binding.imageView.setImageResource(it)
+        })
+
+        var text = R.string.welcome1
+        viewModel.text.observe(viewLifecycleOwner, Observer {
+            text = it
+            binding.welcomeText.text = getString(it)
         })
 
         viewModel.mainFragmentEvent.observe(viewLifecycleOwner, Observer {
             if (it == true) {
                 this.findNavController().navigate(
-                    WelcomeFragmentDirections.actionWelcomeFragmentToMainFragment()
+                    WelcomeFragmentDirections.actionWelcomeFragmentToMainFragment(text, color, drawable)
                 )
-                viewModel.mainFragmentEventDone()
+                viewModel.goToMainFragmentDone()
             }
         })
 

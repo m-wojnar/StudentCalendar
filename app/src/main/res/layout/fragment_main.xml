@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.broprojects.studentcalendar.main.MainViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout"
@@ -10,5 +16,59 @@
         android:layout_height="match_parent"
         tools:context=".main.MainFragment">
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_big"
+            android:layout_marginBottom="@dimen/margin_big"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_baseline_add_48" />
+
+        <View
+            android:id="@+id/gradientBackground"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleY="1.8"
+            app:layout_constraintBottom_toBottomOf="@+id/welcomeText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/welcomeImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_standard"
+            android:layout_marginTop="@dimen/margin_standard"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_baseline_beach_access_40" />
+
+        <TextView
+            android:id="@+id/welcomeText"
+            style="@style/TitleText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_standard"
+            android:layout_marginEnd="@dimen/margin_small"
+            android:layout_marginBottom="4dp"
+            app:layout_constraintBottom_toBottomOf="@+id/welcomeImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/welcomeImage"
+            tools:text="@string/welcome4" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin_big"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/welcomeText" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

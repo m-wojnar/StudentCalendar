@@ -1,4 +1,5 @@
 <resources>
+
     <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryDark">@color/primaryDarkColor</item>
@@ -6,9 +7,15 @@
     </style>
 
     <style name="WelcomeText">
+        <item name="android:textAlignment">center</item>
         <item name="android:textColor">@color/primaryTextColor</item>
-        <item name="android:textSize">@dimen/text_big</item>
+        <item name="android:textSize">@dimen/welcome_text</item>
         <item name="fontFamily">@font/lobster_two_italic</item>
+    </style>
+
+    <style name="TitleText" parent="WelcomeText">
+        <item name="android:textAlignment">gravity</item>
+        <item name="android:textSize">@dimen/title_text</item>
     </style>
 
 </resources>

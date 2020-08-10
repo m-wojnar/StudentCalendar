@@ -8,23 +8,34 @@ import kotlinx.coroutines.*
 import kotlin.random.Random
 
 class WelcomeViewModel: ViewModel() {
-    private val numOfColors = 7
-    private val colors = listOf<Int>(
+    private val colors = listOf(
         R.color.appColor1,
         R.color.appColor2,
         R.color.appColor3,
         R.color.appColor4,
         R.color.appColor5,
         R.color.appColor6,
-        R.color.appColor7
+        R.color.appColor7,
+        R.color.appColor8
     )
-
     private val _color = MutableLiveData<Int>()
     val color: LiveData<Int>
         get() = _color
 
-    private val numOfTexts = 7
-    private val texts = listOf<Int>(
+    private val drawables = listOf(
+        R.drawable.ic_baseline_beach_access_140,
+        R.drawable.ic_baseline_emoji_food_beverage_140,
+        R.drawable.ic_baseline_local_cafe_140,
+        R.drawable.ic_baseline_mood_140,
+        R.drawable.ic_baseline_music_note_140,
+        R.drawable.ic_baseline_thumb_up_140,
+        R.drawable.ic_baseline_wb_sunny_140
+    )
+    private val _drawable = MutableLiveData<Int>()
+    val drawable: LiveData<Int>
+        get() = _drawable
+
+    private val texts = listOf(
         R.string.welcome1,
         R.string.welcome2,
         R.string.welcome3,
@@ -33,7 +44,6 @@ class WelcomeViewModel: ViewModel() {
         R.string.welcome6,
         R.string.welcome7
     )
-
     private val _text = MutableLiveData<Int>()
     val text: LiveData<Int>
         get() = _text
@@ -44,21 +54,27 @@ class WelcomeViewModel: ViewModel() {
         get() = _mainFragmentEvent
 
     private val viewModelJob = Job()
-    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+    private val coroutineScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     init {
-        _text.value = texts[Random.nextInt(numOfTexts)]
-        _color.value = colors[Random.nextInt(numOfColors)]
+        _text.value = texts[Random.nextInt(texts.size)]
+        _color.value = colors[Random.nextInt(colors.size)]
+        _drawable.value = drawables[Random.nextInt(drawables.size)]
 
-        uiScope.launch {
+        coroutineScope.launch {
             withContext(Dispatchers.Default) {
-                Thread.sleep(welcomeScreenTime)
-                _mainFragmentEvent.postValue(true)
+                delay(welcomeScreenTime)
+                goToMainFragment()
             }
         }
     }
 
-    fun mainFragmentEventDone() {
+    fun goToMainFragment() {
+        _mainFragmentEvent.postValue(true)
+    }
+
+    fun goToMainFragmentDone() {
         _mainFragmentEvent.value = false
+        viewModelJob.cancel()
     }
 }

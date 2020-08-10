@@ -4,5 +4,6 @@
     <dimen name="margin_standard">16dp</dimen>
     <dimen name="margin_big">24dp</dimen>
 
-    <dimen name="text_big">40sp</dimen>
+    <dimen name="welcome_text">40sp</dimen>
+    <dimen name="title_text">25sp</dimen>
 </resources>
