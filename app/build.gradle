@@ -42,9 +42,11 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
 
     implementation "androidx.legacy:legacy-support-v4:$legacy_version"
+    implementation "androidx.room:room-runtime:$room_version"
 
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "androidx.test.ext:junit:$android_junit_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
 
 }
