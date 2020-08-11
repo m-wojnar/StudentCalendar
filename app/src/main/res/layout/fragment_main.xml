@@ -17,6 +17,7 @@
         tools:context=".main.MainFragment">
 
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/action_margin"
@@ -30,12 +31,12 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <Button
-                android:id="@+id/navigationDrawerImage"
+                android:id="@+id/navigationDrawerButton"
                 android:layout_width="@dimen/action_icon_size"
                 android:layout_height="@dimen/action_icon_size"
+                android:background="@drawable/ic_baseline_menu_40"
                 android:clickable="true"
-                android:focusable="true"
-                android:background="@drawable/ic_baseline_menu_40" />
+                android:focusable="true" />
 
             <TextView
                 android:id="@+id/welcomeText"
@@ -49,14 +50,55 @@
                 tools:text="@string/welcome6" />
 
             <Button
-                android:id="@+id/welcomeImage"
+                android:id="@+id/welcomeButton"
                 android:layout_width="@dimen/action_icon_size"
                 android:layout_height="@dimen/action_icon_size"
                 android:clickable="true"
                 android:focusable="true"
-                android:onClick="@{() -> viewModel.goToWelcomeFragment()}"
                 tools:background="@drawable/ic_baseline_beach_access_40" />
         </LinearLayout>
+
+        <com.google.android.material.tabs.TabLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            app:tabContentStart="@dimen/margin_big"
+            app:tabMode="scrollable"
+            app:tabTextAppearance="@style/TabItem">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/your_day" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tasks" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tests" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/schedules" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/classes" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/people" />
+        </com.google.android.material.tabs.TabLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingActionButton"
