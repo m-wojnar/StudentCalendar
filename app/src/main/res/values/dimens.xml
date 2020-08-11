@@ -6,6 +6,7 @@
 
     <dimen name="welcome_text">40sp</dimen>
     <dimen name="title_text">22sp</dimen>
+    <dimen name="tab_item_text">18sp</dimen>
 
     <dimen name="action_icon_size">28dp</dimen>
     <dimen name="action_radius">8dp</dimen>

@@ -4,6 +4,7 @@
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryDark">@color/primaryDarkColor</item>
         <item name="colorAccent">@color/primaryLightColor</item>
+        <item name="fontFamily">@font/advent_pro_medium</item>
     </style>
 
     <style name="WelcomeText">
@@ -16,6 +17,11 @@
     <style name="TitleText" parent="WelcomeText">
         <item name="android:textAlignment">gravity</item>
         <item name="android:textSize">@dimen/title_text</item>
+    </style>
+
+    <style name="TabItem" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="fontFamily">@font/advent_pro_medium</item>
+        <item name="android:textSize">@dimen/tab_item_text</item>
     </style>
 
 </resources>
