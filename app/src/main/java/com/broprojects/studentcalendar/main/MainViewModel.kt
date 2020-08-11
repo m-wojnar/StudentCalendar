@@ -1,5 +1,7 @@
 package com.broprojects.studentcalendar.main
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.broprojects.studentcalendar.R
 
@@ -16,4 +18,16 @@ class MainViewModel : ViewModel() {
 
     fun getSmallDrawableId(bigDrawableId: Int) =
         drawablesMap[bigDrawableId] ?: R.drawable.ic_baseline_wb_sunny_40
+
+    private val _welcomeFragmentEvent = MutableLiveData<Boolean>()
+    val welcomeFragmentEvent: LiveData<Boolean>
+        get() = _welcomeFragmentEvent
+
+    fun goToWelcomeFragment() {
+        _welcomeFragmentEvent.value = true
+    }
+
+    fun goToWelcomeFragmentDone() {
+        _welcomeFragmentEvent.value = false
+    }
 }
