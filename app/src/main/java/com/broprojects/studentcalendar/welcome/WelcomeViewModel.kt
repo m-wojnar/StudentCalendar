@@ -8,20 +8,22 @@ import kotlinx.coroutines.*
 import kotlin.random.Random
 
 class WelcomeViewModel: ViewModel() {
+    // Application colors
     private val colors = listOf(
-        R.color.appColor1,
-        R.color.appColor2,
-        R.color.appColor3,
-        R.color.appColor4,
-        R.color.appColor5,
-        R.color.appColor6,
-        R.color.appColor7,
-        R.color.appColor8
+        R.color.app_color_1,
+        R.color.app_color_2,
+        R.color.app_color_3,
+        R.color.app_color_4,
+        R.color.app_color_5,
+        R.color.app_color_6,
+        R.color.app_color_7,
+        R.color.app_color_8
     )
     private val _color = MutableLiveData<Int>()
     val color: LiveData<Int>
         get() = _color
 
+    // Application icons
     private val drawables = listOf(
         R.drawable.ic_baseline_beach_access_140,
         R.drawable.ic_baseline_emoji_food_beverage_140,
@@ -35,14 +37,15 @@ class WelcomeViewModel: ViewModel() {
     val drawable: LiveData<Int>
         get() = _drawable
 
+    // Application welcome texts
     private val texts = listOf(
-        R.string.welcome1,
-        R.string.welcome2,
-        R.string.welcome3,
-        R.string.welcome4,
-        R.string.welcome5,
-        R.string.welcome6,
-        R.string.welcome7
+        R.string.welcome_1,
+        R.string.welcome_2,
+        R.string.welcome_3,
+        R.string.welcome_4,
+        R.string.welcome_5,
+        R.string.welcome_6,
+        R.string.welcome_7
     )
     private val _text = MutableLiveData<Int>()
     val text: LiveData<Int>
@@ -57,12 +60,14 @@ class WelcomeViewModel: ViewModel() {
     private val coroutineScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     init {
+        // Choose random color, icon and welcome text
         _text.value = texts[Random.nextInt(texts.size)]
         _color.value = colors[Random.nextInt(colors.size)]
         _drawable.value = drawables[Random.nextInt(drawables.size)]
 
         coroutineScope.launch {
             withContext(Dispatchers.Default) {
+                // Wait welcomeScreenTime millis before going to main fragment
                 delay(welcomeScreenTime)
                 goToMainFragment()
             }

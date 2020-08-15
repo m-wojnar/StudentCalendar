@@ -1,15 +1,15 @@
 <resources>
 
     <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
-        <item name="colorPrimary">@color/primaryColor</item>
-        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
-        <item name="colorAccent">@color/primaryLightColor</item>
-        <item name="fontFamily">@font/advent_pro_medium</item>
+        <item name="colorPrimary">@color/primary_color</item>
+        <item name="colorPrimaryDark">@color/primary_dark_color</item>
+        <item name="colorAccent">@color/primary_light_color</item>
+        <item name="fontFamily">@font/montserrat_alternates</item>
     </style>
 
     <style name="WelcomeText">
         <item name="android:textAlignment">center</item>
-        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:textColor">@color/primary_text_color</item>
         <item name="android:textSize">@dimen/welcome_text</item>
         <item name="fontFamily">@font/lobster_two_italic</item>
     </style>
@@ -20,7 +20,7 @@
     </style>
 
     <style name="TabItem" parent="@android:style/TextAppearance.Widget.TabWidget">
-        <item name="fontFamily">@font/advent_pro_medium</item>
+        <item name="fontFamily">@font/montserrat_alternates</item>
         <item name="android:textSize">@dimen/tab_item_text</item>
     </style>
 

@@ -1,13 +1,13 @@
 <resources>
     <string name="app_name">Student Calendar</string>
 
-    <string name="welcome1">Welcome to our app!</string>
-    <string name="welcome2">Good morning!</string>
-    <string name="welcome3">Have a nice day!</string>
-    <string name="welcome4">This app will organise your time</string>
-    <string name="welcome5">Hello, bonjour, hola!</string>
-    <string name="welcome6">Student calendar is here for you!</string>
-    <string name="welcome7">Surprise!</string>
+    <string name="welcome_1">Welcome to our app!</string>
+    <string name="welcome_2">Good morning!</string>
+    <string name="welcome_3">Have a nice day!</string>
+    <string name="welcome_4">This app will organise your time</string>
+    <string name="welcome_5">Hello, bonjour, hola!</string>
+    <string name="welcome_6">Student calendar is here for you!</string>
+    <string name="welcome_7">Surprise!</string>
 
     <string name="your_day">Your day</string>
     <string name="tasks">Tasks</string>
@@ -16,7 +16,7 @@
     <string name="classes">Classes</string>
     <string name="people">People</string>
 
-    <string name="main_menu">Main menu</string>
+    <string name="main_screen">Main screen</string>
     <string name="settings">Settings</string>
     <string name="about">About</string>
 </resources>

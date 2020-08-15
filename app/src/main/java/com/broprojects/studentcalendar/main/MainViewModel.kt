@@ -1,7 +1,5 @@
 package com.broprojects.studentcalendar.main
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.broprojects.studentcalendar.R
 
@@ -16,6 +14,7 @@ class MainViewModel : ViewModel() {
         Pair(R.drawable.ic_baseline_wb_sunny_140, R.drawable.ic_baseline_wb_sunny_40)
     )
 
+    // Get "...140" icon ID and return corresponding "...40" icon ID
     fun getSmallDrawableId(bigDrawableId: Int) =
         drawablesMap[bigDrawableId] ?: R.drawable.ic_baseline_wb_sunny_40
 }

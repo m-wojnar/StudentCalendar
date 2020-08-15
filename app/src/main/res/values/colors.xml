@@ -1,20 +1,20 @@
 <!--?xml version="1.0" encoding="UTF-8"?-->
 <resources>
-    <color name="primaryColor">#424242</color>
-    <color name="primaryLightColor">#6d6d6d</color>
-    <color name="primaryDarkColor">#1b1b1b</color>
-    <color name="secondaryColor">#1565c0</color>
-    <color name="secondaryLightColor">#5e92f3</color>
-    <color name="secondaryDarkColor">#003c8f</color>
-    <color name="primaryTextColor">#ffffff</color>
-    <color name="secondaryTextColor">#ffffff</color>
+    <color name="primary_color">#424242</color>
+    <color name="primary_light_color">#6d6d6d</color>
+    <color name="primary_dark_color">#1b1b1b</color>
+    <color name="secondary_color">#1565c0</color>
+    <color name="secondary_light_color">#5e92f3</color>
+    <color name="secondary_dark_color">#003c8f</color>
+    <color name="primary_text_color">#ffffff</color>
+    <color name="secondary_text_color">#ffffff</color>
 
-    <color name="appColor1">#d32f2f</color>
-    <color name="appColor2">#d81b60</color>
-    <color name="appColor3">#8e24aa</color>
-    <color name="appColor4">#4527a0</color>
-    <color name="appColor5">#0277bd</color>
-    <color name="appColor6">#008273</color>
-    <color name="appColor7">#424242</color>
-    <color name="appColor8">#00881c</color>
+    <color name="app_color_1">#d32f2f</color>
+    <color name="app_color_2">#d81b60</color>
+    <color name="app_color_3">#8e24aa</color>
+    <color name="app_color_4">#4527a0</color>
+    <color name="app_color_5">#0277bd</color>
+    <color name="app_color_6">#008273</color>
+    <color name="app_color_7">#424242</color>
+    <color name="app_color_8">#00881c</color>
 </resources>

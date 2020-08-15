@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
-import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
@@ -14,9 +13,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragment)
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.navigation_host_fragment)
         val navController = navHostFragment!!.findNavController()
-        val navigationView = findViewById<NavigationView>(R.id.navigationView)
+        val navigationView = findViewById<NavigationView>(R.id.navigation_view)
 
         navigationView.setupWithNavController(navController)
         navigationView.setNavigationItemSelectedListener(this)

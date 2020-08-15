@@ -11,14 +11,14 @@
     </data>
 
     <LinearLayout
-        android:id="@+id/layout"
+        android:id="@+id/linear_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:onClick="@{() -> viewModel.goToMainFragment()}"
         android:orientation="vertical"
         android:weightSum="4"
-        tools:background="@color/appColor4"
+        tools:background="@color/app_color_4"
         tools:context=".welcome.WelcomeFragment">
 
         <View
@@ -27,20 +27,20 @@
             android:layout_weight="1" />
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/welcome_image"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             tools:src="@drawable/ic_baseline_wb_sunny_140" />
 
         <TextView
-            android:id="@+id/welcomeText"
+            android:id="@+id/welcome_text"
             style="@style/WelcomeText"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="@dimen/margin_big"
             android:layout_weight="1"
-            tools:text="@string/welcome4" />
+            tools:text="@string/welcome_4" />
 
         <View
             android:layout_width="match_parent"
