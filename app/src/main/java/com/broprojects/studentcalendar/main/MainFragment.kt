@@ -10,9 +10,12 @@ import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.broprojects.studentcalendar.R
 import com.broprojects.studentcalendar.databinding.FragmentMainBinding
+import com.broprojects.studentcalendar.welcome.WelcomeViewModelFactory
 import com.google.android.material.navigation.NavigationView
 
 class MainFragment : Fragment() {
@@ -24,22 +27,31 @@ class MainFragment : Fragment() {
             inflater, R.layout.fragment_main, container, false
         )
 
-        val args = MainFragmentArgs.fromBundle(requireArguments())
-        val viewModel = MainViewModel()
+        val viewModelFactory = MainViewModelFactory(requireActivity())
+        val viewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        // Set randomly chosen text, color and icon to the action bar
-        binding.welcomeText.text = getString(args.textResourceId)
-        binding.welcomeButton.setBackgroundResource(viewModel.getSmallDrawableId(args.drawableResourceId))
-        binding.floatingActionButton.backgroundTintList =
-            ContextCompat.getColorStateList(requireContext(), args.colorResourceId)
-
-        // Set color and icon to the navigation drawer
+        // Get header of navigation drawer
         val navigationView = activity?.findViewById<NavigationView>(R.id.navigation_view)
         val headerView = navigationView?.getHeaderView(0)
-        headerView?.setBackgroundResource(args.colorResourceId)
-        headerView?.findViewById<ImageView>(R.id.header_welcome_image)?.setBackgroundResource(args.drawableResourceId)
+
+        // Set chosen color to the action bar and navigation drawer
+        viewModel.color.observe(viewLifecycleOwner, Observer {
+            binding.floatingActionButton.backgroundTintList = ContextCompat.getColorStateList(requireContext(), it)
+            headerView?.setBackgroundResource(it)
+        })
+
+        // Set chosen icon to the action bar and navigation drawer
+        viewModel.icon.observe(viewLifecycleOwner, Observer {
+            binding.welcomeButton.setBackgroundResource(viewModel.getSmallDrawableId(it))
+            headerView?.findViewById<ImageView>(R.id.header_welcome_image)?.setBackgroundResource(it)
+        })
+
+        // Set chosen text to the action bar
+        viewModel.text.observe(viewLifecycleOwner, Observer {
+            binding.welcomeText.text = getString(it)
+        })
 
         // Go back to welcome fragment on welcomeButton click
         binding.welcomeButton.setOnClickListener {

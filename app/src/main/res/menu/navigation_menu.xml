@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/mainItem"
+    <item android:id="@+id/mainFragment"
         android:icon="@drawable/ic_baseline_done_all_40"
         android:title="@string/main_screen"/>
 
-    <item android:id="@+id/settingsItem"
+    <item android:id="@+id/settingsFragment"
         android:icon="@drawable/ic_baseline_settings_40"
         android:title="@string/settings"/>
 
-    <item android:id="@+id/aboutItem"
+    <item android:id="@+id/aboutFragment"
         android:icon="@drawable/ic_baseline_people_40"
         android:title="@string/about"/>
 

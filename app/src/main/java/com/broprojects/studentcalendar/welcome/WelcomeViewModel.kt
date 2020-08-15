@@ -1,5 +1,7 @@
 package com.broprojects.studentcalendar.welcome
 
+import android.app.Activity
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,7 +9,7 @@ import com.broprojects.studentcalendar.R
 import kotlinx.coroutines.*
 import kotlin.random.Random
 
-class WelcomeViewModel: ViewModel() {
+class WelcomeViewModel(private val activity: Activity): ViewModel() {
     // Application colors
     private val colors = listOf(
         R.color.app_color_1,
@@ -24,7 +26,7 @@ class WelcomeViewModel: ViewModel() {
         get() = _color
 
     // Application icons
-    private val drawables = listOf(
+    private val icons = listOf(
         R.drawable.ic_baseline_beach_access_140,
         R.drawable.ic_baseline_emoji_food_beverage_140,
         R.drawable.ic_baseline_local_cafe_140,
@@ -33,9 +35,9 @@ class WelcomeViewModel: ViewModel() {
         R.drawable.ic_baseline_thumb_up_140,
         R.drawable.ic_baseline_wb_sunny_140
     )
-    private val _drawable = MutableLiveData<Int>()
-    val drawable: LiveData<Int>
-        get() = _drawable
+    private val _icon = MutableLiveData<Int>()
+    val icon: LiveData<Int>
+        get() = _icon
 
     // Application welcome texts
     private val texts = listOf(
@@ -63,7 +65,16 @@ class WelcomeViewModel: ViewModel() {
         // Choose random color, icon and welcome text
         _text.value = texts[Random.nextInt(texts.size)]
         _color.value = colors[Random.nextInt(colors.size)]
-        _drawable.value = drawables[Random.nextInt(drawables.size)]
+        _icon.value = icons[Random.nextInt(icons.size)]
+
+        // Save randomly chosen values to shared preferences
+        val sharedPreferences = activity.getPreferences(Context.MODE_PRIVATE)
+        with (sharedPreferences.edit()) {
+            putInt(activity.getString(R.string.random_welcome_text), _text.value!!)
+            putInt(activity.getString(R.string.random_welcome_icon), _icon.value!!)
+            putInt(activity.getString(R.string.random_welcome_color), _color.value!!)
+            apply()
+        }
 
         coroutineScope.launch {
             withContext(Dispatchers.Default) {
