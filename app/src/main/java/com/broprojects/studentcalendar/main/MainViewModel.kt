@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.broprojects.studentcalendar.R
 
-class MainViewModel(private val activity: Activity) : ViewModel() {
+class MainViewModel(activity: Activity) : ViewModel() {
     private val drawablesMap = mapOf(
         Pair(R.drawable.ic_baseline_beach_access_140, R.drawable.ic_baseline_beach_access_40),
         Pair(R.drawable.ic_baseline_emoji_food_beverage_140, R.drawable.ic_baseline_emoji_food_beverage_40),

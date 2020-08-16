@@ -38,7 +38,22 @@
         android:label="AboutFragment"
         tools:layout="@layout/fragment_about">
         <action
-            android:id="@+id/action_aboutFragment2_to_mainFragment"
-            app:destination="@id/mainFragment" />
+            android:id="@+id/action_aboutFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:enterAnim="@anim/main_enter_animation"
+            app:exitAnim="@anim/main_exit_animation"
+            app:popUpTo="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.broprojects.studentcalendar.setting.SettingsFragment"
+        android:label="SettingsFragment"
+        tools:layout="@layout/fragment_settings">
+        <action
+            android:id="@+id/action_settingsFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:enterAnim="@anim/main_enter_animation"
+            app:exitAnim="@anim/main_exit_animation"
+            app:popUpTo="@id/mainFragment" />
     </fragment>
 </navigation>

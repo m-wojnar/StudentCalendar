@@ -15,13 +15,12 @@ class AboutFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // TODO aboutFragment ID not found?
         val binding: FragmentAboutBinding = DataBindingUtil.inflate(
-            inflater, R.id.aboutFragment, container,false
+            inflater, R.layout.fragment_about, container,false
         )
 
         binding.navigationBackButton.setOnClickListener {
-            findNavController().navigate(AboutFragmentDirections.actionAboutFragment2ToMainFragment())
+            findNavController().navigate(AboutFragmentDirections.actionAboutFragmentToMainFragment())
         }
 
         return binding.root

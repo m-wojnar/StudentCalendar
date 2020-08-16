@@ -15,7 +15,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.broprojects.studentcalendar.R
 import com.broprojects.studentcalendar.databinding.FragmentMainBinding
-import com.broprojects.studentcalendar.welcome.WelcomeViewModelFactory
 import com.google.android.material.navigation.NavigationView
 
 class MainFragment : Fragment() {

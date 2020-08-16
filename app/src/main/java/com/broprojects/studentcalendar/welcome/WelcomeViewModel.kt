@@ -9,7 +9,7 @@ import com.broprojects.studentcalendar.R
 import kotlinx.coroutines.*
 import kotlin.random.Random
 
-class WelcomeViewModel(private val activity: Activity): ViewModel() {
+class WelcomeViewModel(activity: Activity): ViewModel() {
     // Application colors
     private val colors = listOf(
         R.color.app_color_1,

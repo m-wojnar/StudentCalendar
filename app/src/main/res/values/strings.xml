@@ -24,4 +24,9 @@
     <string name="random_welcome_icon">random_welcome_icon</string>
     <string name="random_welcome_color">random_welcome_color</string>
     <string name="about_text">Here should be something about our app and about authors</string>
+
+    <string name="black">Black</string>
+    <string name="white">White</string>
+    <string name="show_welcome">Show welcome screen</string>
+    <string name="select_theme">Select theme</string>
 </resources>
