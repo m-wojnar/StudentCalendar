@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.broprojects.studentcalendar.R
+import com.broprojects.studentcalendar.ToolbarActivity
 import com.broprojects.studentcalendar.databinding.FragmentSettingsBinding
 
 class SettingsFragment : Fragment() {
@@ -19,9 +19,7 @@ class SettingsFragment : Fragment() {
             inflater, R.layout.fragment_settings, container, false
         )
 
-        binding.navigationBackButton.setOnClickListener {
-            findNavController().navigate(SettingsFragmentDirections.actionSettingsFragmentToMainFragment())
-        }
+        (activity as ToolbarActivity).hideActionBarIcon()
 
         requireActivity().supportFragmentManager
             .beginTransaction()

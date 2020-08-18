@@ -38,7 +38,7 @@ dependencies {
 
     implementation "androidx.constraintlayout:constraintlayout:$constraint_version"
 
-    implementation "androidx.preference:preference:$preferences_version"
+    implementation "androidx.preference:preference-ktx:$preferences_version"
 
     implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
     implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"

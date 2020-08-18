@@ -4,9 +4,9 @@
     <string name="welcome_1">Welcome to our app!</string>
     <string name="welcome_2">Good morning!</string>
     <string name="welcome_3">Have a nice day!</string>
-    <string name="welcome_4">This app will organise your time</string>
+    <string name="welcome_4">Organise your day</string>
     <string name="welcome_5">Hello, bonjour, hola!</string>
-    <string name="welcome_6">Student calendar is here for you!</string>
+    <string name="welcome_6">This is student calendar!</string>
     <string name="welcome_7">Surprise!</string>
 
     <string name="your_day">Your day</string>
@@ -23,10 +23,14 @@
     <string name="random_welcome_text">random_welcome_text</string>
     <string name="random_welcome_icon">random_welcome_icon</string>
     <string name="random_welcome_color">random_welcome_color</string>
+    <string name="go_to_welcome_event">go_to_welcome_event</string>
+
     <string name="about_text">Here should be something about our app and about authors</string>
 
     <string name="black">Black</string>
     <string name="white">White</string>
+
     <string name="show_welcome">Show welcome screen</string>
     <string name="select_theme">Select theme</string>
+    <string name="welcome_again">Welcome again!</string>
 </resources>

@@ -15,56 +15,12 @@
         android:layout_height="match_parent"
         tools:context=".main.MainFragment">
 
-        <LinearLayout
-            android:id="@+id/linear_layout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/action_margin"
-            android:background="@drawable/action_bar_background"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="@dimen/action_margin"
-            android:weightSum="1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <Button
-                android:id="@+id/navigation_drawer_button"
-                android:layout_width="@dimen/action_icon_size"
-                android:layout_height="@dimen/action_icon_size"
-                android:background="@drawable/ic_baseline_menu_40"
-                android:clickable="true"
-                android:focusable="true" />
-
-            <TextView
-                android:id="@+id/welcome_text"
-                style="@style/TitleText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_small"
-                android:layout_marginEnd="@dimen/margin_small"
-                android:layout_weight="1"
-                android:fontFamily="@font/montserrat_alternates"
-                android:textAlignment="center"
-                tools:text="@string/welcome_6" />
-
-            <Button
-                android:id="@+id/welcome_button"
-                android:layout_width="@dimen/action_icon_size"
-                android:layout_height="@dimen/action_icon_size"
-                android:clickable="true"
-                android:focusable="true"
-                tools:background="@drawable/ic_baseline_beach_access_40" />
-        </LinearLayout>
-
         <com.google.android.material.tabs.TabLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_small"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linear_layout"
+            app:layout_constraintTop_toTopOf="parent"
             app:tabContentStart="@dimen/margin_big"
             app:tabMode="scrollable"
             app:tabTextAppearance="@style/TabItem">

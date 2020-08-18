@@ -17,4 +17,6 @@
     <color name="app_color_6">#008273</color>
     <color name="app_color_7">#424242</color>
     <color name="app_color_8">#00881c</color>
+
+    <color name="transparent">#00000000</color>
 </resources>
