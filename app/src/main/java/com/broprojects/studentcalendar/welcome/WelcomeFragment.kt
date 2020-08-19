@@ -15,6 +15,7 @@ import com.broprojects.studentcalendar.ToolbarActivity
 import com.broprojects.studentcalendar.databinding.FragmentWelcomeBinding
 
 class WelcomeFragment : Fragment() {
+    private lateinit var viewModel: WelcomeViewModel
     private val toolbarActivity: ToolbarActivity
         get() = activity as ToolbarActivity
 
@@ -27,7 +28,7 @@ class WelcomeFragment : Fragment() {
         )
 
         val viewModelFactory = WelcomeViewModelFactory(requireActivity())
-        val viewModel = ViewModelProvider(this, viewModelFactory)[WelcomeViewModel::class.java]
+        viewModel = ViewModelProvider(this, viewModelFactory)[WelcomeViewModel::class.java]
         binding.viewModel = viewModel
 
         viewModel.color.observe(viewLifecycleOwner, Observer {
@@ -50,15 +51,34 @@ class WelcomeFragment : Fragment() {
             }
         })
 
-        // Hide custom toolbar
-        if (PreferenceManager.getDefaultSharedPreferences(context).getBoolean(getString(R.string.show_welcome), true)
-            && viewModel.firstWelcome.value == true) {
+        return binding.root
+    }
+
+    // Hide action bar only in this fragment
+    override fun onStart() {
+        super.onStart()
+
+        val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+        val showWelcome = preferences.getBoolean(getString(R.string.show_welcome), true)
+
+        if (showWelcome && WelcomeViewModel.firstWelcome) {
             toolbarActivity.hideActionBar()
         } else {
             toolbarActivity.hideActionBarAnimation()
         }
-        viewModel.firstWelcomeDone()
 
-        return binding.root
+        // If welcome is on screen, then action bar is blocked
+        WelcomeViewModel.welcomeOnScreen = true
+        WelcomeViewModel.firstWelcome = false
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        toolbarActivity.setBackground(R.color.transparent)
+        toolbarActivity.showActionBarAnimation()
+
+        // Indicate that welcomeFragment is gone and action bar can be responsive again
+        WelcomeViewModel.welcomeOnScreen = false
     }
 }

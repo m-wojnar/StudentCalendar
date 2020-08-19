@@ -1,6 +1,5 @@
 package com.broprojects.studentcalendar
 
-import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -17,6 +16,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.preference.PreferenceManager
 import com.broprojects.studentcalendar.databinding.ActivityMainBinding
 import com.broprojects.studentcalendar.main.MainFragmentDirections
+import com.broprojects.studentcalendar.welcome.WelcomeViewModel
 
 interface ToolbarActivity {
     fun hideActionBar()
@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity(), ToolbarActivity {
     private lateinit var navController: NavController
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var binding: ActivityMainBinding
-    private val animationDuration = 400L
+    private val animationDuration = 300L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,10 +67,7 @@ class MainActivity : AppCompatActivity(), ToolbarActivity {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val isOnWelcomeFragment = getPreferences(Context.MODE_PRIVATE)
-                .getBoolean(getString(R.string.go_to_welcome_event), false)
-
-        if (!isOnWelcomeFragment) {
+        if (!WelcomeViewModel.welcomeOnScreen) {
             return when (item.itemId) {
                 R.id.welcome_button -> goToWelcomeFragment()
                 else -> super.onOptionsItemSelected(item)
@@ -81,11 +78,6 @@ class MainActivity : AppCompatActivity(), ToolbarActivity {
     }
 
     private fun goToWelcomeFragment(): Boolean {
-        // Event is started - action bar is blocked
-        getPreferences(Context.MODE_PRIVATE).edit()
-            .putBoolean(getString(R.string.go_to_welcome_event), true)
-            .apply()
-
         navController.navigate(MainFragmentDirections.actionMainFragmentToWelcomeFragment())
         return true
     }

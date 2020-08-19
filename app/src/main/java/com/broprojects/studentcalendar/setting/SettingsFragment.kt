@@ -6,9 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.preference.PreferenceFragmentCompat
 import com.broprojects.studentcalendar.R
-import com.broprojects.studentcalendar.ToolbarActivity
 import com.broprojects.studentcalendar.databinding.FragmentSettingsBinding
+
+class PreferencesFragment : PreferenceFragmentCompat() {
+    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        setPreferencesFromResource(R.xml.preferences, rootKey)
+    }
+}
 
 class SettingsFragment : Fragment() {
     override fun onCreateView(
@@ -18,8 +24,6 @@ class SettingsFragment : Fragment() {
         val binding: FragmentSettingsBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_settings, container, false
         )
-
-        (activity as ToolbarActivity).hideActionBarIcon()
 
         requireActivity().supportFragmentManager
             .beginTransaction()

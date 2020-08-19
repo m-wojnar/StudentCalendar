@@ -45,11 +45,6 @@ class MainViewModel(activity: Activity) : ViewModel() {
             activity.getString(R.string.random_welcome_icon),
             R.drawable.ic_baseline_beach_access_140
         )
-
-        // Indicate that goToWelcomeFragment event is done and action bar can be responsive again
-        sharedPreferences.edit()
-            .putBoolean(activity.getString(R.string.go_to_welcome_event), false)
-            .apply()
     }
 
     // Get "...140" icon ID and return corresponding "...24" icon ID

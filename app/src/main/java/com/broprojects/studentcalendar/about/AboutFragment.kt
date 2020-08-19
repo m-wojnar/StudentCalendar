@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.broprojects.studentcalendar.R
-import com.broprojects.studentcalendar.ToolbarActivity
 import com.broprojects.studentcalendar.databinding.FragmentAboutBinding
 
 class AboutFragment : Fragment() {
@@ -18,8 +17,6 @@ class AboutFragment : Fragment() {
         val binding: FragmentAboutBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_about, container,false
         )
-
-        (activity as ToolbarActivity).hideActionBarIcon()
 
         return binding.root
     }

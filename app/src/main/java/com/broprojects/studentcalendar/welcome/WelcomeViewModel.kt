@@ -58,16 +58,10 @@ class WelcomeViewModel(private val activity: Activity): ViewModel() {
     val mainFragmentEvent: LiveData<Boolean>
         get() = _mainFragmentEvent
 
-    private val _firstWelcome = MutableLiveData<Boolean>()
-    val firstWelcome: LiveData<Boolean>
-        get() = _firstWelcome
-
     private val viewModelJob = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     init {
-        _firstWelcome.value = true
-
         // Choose random color, icon and welcome text
         _text.value = texts[Random.nextInt(texts.size)]
         _color.value = colors[Random.nextInt(colors.size)]
@@ -100,7 +94,11 @@ class WelcomeViewModel(private val activity: Activity): ViewModel() {
         viewModelJob.cancel()
     }
 
-    fun firstWelcomeDone() {
-        _firstWelcome.value = false
+    companion object {
+        // Static field to keep info if welcome screen was already showed
+        var firstWelcome = true
+
+        // Static field to keep info if welcome screen is currently on screen
+        var welcomeOnScreen = false
     }
 }

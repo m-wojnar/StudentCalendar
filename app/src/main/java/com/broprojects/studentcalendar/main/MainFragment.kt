@@ -52,11 +52,17 @@ class MainFragment : Fragment() {
             toolbarActivity.setActionBarText(it)
         })
 
-        // Show custom toolbar
-        toolbarActivity.showActionBarAnimation()
-        toolbarActivity.setBackground(R.color.transparent)
-        toolbarActivity.showActionBarIcon()
-
         return binding.root
+    }
+
+    // Show action bar icon only on this fragment
+    override fun onStart() {
+        super.onStart()
+        toolbarActivity.showActionBarIcon()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        toolbarActivity.hideActionBarIcon()
     }
 }

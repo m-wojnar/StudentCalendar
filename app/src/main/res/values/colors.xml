@@ -3,11 +3,7 @@
     <color name="primary_color">#424242</color>
     <color name="primary_light_color">#6d6d6d</color>
     <color name="primary_dark_color">#1b1b1b</color>
-    <color name="secondary_color">#1565c0</color>
-    <color name="secondary_light_color">#5e92f3</color>
-    <color name="secondary_dark_color">#003c8f</color>
     <color name="primary_text_color">#ffffff</color>
-    <color name="secondary_text_color">#ffffff</color>
 
     <color name="app_color_1">#d32f2f</color>
     <color name="app_color_2">#d81b60</color>
