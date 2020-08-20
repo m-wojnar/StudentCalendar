@@ -16,11 +16,17 @@
     <string name="courses">Courses</string>
     <string name="people">People</string>
 
-    <string name="task">Task</string>
-    <string name="test">Test</string>
-    <string name="schedule">Schedule</string>
-    <string name="course">Course</string>
-    <string name="person">Person</string>
+    <string name="new_task">New task</string>
+    <string name="new_test">New test</string>
+    <string name="new_schedule">New schedule</string>
+    <string name="new_course">New course</string>
+    <string name="new_person">New person</string>
+
+    <string name="update_task">Update task</string>
+    <string name="update_test">Update test</string>
+    <string name="update_schedule">Update schedule</string>
+    <string name="update_course">Update course</string>
+    <string name="update_person">Update person</string>
 
     <string name="main_screen">Main screen</string>
     <string name="settings">Settings</string>
@@ -63,6 +69,16 @@
     <string name="thumb_up">Thumb up</string>
     <string name="sun">Sun</string>
 
+    <string name="lecture">Lecture</string>
+    <string name="classes">Classes</string>
+    <string name="laboratories">Laboratories</string>
+    <string name="internship">Internship</string>
+    <string name="other">Other</string>
+
+    <string name="exam">Exam</string>
+    <string name="test">Test</string>
+    <string name="short_test">Short test</string>
+
     <string name="first_name">First name</string>
     <string name="last_name">Last name</string>
     <string name="title">Title</string>
@@ -70,4 +86,10 @@
     <string name="phone">Phone</string>
     <string name="office">Office</string>
     <string name="information">More information</string>
+    <string name="type">Type</string>
+    <string name="when">When</string>
+    <string name="start_date">Start date</string>
+    <string name="end_date">End date</string>
+    <string name="location">Location</string>
+    <string name="course">Course</string>
 </resources>

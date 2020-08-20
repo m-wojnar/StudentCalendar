@@ -58,6 +58,8 @@ class MainFragment : Fragment(), TabLayout.OnTabSelectedListener {
 
         binding.floatingActionButton.setOnClickListener {
             when (binding.tabLayout.selectedTabPosition) {
+                2 -> findNavController().navigate(MainFragmentDirections.actionMainFragmentToTestFragment())
+                3 -> findNavController().navigate(MainFragmentDirections.actionMainFragmentToScheduleFragment())
                 4 -> findNavController().navigate(MainFragmentDirections.actionMainFragmentToCourseFragment())
                 5 -> findNavController().navigate(MainFragmentDirections.actionMainFragmentToPersonFragment())
                 else -> return@setOnClickListener
