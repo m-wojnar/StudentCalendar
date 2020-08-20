@@ -14,13 +14,13 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <androidx.appcompat.widget.Toolbar
+            <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbar"
+                style="@style/Toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:layout_margin="@dimen/action_margin"
-                android:background="@drawable/action_bar_background"
-                app:menu="@menu/toolbar"/>
+                app:menu="@menu/toolbar" />
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/navigation_host_fragment"

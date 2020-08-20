@@ -67,8 +67,6 @@ class WelcomeFragment : Fragment() {
             toolbarActivity.hideActionBarAnimation()
         }
 
-        // If welcome is on screen, then action bar is blocked
-        WelcomeViewModel.welcomeOnScreen = true
         WelcomeViewModel.firstWelcome = false
     }
 
@@ -77,8 +75,5 @@ class WelcomeFragment : Fragment() {
 
         toolbarActivity.setBackground(R.color.transparent)
         toolbarActivity.showActionBarAnimation()
-
-        // Indicate that welcomeFragment is gone and action bar can be responsive again
-        WelcomeViewModel.welcomeOnScreen = false
     }
 }

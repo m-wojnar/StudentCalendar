@@ -10,12 +10,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.broprojects.studentcalendar.R
 import com.broprojects.studentcalendar.ToolbarActivity
 import com.broprojects.studentcalendar.databinding.FragmentMainBinding
 import com.google.android.material.navigation.NavigationView
+import com.google.android.material.tabs.TabLayout
 
-class MainFragment : Fragment() {
+class MainFragment : Fragment(), TabLayout.OnTabSelectedListener {
     private val toolbarActivity: ToolbarActivity
         get() = activity as ToolbarActivity
 
@@ -52,6 +54,16 @@ class MainFragment : Fragment() {
             toolbarActivity.setActionBarText(it)
         })
 
+        binding.tabLayout.addOnTabSelectedListener(this)
+
+        binding.floatingActionButton.setOnClickListener {
+            when (binding.tabLayout.selectedTabPosition) {
+                4 -> findNavController().navigate(MainFragmentDirections.actionMainFragmentToCourseFragment())
+                5 -> findNavController().navigate(MainFragmentDirections.actionMainFragmentToPersonFragment())
+                else -> return@setOnClickListener
+            }
+        }
+
         return binding.root
     }
 
@@ -65,4 +77,11 @@ class MainFragment : Fragment() {
         super.onStop()
         toolbarActivity.hideActionBarIcon()
     }
+
+    override fun onTabSelected(tab: TabLayout.Tab?) {
+
+    }
+
+    override fun onTabUnselected(tab: TabLayout.Tab?) {}
+    override fun onTabReselected(tab: TabLayout.Tab?) {}
 }

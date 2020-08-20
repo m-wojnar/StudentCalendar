@@ -10,6 +10,12 @@ import kotlinx.coroutines.*
 import kotlin.random.Random
 
 class WelcomeViewModel(private val activity: Activity): ViewModel() {
+
+    companion object {
+        // Static field to keep info if welcome screen was already showed
+        var firstWelcome = true
+    }
+
     // Application colors
     private val colors = listOf(
         R.color.app_color_1,
@@ -92,13 +98,5 @@ class WelcomeViewModel(private val activity: Activity): ViewModel() {
     fun goToMainFragmentDone() {
         _mainFragmentEvent.value = false
         viewModelJob.cancel()
-    }
-
-    companion object {
-        // Static field to keep info if welcome screen was already showed
-        var firstWelcome = true
-
-        // Static field to keep info if welcome screen is currently on screen
-        var welcomeOnScreen = false
     }
 }

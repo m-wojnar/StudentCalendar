@@ -13,8 +13,14 @@
     <string name="tasks">Tasks</string>
     <string name="tests">Tests</string>
     <string name="schedules">Schedules</string>
-    <string name="classes">Classes</string>
+    <string name="courses">Courses</string>
     <string name="people">People</string>
+
+    <string name="task">Task</string>
+    <string name="test">Test</string>
+    <string name="schedule">Schedule</string>
+    <string name="course">Course</string>
+    <string name="person">Person</string>
 
     <string name="main_screen">Main screen</string>
     <string name="settings">Settings</string>
@@ -23,7 +29,8 @@
     <string name="random_welcome_text">random_welcome_text</string>
     <string name="random_welcome_icon">random_welcome_icon</string>
     <string name="random_welcome_color">random_welcome_color</string>
-    <string name="go_to_welcome_event">go_to_welcome_event</string>
+    <string name="show_welcome_preference">show_welcome_preference</string>
+    <string name="theme_preference">theme_preference</string>
 
     <string name="about_text">Here should be something about our app and about authors</string>
 
@@ -31,6 +38,36 @@
     <string name="white">White</string>
 
     <string name="show_welcome">Show welcome screen</string>
-    <string name="select_theme">Select theme</string>
+    <string name="select_theme">Dark theme</string>
     <string name="welcome_again">Welcome again!</string>
+
+    <string name="name">Name</string>
+    <string name="save">Save</string>
+    <string name="icon">Icon</string>
+    <string name="color">Color</string>
+
+    <string name="orange">Orange</string>
+    <string name="pink">Pink</string>
+    <string name="purple">Purple</string>
+    <string name="indigo">Indigo</string>
+    <string name="blue">Blue</string>
+    <string name="sea">Sea</string>
+    <string name="gray">Gray</string>
+    <string name="green">Green</string>
+
+    <string name="beach">Beach</string>
+    <string name="tea">Tea</string>
+    <string name="cafe">Cafe</string>
+    <string name="smile">Smile</string>
+    <string name="music">Music</string>
+    <string name="thumb_up">Thumb up</string>
+    <string name="sun">Sun</string>
+
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="title">Title</string>
+    <string name="email">Email</string>
+    <string name="phone">Phone</string>
+    <string name="office">Office</string>
+    <string name="information">More information</string>
 </resources>

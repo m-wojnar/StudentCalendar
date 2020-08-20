@@ -5,10 +5,8 @@
         android:defaultValue="true"
         android:key="show_welcome_preference"
         android:title="@string/show_welcome" />
-    <ListPreference
-        android:defaultValue="1"
-        android:entries="@array/themes_array"
-        android:entryValues="@array/themes_array"
+    <SwitchPreference
+        android:defaultValue="false"
         android:key="theme_preference"
         android:title="@string/select_theme" />
 </androidx.preference.PreferenceScreen>

@@ -1,4 +1,4 @@
-package com.broprojects.studentcalendar.setting
+package com.broprojects.studentcalendar.settings
 
 import android.os.Bundle
 import android.view.LayoutInflater
