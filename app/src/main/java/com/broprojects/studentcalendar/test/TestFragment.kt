@@ -31,7 +31,8 @@ class TestFragment : Fragment() {
             binding.saveButton.backgroundTintList = it
             binding.courseTextLayout.setBoxStrokeColorStateList(it)
             binding.typeTextLayout.setBoxStrokeColorStateList(it)
-            binding.titleTextLayout.setBoxStrokeColorStateList(it)
+            binding.subjectTextLayout.setBoxStrokeColorStateList(it)
+            binding.locationTextLayout.setBoxStrokeColorStateList(it)
             binding.whenTextLayout.setBoxStrokeColorStateList(it)
             binding.infoTextLayout.setBoxStrokeColorStateList(it)
         })
@@ -43,14 +44,11 @@ class TestFragment : Fragment() {
             }
         })
 
-        val types = arrayOf(
-            getString(R.string.exam),
-            getString(R.string.test),
-            getString(R.string.short_test),
-            getString(R.string.other)
-        )
-        val typeAdapter = ArrayAdapter<String>(requireContext(), android.R.layout.simple_dropdown_item_1line, types)
-        binding.typeText.setAdapter(typeAdapter)
+        binding.typeText.setAdapter(ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_dropdown_item_1line,
+            resources.getStringArray(R.array.test_array)
+        ))
 
         return binding.root
     }

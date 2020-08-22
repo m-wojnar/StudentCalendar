@@ -50,17 +50,14 @@ class TaskFragment : Fragment() {
             }
         })
 
-        val priorities = arrayOf(
-            getString(R.string.high),
-            getString(R.string.normal),
-            getString(R.string.low)
-        )
-        val priorityAdapter = ArrayAdapter<String>(requireContext(), android.R.layout.simple_dropdown_item_1line, priorities)
-        binding.priorityText.setAdapter(priorityAdapter)
+        binding.priorityText.setAdapter(ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_dropdown_item_1line,
+            resources.getStringArray(R.array.priority_array)
+        ))
 
         // Setup adapter for time picker and save time in selectedReminderTime
-        val timeAdapter = TimeAdapter(requireContext(), viewModel.remindersArray)
-        binding.reminderText.setAdapter(timeAdapter)
+        binding.reminderText.setAdapter(TimeAdapter(requireContext(), viewModel.remindersArray))
         binding.reminderText.setOnItemClickListener { adapterView, _, position, _ ->
             selectedReminderTime = (adapterView.getItemAtPosition(position) as TimeDropdownItem).time
         }

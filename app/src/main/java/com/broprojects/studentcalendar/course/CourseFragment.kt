@@ -41,15 +41,13 @@ class CourseFragment : Fragment() {
         })
 
         // Setup adapter for color picker and save colorId in selectedColorId
-        val colorAdapter = IconAdapter(requireContext(), viewModel.colorsItemsArray)
-        binding.colorText.setAdapter(colorAdapter)
+        binding.colorText.setAdapter(IconAdapter(requireContext(), viewModel.colorsItemsArray))
         binding.colorText.setOnItemClickListener { adapterView, _, position, _ ->
             selectedColorId = (adapterView.getItemAtPosition(position) as IconDropdownItem).id
         }
 
         // Setup adapter for icon picker and save iconId in selectedIconId
-        val iconAdapter = IconAdapter(requireContext(), viewModel.iconsItemsArray)
-        binding.iconText.setAdapter(iconAdapter)
+        binding.iconText.setAdapter(IconAdapter(requireContext(), viewModel.iconsItemsArray))
         binding.iconText.setOnItemClickListener { adapterView, _, position, _ ->
             selectedIconId = (adapterView.getItemAtPosition(position) as IconDropdownItem).id
         }

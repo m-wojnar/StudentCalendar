@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="test_array">
+        <item>@string/exam</item>
+        <item>@string/test</item>
+        <item>@string/short_test</item>
+        <item>@string/other</item>
+    </string-array>
+</resources>

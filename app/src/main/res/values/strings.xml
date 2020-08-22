@@ -6,7 +6,7 @@
     <string name="welcome_3">Have a nice day!</string>
     <string name="welcome_4">Organise your day</string>
     <string name="welcome_5">Hello, bonjour, hola!</string>
-    <string name="welcome_6">This is student calendar!</string>
+    <string name="welcome_6">It\'s student calendar!</string>
     <string name="welcome_7">Surprise!</string>
 
     <string name="your_day">Your day</string>
@@ -109,4 +109,7 @@
     <string name="course">Course</string>
     <string name="priority">Priority</string>
     <string name="reminder">Reminder</string>
+    <string name="person">Person</string>
+    <string name="date_time">%1$s %2$s</string>
+    <string name="subject">Subject</string>
 </resources>
