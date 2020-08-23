@@ -11,8 +11,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.broprojects.studentcalendar.R
 import com.broprojects.studentcalendar.databinding.FragmentTestBinding
+import com.broprojects.studentcalendar.dateTimePickerDialog
+import com.broprojects.studentcalendar.toDateTimeString
+import java.util.*
 
 class TestFragment : Fragment() {
+    private var selectedWhenDateTime: Date? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,6 +53,13 @@ class TestFragment : Fragment() {
             android.R.layout.simple_dropdown_item_1line,
             resources.getStringArray(R.array.test_array)
         ))
+
+        binding.whenText.setOnClickListener {
+            activity?.dateTimePickerDialog {
+                selectedWhenDateTime = it
+                binding.whenText.setText(it.toDateTimeString(requireContext()))
+            }
+        }
 
         return binding.root
     }

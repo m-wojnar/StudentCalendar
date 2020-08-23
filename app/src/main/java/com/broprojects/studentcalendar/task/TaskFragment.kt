@@ -13,9 +13,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.broprojects.studentcalendar.R
 import com.broprojects.studentcalendar.databinding.FragmentTaskBinding
+import com.broprojects.studentcalendar.dateTimePickerDialog
+import com.broprojects.studentcalendar.toDateTimeString
+import java.util.*
 
 class TaskFragment : Fragment() {
     private var selectedReminderTime: Long? = null
+    private var selectedWhenDateTime: Date? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,6 +63,13 @@ class TaskFragment : Fragment() {
         binding.reminderText.setAdapter(TimeAdapter(requireContext(), viewModel.remindersArray))
         binding.reminderText.setOnItemClickListener { adapterView, _, position, _ ->
             selectedReminderTime = (adapterView.getItemAtPosition(position) as TimeDropdownItem).time
+        }
+
+        binding.whenText.setOnClickListener {
+            activity?.dateTimePickerDialog {
+                selectedWhenDateTime = it
+                binding.whenText.setText(it.toDateTimeString(requireContext()))
+            }
         }
 
         return binding.root

@@ -8,7 +8,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.preference.PreferenceManager
 import com.broprojects.studentcalendar.R
 import com.broprojects.studentcalendar.ToolbarActivity
 import com.broprojects.studentcalendar.databinding.FragmentWelcomeBinding
@@ -57,16 +56,13 @@ class WelcomeFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        val preferences = PreferenceManager.getDefaultSharedPreferences(context)
-        val showWelcome = preferences.getBoolean(getString(R.string.show_welcome), true)
-
-        if (showWelcome && WelcomeViewModel.firstWelcome) {
-            toolbarActivity.hideActionBar()
-        } else {
+        if (viewModel.hideActionBarWithAnimation()) {
             toolbarActivity.hideActionBarAnimation()
+        } else {
+            toolbarActivity.hideActionBar()
         }
 
-        WelcomeViewModel.firstWelcome = false
+        viewModel.hideActionBarDone()
     }
 
     override fun onStop() {

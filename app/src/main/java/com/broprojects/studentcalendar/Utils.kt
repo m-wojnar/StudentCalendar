@@ -2,6 +2,8 @@ package com.broprojects.studentcalendar
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Context
+import android.text.format.DateFormat
 import androidx.fragment.app.FragmentActivity
 import java.util.*
 
@@ -25,4 +27,15 @@ fun FragmentActivity.datePickerDialog(func: (date: Date) -> Unit) {
         dateTime.set(year, month, day)
         func(dateTime.time)
     }, currentDateTime[Calendar.YEAR], currentDateTime[Calendar.MONTH], currentDateTime[Calendar.DATE]).show()
+}
+
+fun Date.toDateString(context: Context): String {
+    val dateFormat = DateFormat.getDateFormat(context)
+    return dateFormat.format(this)
+}
+
+fun Date.toDateTimeString(context: Context): String {
+    val dateFormat = DateFormat.getDateFormat(context)
+    val timeFormat = DateFormat.getTimeFormat(context)
+    return context.getString(R.string.date_time, dateFormat.format(this), timeFormat.format(this))
 }

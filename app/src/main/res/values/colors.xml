@@ -15,6 +15,6 @@
     <color name="app_color_8">#00881c</color>
 
     <color name="transparent">#00000000</color>
-    <color name="toolbar_light">#EEEEEE</color>
-    <color name="toolbar_dark">#333333</color>
+    <color name="toolbar">#EEEEEE</color>
+    <color name="status_bar">#999999</color>
 </resources>

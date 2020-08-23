@@ -6,7 +6,7 @@
         android:key="show_welcome_preference"
         android:title="@string/show_welcome" />
     <SwitchPreference
-        android:defaultValue="false"
+        android:defaultValue="true"
         android:key="theme_preference"
         android:title="@string/select_theme" />
 </androidx.preference.PreferenceScreen>

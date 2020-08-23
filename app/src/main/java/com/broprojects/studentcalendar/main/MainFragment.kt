@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -42,12 +41,6 @@ class MainFragment : Fragment(), TabLayout.OnTabSelectedListener {
         viewModel.color.observe(viewLifecycleOwner, {
             binding.floatingActionButton.backgroundTintList = ContextCompat.getColorStateList(requireContext(), it)
             headerView?.setBackgroundResource(it)
-        })
-
-        // Set chosen icon to the action bar and navigation drawer
-        viewModel.icon.observe(viewLifecycleOwner, {
-            toolbarActivity.setActionBarIcon(viewModel.getSmallDrawableId(it))
-            headerView?.findViewById<ImageView>(R.id.header_welcome_image)?.setBackgroundResource(it)
         })
 
         // Set chosen text to the action bar

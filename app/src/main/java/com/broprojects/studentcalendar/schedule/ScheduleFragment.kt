@@ -1,7 +1,6 @@
 package com.broprojects.studentcalendar.schedule
 
 import android.os.Bundle
-import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,10 +9,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.broprojects.studentcalendar.R
+import com.broprojects.studentcalendar.*
 import com.broprojects.studentcalendar.databinding.FragmentScheduleBinding
-import com.broprojects.studentcalendar.datePickerDialog
-import com.broprojects.studentcalendar.dateTimePickerDialog
 import java.util.*
 
 class ScheduleFragment : Fragment() {
@@ -61,25 +58,21 @@ class ScheduleFragment : Fragment() {
         binding.startText.setOnClickListener {
             activity?.datePickerDialog {
                 startDate = it
-                val dateFormat = DateFormat.getDateFormat(context)
-                binding.startText.setText(dateFormat.format(it))
+                binding.startText.setText(it.toDateString(requireContext()))
             }
         }
 
         binding.endText.setOnClickListener {
             activity?.datePickerDialog {
                 endDate = it
-                val dateFormat = DateFormat.getDateFormat(context)
-                binding.endText.setText(dateFormat.format(it))
+                binding.endText.setText(it.toDateString(requireContext()))
             }
         }
 
         binding.whenText.setOnClickListener {
             activity?.dateTimePickerDialog {
                 whenDateTime = it
-                val dateFormat = DateFormat.getDateFormat(context)
-                val timeFormat = DateFormat.getTimeFormat(context)
-                binding.whenText.setText(getString(R.string.date_time, dateFormat.format(it), timeFormat.format(it)))
+                binding.whenText.setText(it.toDateTimeString(requireContext()))
             }
         }
 

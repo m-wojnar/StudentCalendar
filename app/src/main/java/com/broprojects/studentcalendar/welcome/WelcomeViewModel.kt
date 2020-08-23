@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.preference.PreferenceManager
 import com.broprojects.studentcalendar.R
 import kotlinx.coroutines.*
 import kotlin.random.Random
@@ -17,7 +18,7 @@ class WelcomeViewModel(private val activity: Activity): ViewModel() {
     }
 
     // Application colors
-    private val colors = listOf(
+    private val colors = arrayOf(
         R.color.app_color_1,
         R.color.app_color_2,
         R.color.app_color_3,
@@ -32,7 +33,7 @@ class WelcomeViewModel(private val activity: Activity): ViewModel() {
         get() = _color
 
     // Application icons
-    private val icons = listOf(
+    private val icons = arrayOf(
         R.drawable.ic_baseline_beach_access_140,
         R.drawable.ic_baseline_emoji_food_beverage_140,
         R.drawable.ic_baseline_local_cafe_140,
@@ -77,7 +78,6 @@ class WelcomeViewModel(private val activity: Activity): ViewModel() {
         val sharedPreferences = activity.getPreferences(Context.MODE_PRIVATE)
         with (sharedPreferences.edit()) {
             putInt(activity.getString(R.string.random_welcome_text), _text.value!!)
-            putInt(activity.getString(R.string.random_welcome_icon), _icon.value!!)
             putInt(activity.getString(R.string.random_welcome_color), _color.value!!)
             apply()
         }
@@ -98,5 +98,15 @@ class WelcomeViewModel(private val activity: Activity): ViewModel() {
     fun goToMainFragmentDone() {
         _mainFragmentEvent.value = false
         viewModelJob.cancel()
+    }
+
+    fun hideActionBarWithAnimation(): Boolean {
+        val preferences = PreferenceManager.getDefaultSharedPreferences(activity.applicationContext)
+        val showWelcome = preferences.getBoolean(activity.getString(R.string.show_welcome), true)
+        return showWelcome && firstWelcome
+    }
+
+    fun hideActionBarDone() {
+        firstWelcome = false
     }
 }

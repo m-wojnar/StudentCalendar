@@ -6,7 +6,6 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.menu.ActionMenuItemView
-import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
@@ -27,7 +26,6 @@ interface ToolbarActivity {
 
     fun setBackground(resourceId: Int)
     fun setActionBarText(stringId: Int)
-    fun setActionBarIcon(iconId: Int)
 }
 
 class MainActivity : AppCompatActivity(), ToolbarActivity {
@@ -111,11 +109,5 @@ class MainActivity : AppCompatActivity(), ToolbarActivity {
 
     override fun setActionBarText(stringId: Int) {
         supportActionBar?.title = getString(stringId)
-    }
-
-    @Suppress("RestrictedApi")
-    override fun setActionBarIcon(iconId: Int) {
-        val icon = ResourcesCompat.getDrawable(resources, iconId, applicationContext.theme)
-        findViewById<ActionMenuItemView>(R.id.welcome_button).setIcon(icon)
     }
 }

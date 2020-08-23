@@ -10,4 +10,5 @@
     <dimen name="action_icon_size">28dp</dimen>
     <dimen name="action_radius">8dp</dimen>
     <dimen name="action_margin">12dp</dimen>
+    <dimen name="status_bar_size">24dp</dimen>
 </resources>
