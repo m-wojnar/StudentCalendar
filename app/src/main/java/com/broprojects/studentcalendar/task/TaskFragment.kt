@@ -9,7 +9,6 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.broprojects.studentcalendar.R
@@ -31,7 +30,7 @@ class TaskFragment : Fragment() {
         binding.viewModel = viewModel
 
         // Set app color theme on views
-        viewModel.colorStateList.observe(viewLifecycleOwner, Observer {
+        viewModel.colorStateList.observe(viewLifecycleOwner, {
             binding.saveButton.backgroundTintList = it
             binding.courseTextLayout.setBoxStrokeColorStateList(it)
             binding.titleTextLayout.setBoxStrokeColorStateList(it)
@@ -43,7 +42,7 @@ class TaskFragment : Fragment() {
             binding.infoTextLayout.setBoxStrokeColorStateList(it)
         })
 
-        viewModel.goToMainFragment.observe(viewLifecycleOwner, Observer {
+        viewModel.goToMainFragment.observe(viewLifecycleOwner, {
             if (it == true) {
                 findNavController().navigate(TaskFragmentDirections.actionTaskFragmentToMainFragment())
                 viewModel.goToMainFragmentDone()

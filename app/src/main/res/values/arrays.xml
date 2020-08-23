@@ -1,0 +1,22 @@
+<resources>
+    <string-array name="priority_array">
+        <item>@string/high</item>
+        <item>@string/normal</item>
+        <item>@string/low</item>
+    </string-array>
+
+    <string-array name="schedule_array">
+        <item>@string/lecture</item>
+        <item>@string/classes</item>
+        <item>@string/laboratories</item>
+        <item>@string/internship</item>
+        <item>@string/other</item>
+    </string-array>
+
+    <string-array name="test_array">
+        <item>@string/exam</item>
+        <item>@string/test</item>
+        <item>@string/short_test</item>
+        <item>@string/other</item>
+    </string-array>
+</resources>

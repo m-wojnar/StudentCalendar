@@ -8,7 +8,6 @@ import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.broprojects.studentcalendar.R
@@ -18,6 +17,10 @@ import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
 
 class MainFragment : Fragment(), TabLayout.OnTabSelectedListener {
+    private val animationDuration = 300L
+    private val translationXValue = -60f
+
+    private lateinit var binding: FragmentMainBinding
     private val toolbarActivity: ToolbarActivity
         get() = activity as ToolbarActivity
 
@@ -25,9 +28,7 @@ class MainFragment : Fragment(), TabLayout.OnTabSelectedListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding: FragmentMainBinding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_main, container, false
-        )
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
 
         val viewModelFactory = MainViewModelFactory(requireActivity())
         val viewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
@@ -38,19 +39,19 @@ class MainFragment : Fragment(), TabLayout.OnTabSelectedListener {
         val headerView = navigationView?.getHeaderView(0)
 
         // Set chosen color to the action bar and navigation drawer
-        viewModel.color.observe(viewLifecycleOwner, Observer {
+        viewModel.color.observe(viewLifecycleOwner, {
             binding.floatingActionButton.backgroundTintList = ContextCompat.getColorStateList(requireContext(), it)
             headerView?.setBackgroundResource(it)
         })
 
         // Set chosen icon to the action bar and navigation drawer
-        viewModel.icon.observe(viewLifecycleOwner, Observer {
+        viewModel.icon.observe(viewLifecycleOwner, {
             toolbarActivity.setActionBarIcon(viewModel.getSmallDrawableId(it))
             headerView?.findViewById<ImageView>(R.id.header_welcome_image)?.setBackgroundResource(it)
         })
 
         // Set chosen text to the action bar
-        viewModel.text.observe(viewLifecycleOwner, Observer {
+        viewModel.text.observe(viewLifecycleOwner, {
             toolbarActivity.setActionBarText(it)
         })
 
@@ -82,10 +83,35 @@ class MainFragment : Fragment(), TabLayout.OnTabSelectedListener {
         toolbarActivity.hideActionBarIcon()
     }
 
+    // Reload recycler view with animation on tab change
     override fun onTabSelected(tab: TabLayout.Tab?) {
-
+        hideRecyclerView {
+            loadDataToRecyclerView()
+            showRecyclerView()
+        }
     }
 
     override fun onTabUnselected(tab: TabLayout.Tab?) {}
     override fun onTabReselected(tab: TabLayout.Tab?) {}
+
+    private fun hideRecyclerView(func: () -> Unit) {
+        binding.recyclerView.animate()
+            .alpha(0.0f)
+            .translationX(translationXValue)
+            .setDuration(animationDuration)
+            .withEndAction(func)
+            .start()
+    }
+
+    private fun showRecyclerView() {
+        binding.recyclerView.animate()
+            .alpha(1.0f)
+            .translationX(0f)
+            .setDuration(animationDuration)
+            .start()
+    }
+
+    private fun loadDataToRecyclerView() {
+        // TODO load data to recycler view
+    }
 }

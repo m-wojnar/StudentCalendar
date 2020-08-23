@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string-array name="priority_array">
-        <item>@string/high</item>
-        <item>@string/normal</item>
-        <item>@string/low</item>
-    </string-array>
-</resources>

@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
@@ -31,20 +30,20 @@ class WelcomeFragment : Fragment() {
         viewModel = ViewModelProvider(this, viewModelFactory)[WelcomeViewModel::class.java]
         binding.viewModel = viewModel
 
-        viewModel.color.observe(viewLifecycleOwner, Observer {
+        viewModel.color.observe(viewLifecycleOwner, {
             binding.linearLayout.setBackgroundResource(it)
             toolbarActivity.setBackground(it)
         })
 
-        viewModel.icon.observe(viewLifecycleOwner, Observer {
+        viewModel.icon.observe(viewLifecycleOwner, {
             binding.welcomeImage.setImageResource(it)
         })
 
-        viewModel.text.observe(viewLifecycleOwner, Observer {
+        viewModel.text.observe(viewLifecycleOwner, {
             binding.welcomeText.text = getString(it)
         })
 
-        viewModel.mainFragmentEvent.observe(viewLifecycleOwner, Observer {
+        viewModel.mainFragmentEvent.observe(viewLifecycleOwner, {
             if (it == true) {
                 findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToMainFragment())
                 viewModel.goToMainFragmentDone()
