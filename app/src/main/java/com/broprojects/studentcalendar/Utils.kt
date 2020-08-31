@@ -29,9 +29,24 @@ fun FragmentActivity.datePickerDialog(func: (date: Date) -> Unit) {
     }, currentDateTime[Calendar.YEAR], currentDateTime[Calendar.MONTH], currentDateTime[Calendar.DATE]).show()
 }
 
+fun FragmentActivity.timePickerDialog(func: (date: Date) -> Unit) {
+    val currentDateTime = Calendar.getInstance()
+
+    TimePickerDialog(this, { _, hour, min ->
+        val dateTime =  Calendar.getInstance()
+        dateTime.set(currentDateTime[Calendar.YEAR], currentDateTime[Calendar.MONTH], currentDateTime[Calendar.DATE], hour, min)
+        func(dateTime.time)
+    }, currentDateTime[Calendar.HOUR], currentDateTime[Calendar.MINUTE], false).show()
+}
+
 fun Date.toDateString(context: Context): String {
     val dateFormat = DateFormat.getDateFormat(context)
     return dateFormat.format(this)
+}
+
+fun Date.toTimeString(context: Context): String {
+    val timeFormat = DateFormat.getTimeFormat(context)
+    return timeFormat.format(this)
 }
 
 fun Date.toDateTimeString(context: Context): String {

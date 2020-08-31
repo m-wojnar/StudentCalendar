@@ -1,10 +1,4 @@
 <resources>
-    <string-array name="priority_array">
-        <item>@string/high</item>
-        <item>@string/normal</item>
-        <item>@string/low</item>
-    </string-array>
-
     <string-array name="schedule_array">
         <item>@string/lecture</item>
         <item>@string/classes</item>

@@ -10,22 +10,24 @@ import androidx.lifecycle.ViewModel
 import com.broprojects.studentcalendar.R
 import java.util.concurrent.TimeUnit
 
-data class TimeDropdownItem(val text: String, val time: Long) {
-    override fun toString() = text
-}
-
 class TaskViewModel(private val activity: Activity) : ViewModel() {
     val remindersArray = arrayOf(
-        TimeDropdownItem(activity.getString(R.string.five_min), TimeUnit.MINUTES.toMillis(5)),
-        TimeDropdownItem(activity.getString(R.string.ten_min), TimeUnit.MINUTES.toMillis(10)),
-        TimeDropdownItem(activity.getString(R.string.fifteen_min), TimeUnit.MINUTES.toMillis(15)),
-        TimeDropdownItem(activity.getString(R.string.thirty_min), TimeUnit.MINUTES.toMillis(30)),
-        TimeDropdownItem(activity.getString(R.string.one_h), TimeUnit.HOURS.toMillis(1)),
-        TimeDropdownItem(activity.getString(R.string.two_h), TimeUnit.HOURS.toMillis(2)),
-        TimeDropdownItem(activity.getString(R.string.twelve_h), TimeUnit.HOURS.toMillis(12)),
-        TimeDropdownItem(activity.getString(R.string.one_day), TimeUnit.DAYS.toMillis(1)),
-        TimeDropdownItem(activity.getString(R.string.two_days), TimeUnit.DAYS.toMillis(2)),
-        TimeDropdownItem(activity.getString(R.string.one_week), TimeUnit.DAYS.toMillis(7))
+        ValueDropdownItem(activity.getString(R.string.five_min), TimeUnit.MINUTES.toMillis(5)),
+        ValueDropdownItem(activity.getString(R.string.ten_min), TimeUnit.MINUTES.toMillis(10)),
+        ValueDropdownItem(activity.getString(R.string.fifteen_min), TimeUnit.MINUTES.toMillis(15)),
+        ValueDropdownItem(activity.getString(R.string.thirty_min), TimeUnit.MINUTES.toMillis(30)),
+        ValueDropdownItem(activity.getString(R.string.one_h), TimeUnit.HOURS.toMillis(1)),
+        ValueDropdownItem(activity.getString(R.string.two_h), TimeUnit.HOURS.toMillis(2)),
+        ValueDropdownItem(activity.getString(R.string.twelve_h), TimeUnit.HOURS.toMillis(12)),
+        ValueDropdownItem(activity.getString(R.string.one_day), TimeUnit.DAYS.toMillis(1)),
+        ValueDropdownItem(activity.getString(R.string.two_days), TimeUnit.DAYS.toMillis(2)),
+        ValueDropdownItem(activity.getString(R.string.one_week), TimeUnit.DAYS.toMillis(7))
+    )
+    
+    val priorityArray = arrayOf(
+        ValueDropdownItem(activity.getString(R.string.high), 2),
+        ValueDropdownItem(activity.getString(R.string.normal), 1),
+        ValueDropdownItem(activity.getString(R.string.low), 0)
     )
 
     private val _colorStateList = MutableLiveData<ColorStateList>()

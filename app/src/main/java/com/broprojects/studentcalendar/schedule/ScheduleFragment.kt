@@ -70,9 +70,9 @@ class ScheduleFragment : Fragment() {
         }
 
         binding.whenText.setOnClickListener {
-            activity?.dateTimePickerDialog {
+            activity?.timePickerDialog {
                 whenDateTime = it
-                binding.whenText.setText(it.toDateTimeString(requireContext()))
+                binding.whenText.setText(it.toTimeString(requireContext()))
             }
         }
 

@@ -10,15 +10,15 @@ buildscript {
         lifecycle_version = "2.2.0"
 
         navigation_version =  "2.3.0"
-        constraint_version = "2.0.0"
+        constraint_version = "2.0.1"
         material_version = "1.2.0"
 
         preferences_version = "1.1.1"
         room_version = "2.2.5"
 
         junit_version = "4.13"
-        android_junit_version = "1.1.1"
-        espresso_version = "3.2.0"
+        android_junit_version = "1.1.2"
+        espresso_version = "3.3.0"
     }
 
     repositories {
