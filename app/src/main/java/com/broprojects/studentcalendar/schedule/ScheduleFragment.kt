@@ -10,19 +10,15 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.broprojects.studentcalendar.R
+import com.broprojects.studentcalendar.ToolbarActivity
 import com.broprojects.studentcalendar.database.CalendarDatabase
 import com.broprojects.studentcalendar.databinding.FragmentScheduleBinding
 import com.broprojects.studentcalendar.helpers.datePickerDialog
 import com.broprojects.studentcalendar.helpers.timePickerDialog
 import com.broprojects.studentcalendar.helpers.toDateString
 import com.broprojects.studentcalendar.helpers.toTimeString
-import java.util.*
 
 class ScheduleFragment : Fragment() {
-    private var startDate: Date? = null
-    private var endDate: Date? = null
-    private var whenDateTime: Date? = null
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,10 +27,23 @@ class ScheduleFragment : Fragment() {
             inflater, R.layout.fragment_schedule, container, false
         )
 
+        val args = ScheduleFragmentArgs.fromBundle(requireArguments())
         val dao = CalendarDatabase.getInstance(requireContext()).schedulesTableDao
-        val viewModelFactory = ScheduleViewModelFactory(requireActivity(), dao)
+
+        val viewModelFactory = ScheduleViewModelFactory(requireActivity(), dao, args.scheduleId?.toLong())
         val viewModel = ViewModelProvider(this, viewModelFactory)[ScheduleViewModel::class.java]
         binding.viewModel = viewModel
+
+        // If user is updating data, change action bar title and fill text fields
+        if (args.scheduleId != null) {
+            (activity as ToolbarActivity).setActionBarText(R.string.update_schedule)
+        }
+
+        viewModel.schedule.observe(viewLifecycleOwner, {
+            binding.whenText.setText(it.whenTime.toTimeString(requireContext()))
+            binding.startText.setText(it.startDate.toDateString(requireContext()))
+            binding.endText.setText(it.endDate.toDateString(requireContext()))
+        })
 
         // Set app color theme on views
         viewModel.colorStateList.observe(viewLifecycleOwner, {
@@ -63,21 +72,21 @@ class ScheduleFragment : Fragment() {
 
         binding.startText.setOnClickListener {
             activity?.datePickerDialog {
-                startDate = it
+                viewModel.setStartDate(it)
                 binding.startText.setText(it.toDateString(requireContext()))
             }
         }
 
         binding.endText.setOnClickListener {
             activity?.datePickerDialog {
-                endDate = it
+                viewModel.setEndDate(it)
                 binding.endText.setText(it.toDateString(requireContext()))
             }
         }
 
         binding.whenText.setOnClickListener {
             activity?.timePickerDialog {
-                whenDateTime = it
+                viewModel.setWhenTime(it)
                 binding.whenText.setText(it.toTimeString(requireContext()))
             }
         }

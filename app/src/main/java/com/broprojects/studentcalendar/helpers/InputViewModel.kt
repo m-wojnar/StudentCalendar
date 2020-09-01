@@ -11,7 +11,7 @@ import com.broprojects.studentcalendar.R
 import com.broprojects.studentcalendar.database.BaseDao
 import kotlinx.coroutines.*
 
-open class InputViewModel(private val activity: Activity) : ViewModel() {
+open class InputViewModel<T>(private val activity: Activity, private val dao: BaseDao<T>) : ViewModel() {
     private val _colorStateList = MutableLiveData<ColorStateList>()
     val colorStateList: LiveData<ColorStateList>
         get() = _colorStateList
@@ -30,7 +30,7 @@ open class InputViewModel(private val activity: Activity) : ViewModel() {
         _colorStateList.value = ContextCompat.getColorStateList(activity.applicationContext, colorId)!!
     }
 
-    protected fun <T> saveData(id: Long?, data: T, dao: BaseDao<T>) {
+    protected fun saveData(id: Long?, data: T) {
         coroutineScope.launch {
             withContext(Dispatchers.IO) {
                 if (id == null) {
@@ -43,6 +43,8 @@ open class InputViewModel(private val activity: Activity) : ViewModel() {
 
         _goToMainFragment.value = true
     }
+
+    fun getData(id: Long) = dao.get(id)
 
     fun goToMainFragmentDone() {
         _goToMainFragment.value = false

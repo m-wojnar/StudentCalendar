@@ -10,15 +10,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.broprojects.studentcalendar.R
+import com.broprojects.studentcalendar.ToolbarActivity
 import com.broprojects.studentcalendar.database.CalendarDatabase
 import com.broprojects.studentcalendar.databinding.FragmentTestBinding
 import com.broprojects.studentcalendar.helpers.dateTimePickerDialog
 import com.broprojects.studentcalendar.helpers.toDateTimeString
-import java.util.*
 
 class TestFragment : Fragment() {
-    private var selectedWhenDateTime: Date? = null
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -27,10 +25,21 @@ class TestFragment : Fragment() {
             inflater, R.layout.fragment_test, container, false
         )
 
+        val args = TestFragmentArgs.fromBundle(requireArguments())
         val dao = CalendarDatabase.getInstance(requireContext()).testsTableDao
-        val viewModelFactory = TestViewModelFactory(requireActivity(), dao)
+
+        val viewModelFactory = TestViewModelFactory(requireActivity(), dao, args.testId?.toLong())
         val viewModel = ViewModelProvider(this, viewModelFactory)[TestViewModel::class.java]
         binding.viewModel = viewModel
+
+        // If user is updating data, change action bar title and fill text fields
+        if (args.testId != null) {
+            (activity as ToolbarActivity).setActionBarText(R.string.update_test)
+        }
+
+        viewModel.test.observe(viewLifecycleOwner, {
+            binding.whenText.setText(it.whenDateTime.toDateTimeString(requireContext()))
+        })
 
         // Set app color theme on views
         viewModel.colorStateList.observe(viewLifecycleOwner, {
@@ -58,7 +67,7 @@ class TestFragment : Fragment() {
 
         binding.whenText.setOnClickListener {
             activity?.dateTimePickerDialog {
-                selectedWhenDateTime = it
+                viewModel.setWhenDateTime(it)
                 binding.whenText.setText(it.toDateTimeString(requireContext()))
             }
         }

@@ -6,146 +6,99 @@ import androidx.room.PrimaryKey
 import androidx.room.Relation
 import java.util.*
 
-data class YourDayEntity(
-    val whenDateTime: Date?
-)
-
 @Entity(tableName = "courses")
 data class Course(
     @PrimaryKey(autoGenerate = true)
-    val courseId: Long?,
-    val name: String,
-    val iconId: Int?,
-    val colorId: Int?
-)
-
-@Entity(tableName = "locations")
-data class Location(
-    @PrimaryKey(autoGenerate = true)
-    val locationId: Long?,
-    val name: String,
-    val longitude: Double?,
-    val latitude: Double?
+    var courseId: Long?,
+    var name: String,
+    var iconId: Int?,
+    var colorId: Int?
 )
 
 @Entity(tableName = "people")
 data class Person(
     @PrimaryKey(autoGenerate = true)
-    val personId: Long?,
-    val firstName: String?,
-    val secondName: String,
-    val title: String?,
-    val phone: String?,
-    val email: String?,
-    val locationId: Long?,
-    val moreInfo: String?
+    var personId: Long?,
+    var firstName: String?,
+    var lastName: String,
+    var title: String?,
+    var phone: String?,
+    var email: String?,
+    var location: String?,
+    var moreInfo: String?
 )
 
 @Entity(tableName = "schedules")
 data class Schedule(
     @PrimaryKey(autoGenerate = true)
-    val scheduleId: Long?,
-    val courseId: Long,
-    val type: String?,
-    val whenTime: Date,
-    val startDate: Date,
-    val endDate: Date,
-    val personId: Long?,
-    val locationId: Long?,
-    val moreInfo: String?
+    var scheduleId: Long?,
+    var courseId: Long,
+    var type: String?,
+    var whenTime: Date,
+    var startDate: Date,
+    var endDate: Date,
+    var personId: Long?,
+    var location: String?,
+    var moreInfo: String?
 )
 
 @Entity(tableName = "tests")
 data class Test(
     @PrimaryKey(autoGenerate = true)
-    val testId: Long?,
-    val courseId: Long,
-    val type: String?,
-    val subject: String?,
-    val locationId: Long?,
-    val whenDateTime: Date,
-    val moreInfo: String?
+    var testId: Long?,
+    var courseId: Long,
+    var type: String?,
+    var subject: String?,
+    var location: String?,
+    var whenDateTime: Date,
+    var moreInfo: String?
 )
 
 @Entity(tableName = "tasks")
 data class Task(
     @PrimaryKey(autoGenerate = true)
-    val taskId: Long?,
-    val courseId: Long?,
-    val title: String,
-    val priority: Long?,
-    val locationId: Long?,
-    val whenDateTime: Date?,
-    val reminder: Long?,
-    val moreInfo: String?
+    var taskId: Long?,
+    var courseId: Long?,
+    var title: String,
+    var priority: Long?,
+    var location: String?,
+    var whenDateTime: Date?,
+    var reminder: Long?,
+    var moreInfo: String?
 )
 
 data class CourseWithTests(
-    @Embedded val course: Course,
+    @Embedded var course: Course,
     @Relation(
         parentColumn = "courseId",
         entityColumn = "courseId"
     )
-    val tests: List<Test>
+    var tests: List<Test>
 )
 
 data class CourseWithSchedules(
-    @Embedded val course: Course,
+    @Embedded var course: Course,
     @Relation(
         parentColumn = "courseId",
         entityColumn = "courseId"
     )
-    val schedules: List<Schedule>
+    var schedules: List<Schedule>
 )
 
 data class CourseWithTasks(
-    @Embedded val course: Course,
+    @Embedded var course: Course,
     @Relation(
         parentColumn = "courseId",
         entityColumn = "courseId"
     )
-    val tasks: List<Task>
+    var tasks: List<Task>
 )
 
 data class PersonWithSchedulesAndLocation(
-    @Embedded val person: Person,
-
+    @Embedded var person: Person,
     @Relation(
         parentColumn = "personId",
         entityColumn = "personId"
     )
-    val schedule: List<Schedule>,
-
-    @Relation(
-        parentColumn = "locationId",
-        entityColumn = "locationId"
-    )
-    val location: Location
-)
-
-data class TestAndLocation(
-    @Embedded val test: Test,
-    @Relation(
-        parentColumn = "locationId",
-        entityColumn = "locationId"
-    )
-    val location: Location
-)
-
-data class ScheduleAndLocation(
-    @Embedded val schedule: Schedule,
-    @Relation(
-        parentColumn = "locationId",
-        entityColumn = "locationId"
-    )
-    val location: Location
-)
-
-data class TaskAndLocation(
-    @Embedded val task: Task,
-    @Relation(
-        parentColumn = "locationId",
-        entityColumn = "locationId"
-    )
-    val location: Location
+    var schedule: List<Schedule>,
 )

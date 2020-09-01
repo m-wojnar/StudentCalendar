@@ -66,6 +66,11 @@
             app:destination="@id/mainFragment"
             app:popUpTo="@id/mainFragment"
             app:popUpToInclusive="true" />
+        <argument
+            android:name="courseId"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/personFragment"
@@ -77,6 +82,11 @@
             app:destination="@id/mainFragment"
             app:popUpTo="@id/mainFragment"
             app:popUpToInclusive="true" />
+        <argument
+            android:name="personId"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/scheduleFragment"
@@ -88,6 +98,11 @@
             app:destination="@id/mainFragment"
             app:popUpTo="@id/mainFragment"
             app:popUpToInclusive="true" />
+        <argument
+            android:name="scheduleId"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/testFragment"
@@ -99,6 +114,11 @@
             app:destination="@id/mainFragment"
             app:popUpTo="@id/mainFragment"
             app:popUpToInclusive="true" />
+        <argument
+            android:name="testId"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/taskFragment"
@@ -110,6 +130,11 @@
             app:destination="@id/mainFragment"
             app:popUpTo="@id/mainFragment"
             app:popUpToInclusive="true" />
+        <argument
+            android:name="taskId"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/preferencesFragment"

@@ -13,13 +13,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.broprojects.studentcalendar.R
+import com.broprojects.studentcalendar.ToolbarActivity
 import com.broprojects.studentcalendar.database.CalendarDatabase
 import com.broprojects.studentcalendar.databinding.FragmentCourseBinding
 
 class CourseFragment : Fragment() {
-    private var selectedColorId: Int? = null
-    private var selectedIconId: Int? = null
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -28,10 +26,22 @@ class CourseFragment : Fragment() {
             inflater, R.layout.fragment_course, container, false
         )
 
+        val args = CourseFragmentArgs.fromBundle(requireArguments())
         val dao = CalendarDatabase.getInstance(requireContext()).coursesTableDao
-        val viewModelFactory = CourseViewModelFactory(requireActivity(), dao)
+
+        val viewModelFactory = CourseViewModelFactory(requireActivity(), dao, args.courseId?.toLong())
         val viewModel = ViewModelProvider(this, viewModelFactory)[CourseViewModel::class.java]
         binding.viewModel = viewModel
+
+        // If user is updating data, change action bar title and fill text fields
+        if (args.courseId != null) {
+            (activity as ToolbarActivity).setActionBarText(R.string.update_course)
+        }
+
+        viewModel.course.observe(viewLifecycleOwner, {
+            binding.iconText.setText(viewModel.iconsTextMap[it.iconId])
+            binding.colorText.setText(viewModel.colorsTextMap[it.colorId])
+        })
 
         // Set app color theme on views
         viewModel.colorStateList.observe(viewLifecycleOwner, {
@@ -44,13 +54,13 @@ class CourseFragment : Fragment() {
         // Setup adapter for color picker and save colorId in selectedColorId
         binding.colorText.setAdapter(IconAdapter(requireContext(), viewModel.colorsItemsArray))
         binding.colorText.setOnItemClickListener { adapterView, _, position, _ ->
-            selectedColorId = (adapterView.getItemAtPosition(position) as IconDropdownItem).id
+            viewModel.setColor((adapterView.getItemAtPosition(position) as IconDropdownItem).id)
         }
 
         // Setup adapter for icon picker and save iconId in selectedIconId
         binding.iconText.setAdapter(IconAdapter(requireContext(), viewModel.iconsItemsArray))
         binding.iconText.setOnItemClickListener { adapterView, _, position, _ ->
-            selectedIconId = (adapterView.getItemAtPosition(position) as IconDropdownItem).id
+            viewModel.setIcon((adapterView.getItemAtPosition(position) as IconDropdownItem).id)
         }
 
         viewModel.goToMainFragment.observe(viewLifecycleOwner, {

@@ -12,17 +12,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.broprojects.studentcalendar.R
+import com.broprojects.studentcalendar.ToolbarActivity
 import com.broprojects.studentcalendar.database.CalendarDatabase
 import com.broprojects.studentcalendar.databinding.FragmentTaskBinding
 import com.broprojects.studentcalendar.helpers.dateTimePickerDialog
 import com.broprojects.studentcalendar.helpers.toDateTimeString
-import java.util.*
 
 class TaskFragment : Fragment() {
-    private var selectedReminderTime: Long? = null
-    private var selectedWhenDateTime: Date? = null
-    private var selectedPriority: Long? = null
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,8 +27,10 @@ class TaskFragment : Fragment() {
             inflater, R.layout.fragment_task, container, false
         )
 
+        val args = TaskFragmentArgs.fromBundle(requireArguments())
         val dao = CalendarDatabase.getInstance(requireContext()).tasksTableDao
-        val viewModelFactory = TaskViewModelFactory(requireActivity(), dao)
+
+        val viewModelFactory = TaskViewModelFactory(requireActivity(), dao, args.taskId?.toLong())
         val viewModel = ViewModelProvider(this, viewModelFactory)[TaskViewModel::class.java]
         binding.viewModel = viewModel
 
@@ -49,6 +47,17 @@ class TaskFragment : Fragment() {
             binding.infoTextLayout.setBoxStrokeColorStateList(it)
         })
 
+        // If user is updating data, change action bar title and fill text fields
+        if (args.taskId != null) {
+            (activity as ToolbarActivity).setActionBarText(R.string.update_task)
+        }
+
+        viewModel.task.observe(viewLifecycleOwner, {
+            binding.priorityText.setText(viewModel.priorityTextMap[it.priority])
+            binding.reminderText.setText(viewModel.remindersTextMap[it.reminder])
+            binding.whenText.setText(it.whenDateTime?.toDateTimeString(requireContext()))
+        })
+
         viewModel.goToMainFragment.observe(viewLifecycleOwner, {
             if (it == true) {
                 findNavController().navigate(TaskFragmentDirections.actionTaskFragmentToMainFragment())
@@ -59,28 +68,24 @@ class TaskFragment : Fragment() {
         // Setup adapter for priority picker and save value in selectedPriority
         binding.priorityText.setAdapter(ValueAdapter(requireContext(), viewModel.priorityArray))
         binding.priorityText.setOnItemClickListener { adapterView, _, position, _ ->
-            selectedPriority = (adapterView.getItemAtPosition(position) as ValueDropdownItem).value
+            viewModel.setPriority((adapterView.getItemAtPosition(position) as ValueDropdownItem).value)
         }
 
         // Setup adapter for time picker and save time in selectedReminderTime
         binding.reminderText.setAdapter(ValueAdapter(requireContext(), viewModel.remindersArray))
         binding.reminderText.setOnItemClickListener { adapterView, _, position, _ ->
-            selectedReminderTime = (adapterView.getItemAtPosition(position) as ValueDropdownItem).value
+            viewModel.setReminder((adapterView.getItemAtPosition(position) as ValueDropdownItem).value)
         }
 
         binding.whenText.setOnClickListener {
             activity?.dateTimePickerDialog {
-                selectedWhenDateTime = it
+                viewModel.setWhenDateTime(it)
                 binding.whenText.setText(it.toDateTimeString(requireContext()))
             }
         }
 
         return binding.root
     }
-}
-
-data class ValueDropdownItem(val text: String, val value: Long) {
-    override fun toString() = text
 }
 
 class ValueAdapter(context: Context, private val objects: Array<out ValueDropdownItem>) :

@@ -5,12 +5,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.broprojects.studentcalendar.database.TasksTableDao
 
-class TaskViewModelFactory(private val activity: Activity, private val dao: TasksTableDao) :
+class TaskViewModelFactory(
+    private val activity: Activity,
+    private val dao: TasksTableDao,
+    private val taskId: Long?
+) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(TaskViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return TaskViewModel(activity, dao) as T
+            return TaskViewModel(activity, dao, taskId) as T
         }
 
         throw IllegalArgumentException("Unknown ViewModel class")

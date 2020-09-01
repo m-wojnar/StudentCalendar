@@ -8,7 +8,7 @@ import androidx.room.TypeConverters
 import com.broprojects.studentcalendar.helpers.Converters
 
 @Database(
-    entities = [Task::class, Test::class, Schedule::class, Course::class, Person::class, Location::class],
+    entities = [Task::class, Test::class, Schedule::class, Course::class, Person::class],
     version = 1,
     exportSchema = false
 )
@@ -20,7 +20,6 @@ abstract class CalendarDatabase : RoomDatabase() {
     abstract val schedulesTableDao: SchedulesTableDao
     abstract val coursesTableDao: CoursesTableDao
     abstract val peopleTableDao: PeopleTableDao
-    abstract val locationsTableDao: LocationsTableDao
 
     companion object {
 

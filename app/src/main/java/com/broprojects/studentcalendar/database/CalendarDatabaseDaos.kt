@@ -14,7 +14,8 @@ interface BaseDao<T> {
     @Delete
     fun delete(obj: T)
 
-    fun get(id: Long): Any?
+    fun get(id: Long): T?
+    fun getAll(): LiveData<List<T>>?
 }
 
 @Dao
@@ -23,7 +24,7 @@ interface TasksTableDao: BaseDao<Task> {
     override fun get(id: Long): Task?
 
     @Query("SELECT * FROM tasks ORDER BY priority DESC, whenDateTime")
-    fun getAll(): LiveData<List<Task>>?
+    override fun getAll(): LiveData<List<Task>>?
 }
 
 @Dao
@@ -32,7 +33,7 @@ interface TestsTableDao: BaseDao<Test> {
     override fun get(id: Long): Test?
 
     @Query("SELECT * FROM tests ORDER BY whenDateTime")
-    fun getAll(): LiveData<List<Test>>?
+    override fun getAll(): LiveData<List<Test>>?
 }
 
 @Dao
@@ -41,7 +42,7 @@ interface SchedulesTableDao: BaseDao<Schedule> {
     override fun get(id: Long): Schedule?
 
     @Query("SELECT * FROM schedules ORDER BY courseId")
-    fun getAll(): LiveData<List<Schedule>>?
+    override fun getAll(): LiveData<List<Schedule>>?
 }
 
 @Dao
@@ -50,7 +51,7 @@ interface CoursesTableDao: BaseDao<Course> {
     override fun get(id: Long): Course?
 
     @Query("SELECT * FROM courses ORDER BY courseId")
-    fun getAll(): LiveData<List<Course>>?
+    override fun getAll(): LiveData<List<Course>>?
 }
 
 @Dao
@@ -58,12 +59,6 @@ interface PeopleTableDao: BaseDao<Person> {
     @Query("SELECT * FROM people WHERE personId = :id")
     override fun get(id: Long): Person?
 
-    @Query("SELECT * FROM people ORDER BY secondName, firstName")
-    fun getAll(): LiveData<List<Person>>?
-}
-
-@Dao
-interface LocationsTableDao: BaseDao<Location> {
-    @Query("SELECT * FROM locations WHERE locationId = :id")
-    override fun get(id: Long): Location?
+    @Query("SELECT * FROM people ORDER BY lastName, firstName")
+    override fun getAll(): LiveData<List<Person>>?
 }

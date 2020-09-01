@@ -1,6 +1,8 @@
 package com.broprojects.studentcalendar.course
 
 import android.app.Activity
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.broprojects.studentcalendar.R
 import com.broprojects.studentcalendar.database.Course
 import com.broprojects.studentcalendar.database.CoursesTableDao
@@ -10,7 +12,8 @@ data class IconDropdownItem(val name: String, val id: Int) {
     override fun toString() = name
 }
 
-class CourseViewModel(activity: Activity, private val dao: CoursesTableDao) : InputViewModel(activity) {
+class CourseViewModel(activity: Activity, dao: CoursesTableDao, private val courseId: Long?) :
+    InputViewModel<Course>(activity, dao) {
     val colorsItemsArray = arrayOf(
         IconDropdownItem(getString(R.string.orange), R.color.app_color_1),
         IconDropdownItem(getString(R.string.pink), R.color.app_color_2),
@@ -20,6 +23,17 @@ class CourseViewModel(activity: Activity, private val dao: CoursesTableDao) : In
         IconDropdownItem(getString(R.string.sea), R.color.app_color_6),
         IconDropdownItem(getString(R.string.gray), R.color.app_color_7),
         IconDropdownItem(getString(R.string.green), R.color.app_color_8)
+    )
+
+    val colorsTextMap = mapOf(
+        Pair(R.color.app_color_1, getString(R.string.orange)),
+        Pair(R.color.app_color_2, getString(R.string.pink)),
+        Pair(R.color.app_color_3, getString(R.string.purple)),
+        Pair(R.color.app_color_4, getString(R.string.indigo)),
+        Pair(R.color.app_color_5, getString(R.string.blue)),
+        Pair(R.color.app_color_6, getString(R.string.sea)),
+        Pair(R.color.app_color_7, getString(R.string.gray)),
+        Pair(R.color.app_color_8, getString(R.string.green))
     )
 
     val iconsItemsArray = arrayOf(
@@ -32,7 +46,37 @@ class CourseViewModel(activity: Activity, private val dao: CoursesTableDao) : In
         IconDropdownItem(getString(R.string.sun), R.drawable.ic_baseline_wb_sunny_24)
     )
 
-    fun saveData(data: Course) {
-        super.saveData(data.courseId, data, dao)
+    val iconsTextMap = mapOf(
+        Pair(R.drawable.ic_baseline_beach_access_24, getString(R.string.beach)),
+        Pair(R.drawable.ic_baseline_emoji_food_beverage_24, getString(R.string.tea)),
+        Pair(R.drawable.ic_baseline_local_cafe_24, getString(R.string.cafe)),
+        Pair(R.drawable.ic_baseline_mood_24, getString(R.string.smile)),
+        Pair(R.drawable.ic_baseline_music_note_24, getString(R.string.music)),
+        Pair(R.drawable.ic_baseline_thumb_up_24, getString(R.string.thumb_up)),
+        Pair(R.drawable.ic_baseline_wb_sunny_24, getString(R.string.sun))
+    )
+
+    private val _course = MutableLiveData<Course>()
+    val course: LiveData<Course>
+        get() = _course
+
+    init {
+        if (courseId != null) {
+            _course.value = getData(courseId)
+        }
+    }
+
+    fun setColor(colorId: Int) {
+        _course.value?.colorId = colorId
+    }
+
+    fun setIcon(iconId: Int) {
+        _course.value?.iconId = iconId
+    }
+
+    fun saveData() {
+        if (_course.value != null) {
+            super.saveData(courseId, _course.value!!)
+        }
     }
 }

@@ -46,7 +46,8 @@
                     android:id="@+id/type_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="none" />
+                    android:inputType="none"
+                    android:text="@{viewModel.test.type}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -62,7 +63,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:maxLines="1"/>
+                    android:maxLines="1"
+                    android:text="@{viewModel.test.subject}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -78,7 +80,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:maxLines="1"/>
+                    android:maxLines="1"
+                    android:text="@{viewModel.test.location}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -95,7 +98,8 @@
                     android:layout_height="wrap_content"
                     android:clickable="true"
                     android:focusable="false"
-                    android:inputType="textCapWords" />
+                    android:inputType="textCapWords"
+                    android:text="@{viewModel.whenDateTime}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -110,7 +114,8 @@
                     android:id="@+id/info_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textMultiLine" />
+                    android:inputType="textMultiLine"
+                    android:text="@{viewModel.test.moreInfo}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
@@ -121,6 +126,7 @@
                 android:layout_gravity="end"
                 android:clickable="true"
                 android:focusable="true"
+                android:onClick="@{() -> viewModel.saveData()}"
                 android:text="@string/save" />
 
         </LinearLayout>

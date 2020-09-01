@@ -38,7 +38,12 @@
     <string name="show_welcome_preference">show_welcome_preference</string>
     <string name="theme_preference">theme_preference</string>
 
-    <string name="about_text">Here should be something about our app and about authors</string>
+    <string name="about_text">
+        Student Calendar is an application designed especially for university students.\n\n
+        This tool is an open source project - you can visit a github page provided below to see the code!\n
+        https://github.com/maximax579/StudentCalendar\n\n
+        The author of this application is Maksymilian Wojnar, a first year student of Computer Science at AGH UST.
+    </string>
 
     <string name="black">Black</string>
     <string name="white">White</string>
