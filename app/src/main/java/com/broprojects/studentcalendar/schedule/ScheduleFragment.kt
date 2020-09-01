@@ -9,8 +9,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.broprojects.studentcalendar.*
+import com.broprojects.studentcalendar.R
+import com.broprojects.studentcalendar.database.CalendarDatabase
 import com.broprojects.studentcalendar.databinding.FragmentScheduleBinding
+import com.broprojects.studentcalendar.helpers.datePickerDialog
+import com.broprojects.studentcalendar.helpers.timePickerDialog
+import com.broprojects.studentcalendar.helpers.toDateString
+import com.broprojects.studentcalendar.helpers.toTimeString
 import java.util.*
 
 class ScheduleFragment : Fragment() {
@@ -26,7 +31,8 @@ class ScheduleFragment : Fragment() {
             inflater, R.layout.fragment_schedule, container, false
         )
 
-        val viewModelFactory = ScheduleViewModelFactory(requireActivity())
+        val dao = CalendarDatabase.getInstance(requireContext()).schedulesTableDao
+        val viewModelFactory = ScheduleViewModelFactory(requireActivity(), dao)
         val viewModel = ViewModelProvider(this, viewModelFactory)[ScheduleViewModel::class.java]
         binding.viewModel = viewModel
 

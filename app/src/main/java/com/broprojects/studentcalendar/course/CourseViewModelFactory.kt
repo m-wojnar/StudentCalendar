@@ -3,12 +3,14 @@ package com.broprojects.studentcalendar.course
 import android.app.Activity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.broprojects.studentcalendar.database.CoursesTableDao
 
-class CourseViewModelFactory(private val activity: Activity) : ViewModelProvider.Factory {
+class CourseViewModelFactory(private val activity: Activity, private val dao: CoursesTableDao) :
+    ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(CourseViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return CourseViewModel(activity) as T
+            return CourseViewModel(activity, dao) as T
         }
 
         throw IllegalArgumentException("Unknown ViewModel class")

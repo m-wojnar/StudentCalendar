@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
 
-class StudentCalendarApplication(): Application() {
+class StudentCalendarApplication: Application() {
     override fun onCreate() {
         super.onCreate()
 

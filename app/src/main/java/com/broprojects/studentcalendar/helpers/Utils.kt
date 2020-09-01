@@ -1,10 +1,12 @@
-package com.broprojects.studentcalendar
+package com.broprojects.studentcalendar.helpers
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Context
 import android.text.format.DateFormat
 import androidx.fragment.app.FragmentActivity
+import androidx.room.TypeConverter
+import com.broprojects.studentcalendar.R
 import java.util.*
 
 fun FragmentActivity.dateTimePickerDialog(func: (date: Date) -> Unit) {
@@ -53,4 +55,12 @@ fun Date.toDateTimeString(context: Context): String {
     val dateFormat = DateFormat.getDateFormat(context)
     val timeFormat = DateFormat.getTimeFormat(context)
     return context.getString(R.string.date_time, dateFormat.format(this), timeFormat.format(this))
+}
+
+class Converters {
+    @TypeConverter
+    fun dateToLong(date: Date?) = date?.time
+
+    @TypeConverter
+    fun longToDate(long: Long?) = long?.let { Date(it) }
 }

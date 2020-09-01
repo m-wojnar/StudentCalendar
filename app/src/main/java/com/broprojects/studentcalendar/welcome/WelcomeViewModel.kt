@@ -97,6 +97,10 @@ class WelcomeViewModel(private val activity: Activity): ViewModel() {
 
     fun goToMainFragmentDone() {
         _mainFragmentEvent.value = false
+    }
+
+    override fun onCleared() {
+        super.onCleared()
         viewModelJob.cancel()
     }
 

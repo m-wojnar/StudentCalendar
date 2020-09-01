@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.broprojects.studentcalendar.R
+import com.broprojects.studentcalendar.database.CalendarDatabase
 import com.broprojects.studentcalendar.databinding.FragmentCourseBinding
 
 class CourseFragment : Fragment() {
@@ -27,7 +28,8 @@ class CourseFragment : Fragment() {
             inflater, R.layout.fragment_course, container, false
         )
 
-        val viewModelFactory = CourseViewModelFactory(requireActivity())
+        val dao = CalendarDatabase.getInstance(requireContext()).coursesTableDao
+        val viewModelFactory = CourseViewModelFactory(requireActivity(), dao)
         val viewModel = ViewModelProvider(this, viewModelFactory)[CourseViewModel::class.java]
         binding.viewModel = viewModel
 

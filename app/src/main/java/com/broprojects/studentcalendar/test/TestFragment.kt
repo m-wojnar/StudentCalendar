@@ -10,9 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.broprojects.studentcalendar.R
+import com.broprojects.studentcalendar.database.CalendarDatabase
 import com.broprojects.studentcalendar.databinding.FragmentTestBinding
-import com.broprojects.studentcalendar.dateTimePickerDialog
-import com.broprojects.studentcalendar.toDateTimeString
+import com.broprojects.studentcalendar.helpers.dateTimePickerDialog
+import com.broprojects.studentcalendar.helpers.toDateTimeString
 import java.util.*
 
 class TestFragment : Fragment() {
@@ -26,7 +27,8 @@ class TestFragment : Fragment() {
             inflater, R.layout.fragment_test, container, false
         )
 
-        val viewModelFactory = TestViewModelFactory(requireActivity())
+        val dao = CalendarDatabase.getInstance(requireContext()).testsTableDao
+        val viewModelFactory = TestViewModelFactory(requireActivity(), dao)
         val viewModel = ViewModelProvider(this, viewModelFactory)[TestViewModel::class.java]
         binding.viewModel = viewModel
 

@@ -12,9 +12,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.broprojects.studentcalendar.R
+import com.broprojects.studentcalendar.database.CalendarDatabase
 import com.broprojects.studentcalendar.databinding.FragmentTaskBinding
-import com.broprojects.studentcalendar.dateTimePickerDialog
-import com.broprojects.studentcalendar.toDateTimeString
+import com.broprojects.studentcalendar.helpers.dateTimePickerDialog
+import com.broprojects.studentcalendar.helpers.toDateTimeString
 import java.util.*
 
 class TaskFragment : Fragment() {
@@ -30,7 +31,8 @@ class TaskFragment : Fragment() {
             inflater, R.layout.fragment_task, container, false
         )
 
-        val viewModelFactory = TaskViewModelFactory(requireActivity())
+        val dao = CalendarDatabase.getInstance(requireContext()).tasksTableDao
+        val viewModelFactory = TaskViewModelFactory(requireActivity(), dao)
         val viewModel = ViewModelProvider(this, viewModelFactory)[TaskViewModel::class.java]
         binding.viewModel = viewModel
 

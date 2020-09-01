@@ -73,7 +73,6 @@
                 android:layout_gravity="end"
                 android:clickable="true"
                 android:focusable="true"
-                android:onClick="@{() -> viewModel.saveData()}"
                 android:text="@string/save" />
 
         </LinearLayout>

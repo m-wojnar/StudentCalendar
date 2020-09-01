@@ -13,7 +13,7 @@ data class YourDayEntity(
 @Entity(tableName = "courses")
 data class Course(
     @PrimaryKey(autoGenerate = true)
-    val courseId: Long,
+    val courseId: Long?,
     val name: String,
     val iconId: Int?,
     val colorId: Int?
@@ -22,7 +22,7 @@ data class Course(
 @Entity(tableName = "locations")
 data class Location(
     @PrimaryKey(autoGenerate = true)
-    val locationId: Long,
+    val locationId: Long?,
     val name: String,
     val longitude: Double?,
     val latitude: Double?
@@ -31,7 +31,7 @@ data class Location(
 @Entity(tableName = "people")
 data class Person(
     @PrimaryKey(autoGenerate = true)
-    val personId: Long,
+    val personId: Long?,
     val firstName: String?,
     val secondName: String,
     val title: String?,
@@ -44,7 +44,7 @@ data class Person(
 @Entity(tableName = "schedules")
 data class Schedule(
     @PrimaryKey(autoGenerate = true)
-    val scheduleId: Long,
+    val scheduleId: Long?,
     val courseId: Long,
     val type: String?,
     val whenTime: Date,
@@ -58,7 +58,7 @@ data class Schedule(
 @Entity(tableName = "tests")
 data class Test(
     @PrimaryKey(autoGenerate = true)
-    val testId: Long,
+    val testId: Long?,
     val courseId: Long,
     val type: String?,
     val subject: String?,
@@ -70,7 +70,7 @@ data class Test(
 @Entity(tableName = "tasks")
 data class Task(
     @PrimaryKey(autoGenerate = true)
-    val taskId: Long,
+    val taskId: Long?,
     val courseId: Long?,
     val title: String,
     val priority: Long?,
