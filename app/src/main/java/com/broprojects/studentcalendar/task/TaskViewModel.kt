@@ -8,13 +8,11 @@ import com.broprojects.studentcalendar.R
 import com.broprojects.studentcalendar.database.Task
 import com.broprojects.studentcalendar.database.TasksTableDao
 import com.broprojects.studentcalendar.helpers.InputViewModel
+import com.broprojects.studentcalendar.helpers.ValueDropdownItem
 import com.broprojects.studentcalendar.helpers.toDateTimeString
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-data class ValueDropdownItem(val text: String, val value: Long) {
-    override fun toString() = text
-}
 
 class TaskViewModel(activity: Activity, dao: TasksTableDao, private val taskId: Long?) :
     InputViewModel<Task>(activity, dao) {
@@ -56,7 +54,7 @@ class TaskViewModel(activity: Activity, dao: TasksTableDao, private val taskId: 
         Pair(0L, getString(R.string.low))
     )
 
-    private val _task = MutableLiveData<Task>()
+    private val _task = MutableLiveData(Task())
     val task: LiveData<Task>
         get() = _task
 
@@ -83,8 +81,6 @@ class TaskViewModel(activity: Activity, dao: TasksTableDao, private val taskId: 
     }
 
     fun saveData() {
-        if (_task.value != null) {
-            super.saveData(taskId, _task.value!!)
-        }
+        super.saveData(taskId, _task.value!!)
     }
 }

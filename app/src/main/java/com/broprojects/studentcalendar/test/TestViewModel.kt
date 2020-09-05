@@ -13,7 +13,7 @@ import java.util.*
 class TestViewModel(activity: Activity, dao: TestsTableDao, private val testId: Long?) :
     InputViewModel<Test>(activity, dao) {
 
-    private val _test = MutableLiveData<Test>()
+    private val _test = MutableLiveData(Test())
     val test: LiveData<Test>
         get() = _test
 
@@ -32,8 +32,6 @@ class TestViewModel(activity: Activity, dao: TestsTableDao, private val testId: 
     }
 
     fun saveData() {
-        if (_test.value != null) {
-            super.saveData(testId, _test.value!!)
-        }
+        super.saveData(testId, _test.value!!)
     }
 }

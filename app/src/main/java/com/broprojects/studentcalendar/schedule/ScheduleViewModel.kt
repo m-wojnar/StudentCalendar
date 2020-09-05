@@ -14,7 +14,7 @@ import java.util.*
 class ScheduleViewModel(activity: Activity, dao: SchedulesTableDao, private val scheduleId: Long?) :
     InputViewModel<Schedule>(activity, dao) {
 
-    private val _schedule = MutableLiveData<Schedule>()
+    private val _schedule = MutableLiveData(Schedule())
     val schedule: LiveData<Schedule>
         get() = _schedule
 
@@ -49,8 +49,6 @@ class ScheduleViewModel(activity: Activity, dao: SchedulesTableDao, private val 
     }
 
     fun saveData() {
-        if (_schedule.value != null) {
-            super.saveData(scheduleId, _schedule.value!!)
-        }
+        super.saveData(scheduleId, _schedule.value!!)
     }
 }

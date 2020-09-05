@@ -47,7 +47,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none"
-                    android:text="@{viewModel.schedule.type}" />
+                    android:text="@={viewModel.schedule.type}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -144,7 +144,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none"
-                    android:text="@{viewModel.schedule.location}" />
+                    android:text="@={viewModel.schedule.location}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -160,7 +160,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"
-                    android:text="@{viewModel.schedule.moreInfo}" />
+                    android:text="@={viewModel.schedule.moreInfo}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
@@ -171,7 +171,6 @@
                 android:layout_gravity="end"
                 android:clickable="true"
                 android:focusable="true"
-                android:onClick="@{() -> viewModel.saveData()}"
                 android:text="@string/save" />
 
         </LinearLayout>

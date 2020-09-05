@@ -4,10 +4,22 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Context
 import android.text.format.DateFormat
+import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.room.TypeConverter
 import com.broprojects.studentcalendar.R
+import com.google.android.material.textfield.TextInputLayout
 import java.util.*
+
+fun validateEmpty(fragment: Fragment, inputLayout: TextInputLayout, editText: TextView) =
+    if (editText.text.isNullOrEmpty()) {
+        inputLayout.error = fragment.getString(R.string.required)
+        false
+    } else {
+        inputLayout.error = null
+        true
+    }
 
 fun FragmentActivity.dateTimePickerDialog(func: (date: Date) -> Unit) {
     val currentDateTime = Calendar.getInstance()

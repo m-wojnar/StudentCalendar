@@ -1,12 +1,9 @@
 package com.broprojects.studentcalendar.task
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -15,8 +12,7 @@ import com.broprojects.studentcalendar.R
 import com.broprojects.studentcalendar.ToolbarActivity
 import com.broprojects.studentcalendar.database.CalendarDatabase
 import com.broprojects.studentcalendar.databinding.FragmentTaskBinding
-import com.broprojects.studentcalendar.helpers.dateTimePickerDialog
-import com.broprojects.studentcalendar.helpers.toDateTimeString
+import com.broprojects.studentcalendar.helpers.*
 
 class TaskFragment : Fragment() {
     override fun onCreateView(
@@ -84,20 +80,20 @@ class TaskFragment : Fragment() {
             }
         }
 
+        binding.saveButton.setOnClickListener {
+            val titleEmpty = validateEmpty(this, binding.titleTextLayout, binding.titleText)
+            val reminderEmpty = if (!binding.whenText.text.isNullOrEmpty()) {
+                    validateEmpty(this, binding.reminderTextLayout, binding.reminderText)
+                } else {
+                    true
+                }
+
+            if (titleEmpty && reminderEmpty) {
+                viewModel.saveData()
+            }
+        }
+
         return binding.root
     }
 }
 
-class ValueAdapter(context: Context, private val objects: Array<out ValueDropdownItem>) :
-    ArrayAdapter<ValueDropdownItem>(context, R.layout.icon_dropdown_menu_item, objects) {
-
-    override fun getCount() = objects.size
-
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val view = convertView ?:
-            LayoutInflater.from(context).inflate(R.layout.icon_dropdown_menu_item, parent, false)
-
-        view.findViewById<TextView>(R.id.dropdown_item_text).text = objects[position].text
-        return view
-    }
-}

@@ -1,13 +1,9 @@
 package com.broprojects.studentcalendar.course
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -16,6 +12,9 @@ import com.broprojects.studentcalendar.R
 import com.broprojects.studentcalendar.ToolbarActivity
 import com.broprojects.studentcalendar.database.CalendarDatabase
 import com.broprojects.studentcalendar.databinding.FragmentCourseBinding
+import com.broprojects.studentcalendar.helpers.IconAdapter
+import com.broprojects.studentcalendar.helpers.IconDropdownItem
+import com.broprojects.studentcalendar.helpers.validateEmpty
 
 class CourseFragment : Fragment() {
     override fun onCreateView(
@@ -70,22 +69,12 @@ class CourseFragment : Fragment() {
             }
         })
 
+        binding.saveButton.setOnClickListener {
+            if (validateEmpty(this, binding.nameTextLayout, binding.nameText)) {
+                viewModel.saveData()
+            }
+        }
+
         return binding.root
-    }
-}
-
-class IconAdapter(context: Context, private val objects: Array<out IconDropdownItem>) :
-    ArrayAdapter<IconDropdownItem>(context, R.layout.icon_dropdown_menu_item, objects) {
-
-    override fun getCount() = objects.size
-
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val view = convertView ?:
-            LayoutInflater.from(context).inflate(R.layout.icon_dropdown_menu_item, parent, false)
-
-        view.findViewById<ImageView>(R.id.dropdown_item_color).setBackgroundResource(objects[position].id)
-        view.findViewById<TextView>(R.id.dropdown_item_text).text = objects[position].name
-
-        return view
     }
 }

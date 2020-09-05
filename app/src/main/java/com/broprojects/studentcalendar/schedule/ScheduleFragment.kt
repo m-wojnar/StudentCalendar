@@ -13,10 +13,7 @@ import com.broprojects.studentcalendar.R
 import com.broprojects.studentcalendar.ToolbarActivity
 import com.broprojects.studentcalendar.database.CalendarDatabase
 import com.broprojects.studentcalendar.databinding.FragmentScheduleBinding
-import com.broprojects.studentcalendar.helpers.datePickerDialog
-import com.broprojects.studentcalendar.helpers.timePickerDialog
-import com.broprojects.studentcalendar.helpers.toDateString
-import com.broprojects.studentcalendar.helpers.toTimeString
+import com.broprojects.studentcalendar.helpers.*
 
 class ScheduleFragment : Fragment() {
     override fun onCreateView(
@@ -88,6 +85,17 @@ class ScheduleFragment : Fragment() {
             activity?.timePickerDialog {
                 viewModel.setWhenTime(it)
                 binding.whenText.setText(it.toTimeString(requireContext()))
+            }
+        }
+
+        binding.saveButton.setOnClickListener {
+            val courseEmpty = validateEmpty(this, binding.courseTextLayout, binding.courseText)
+            val whenEmpty = validateEmpty(this, binding.whenTextLayout, binding.whenText)
+            val startEmpty = validateEmpty(this, binding.startTextLayout, binding.startText)
+            val endEmpty = validateEmpty(this, binding.endTextLayout, binding.endText)
+
+            if (courseEmpty && whenEmpty && startEmpty && endEmpty) {
+                viewModel.saveData()
             }
         }
 

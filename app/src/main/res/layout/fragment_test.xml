@@ -47,7 +47,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none"
-                    android:text="@{viewModel.test.type}" />
+                    android:text="@={viewModel.test.type}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -64,7 +64,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:text="@{viewModel.test.subject}" />
+                    android:text="@={viewModel.test.subject}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -81,7 +81,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:text="@{viewModel.test.location}" />
+                    android:text="@={viewModel.test.location}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -115,7 +115,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"
-                    android:text="@{viewModel.test.moreInfo}" />
+                    android:text="@={viewModel.test.moreInfo}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
@@ -126,7 +126,6 @@
                 android:layout_gravity="end"
                 android:clickable="true"
                 android:focusable="true"
-                android:onClick="@{() -> viewModel.saveData()}"
                 android:text="@string/save" />
 
         </LinearLayout>

@@ -10,7 +10,7 @@ import com.broprojects.studentcalendar.helpers.InputViewModel
 class PersonViewModel(activity: Activity, dao: PeopleTableDao, private val personId: Long?) :
     InputViewModel<Person>(activity, dao) {
 
-    private val _person = MutableLiveData<Person>()
+    private val _person = MutableLiveData(Person())
     val person: LiveData<Person>
         get() = _person
 
@@ -21,8 +21,6 @@ class PersonViewModel(activity: Activity, dao: PeopleTableDao, private val perso
     }
 
     fun saveData() {
-        if (_person.value != null) {
-            super.saveData(personId, _person.value!!)
-        }
+        super.saveData(personId, _person.value!!)
     }
 }

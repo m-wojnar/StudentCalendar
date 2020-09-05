@@ -6,11 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import com.broprojects.studentcalendar.R
 import com.broprojects.studentcalendar.database.Course
 import com.broprojects.studentcalendar.database.CoursesTableDao
+import com.broprojects.studentcalendar.helpers.IconDropdownItem
 import com.broprojects.studentcalendar.helpers.InputViewModel
-
-data class IconDropdownItem(val name: String, val id: Int) {
-    override fun toString() = name
-}
 
 class CourseViewModel(activity: Activity, dao: CoursesTableDao, private val courseId: Long?) :
     InputViewModel<Course>(activity, dao) {
@@ -56,7 +53,7 @@ class CourseViewModel(activity: Activity, dao: CoursesTableDao, private val cour
         Pair(R.drawable.ic_baseline_wb_sunny_24, getString(R.string.sun))
     )
 
-    private val _course = MutableLiveData<Course>()
+    private val _course = MutableLiveData(Course())
     val course: LiveData<Course>
         get() = _course
 
@@ -75,8 +72,6 @@ class CourseViewModel(activity: Activity, dao: CoursesTableDao, private val cour
     }
 
     fun saveData() {
-        if (_course.value != null) {
-            super.saveData(courseId, _course.value!!)
-        }
+        super.saveData(courseId, _course.value!!)
     }
 }

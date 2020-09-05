@@ -42,7 +42,7 @@
         Student Calendar is an application designed especially for university students.\n\n
         This tool is an open source project - you can visit a github page provided below to see the code!\n
         https://github.com/maximax579/StudentCalendar\n\n
-        The author of this application is Maksymilian Wojnar, a first year student of Computer Science at AGH UST.
+        Copyright &#169; 2020, Maksymilian Wojnar
     </string>
 
     <string name="black">Black</string>
@@ -117,4 +117,5 @@
     <string name="person">Person</string>
     <string name="date_time">%1$s %2$s</string>
     <string name="subject">Subject</string>
+    <string name="required">*Required</string>
 </resources>

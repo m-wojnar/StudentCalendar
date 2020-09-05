@@ -12,6 +12,7 @@ import com.broprojects.studentcalendar.R
 import com.broprojects.studentcalendar.ToolbarActivity
 import com.broprojects.studentcalendar.database.CalendarDatabase
 import com.broprojects.studentcalendar.databinding.FragmentPersonBinding
+import com.broprojects.studentcalendar.helpers.validateEmpty
 
 class PersonFragment : Fragment() {
     override fun onCreateView(
@@ -52,6 +53,12 @@ class PersonFragment : Fragment() {
                 viewModel.goToMainFragmentDone()
             }
         })
+
+        binding.saveButton.setOnClickListener {
+            if (validateEmpty(this, binding.lastNameTextLayout, binding.lastNameText)) {
+                viewModel.saveData()
+            }
+        }
 
         return binding.root
     }

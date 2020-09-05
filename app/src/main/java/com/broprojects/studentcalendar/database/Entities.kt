@@ -9,62 +9,62 @@ import java.util.*
 @Entity(tableName = "courses")
 data class Course(
     @PrimaryKey(autoGenerate = true)
-    var courseId: Long?,
-    var name: String,
-    var iconId: Int?,
-    var colorId: Int?
+    var courseId: Long? = null,
+    var name: String = "",
+    var iconId: Int? = null,
+    var colorId: Int? = null
 )
 
 @Entity(tableName = "people")
 data class Person(
     @PrimaryKey(autoGenerate = true)
-    var personId: Long?,
-    var firstName: String?,
-    var lastName: String,
-    var title: String?,
-    var phone: String?,
-    var email: String?,
-    var location: String?,
-    var moreInfo: String?
+    var personId: Long? = null,
+    var firstName: String? = null,
+    var lastName: String = "",
+    var title: String? = null,
+    var phone: String? = null,
+    var email: String? = null,
+    var location: String? = null,
+    var moreInfo: String? = null
 )
 
 @Entity(tableName = "schedules")
 data class Schedule(
     @PrimaryKey(autoGenerate = true)
-    var scheduleId: Long?,
-    var courseId: Long,
-    var type: String?,
-    var whenTime: Date,
-    var startDate: Date,
-    var endDate: Date,
-    var personId: Long?,
-    var location: String?,
-    var moreInfo: String?
+    var scheduleId: Long? = null,
+    var courseId: Long = 0L,
+    var type: String? = null,
+    var whenTime: Date = Date(),
+    var startDate: Date = Date(),
+    var endDate: Date = Date(),
+    var personId: Long? = null,
+    var location: String? = null,
+    var moreInfo: String? = null
 )
 
 @Entity(tableName = "tests")
 data class Test(
     @PrimaryKey(autoGenerate = true)
-    var testId: Long?,
-    var courseId: Long,
-    var type: String?,
-    var subject: String?,
-    var location: String?,
-    var whenDateTime: Date,
-    var moreInfo: String?
+    var testId: Long? = null,
+    var courseId: Long = 0L,
+    var type: String? = null,
+    var subject: String = "",
+    var location: String? = null,
+    var whenDateTime: Date = Date(),
+    var moreInfo: String? = null
 )
 
 @Entity(tableName = "tasks")
 data class Task(
     @PrimaryKey(autoGenerate = true)
-    var taskId: Long?,
-    var courseId: Long?,
-    var title: String,
-    var priority: Long?,
-    var location: String?,
-    var whenDateTime: Date?,
-    var reminder: Long?,
-    var moreInfo: String?
+    var taskId: Long? = null,
+    var courseId: Long? = null,
+    var title: String = "",
+    var priority: Long? = null,
+    var location: String? = null,
+    var whenDateTime: Date? = null,
+    var reminder: Long? = null,
+    var moreInfo: String? = null
 )
 
 data class CourseWithTests(

@@ -15,6 +15,7 @@ import com.broprojects.studentcalendar.database.CalendarDatabase
 import com.broprojects.studentcalendar.databinding.FragmentTestBinding
 import com.broprojects.studentcalendar.helpers.dateTimePickerDialog
 import com.broprojects.studentcalendar.helpers.toDateTimeString
+import com.broprojects.studentcalendar.helpers.validateEmpty
 
 class TestFragment : Fragment() {
     override fun onCreateView(
@@ -69,6 +70,16 @@ class TestFragment : Fragment() {
             activity?.dateTimePickerDialog {
                 viewModel.setWhenDateTime(it)
                 binding.whenText.setText(it.toDateTimeString(requireContext()))
+            }
+        }
+
+        binding.saveButton.setOnClickListener {
+            val courseEmpty = validateEmpty(this, binding.courseTextLayout, binding.courseText)
+            val subjectEmpty = validateEmpty(this, binding.subjectTextLayout, binding.subjectText)
+            val whenEmpty = validateEmpty(this, binding.whenTextLayout, binding.whenText)
+
+            if (courseEmpty && subjectEmpty && whenEmpty) {
+                viewModel.saveData()
             }
         }
 
