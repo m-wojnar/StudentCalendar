@@ -48,7 +48,7 @@ class TaskFragment : Fragment() {
             (activity as ToolbarActivity).setActionBarText(R.string.update_task)
         }
 
-        viewModel.task.observe(viewLifecycleOwner, {
+        viewModel.model.observe(viewLifecycleOwner, {
             binding.priorityText.setText(viewModel.priorityTextMap[it.priority])
             binding.reminderText.setText(viewModel.remindersTextMap[it.reminder])
             binding.whenText.setText(it.whenDateTime?.toDateTimeString(requireContext()))

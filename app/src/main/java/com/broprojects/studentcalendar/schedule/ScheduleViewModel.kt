@@ -1,8 +1,6 @@
 package com.broprojects.studentcalendar.schedule
 
 import android.app.Activity
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.broprojects.studentcalendar.database.Schedule
 import com.broprojects.studentcalendar.database.SchedulesTableDao
@@ -11,44 +9,30 @@ import com.broprojects.studentcalendar.helpers.toDateString
 import com.broprojects.studentcalendar.helpers.toTimeString
 import java.util.*
 
-class ScheduleViewModel(activity: Activity, dao: SchedulesTableDao, private val scheduleId: Long?) :
-    InputViewModel<Schedule>(activity, dao) {
+class ScheduleViewModel(activity: Activity, dao: SchedulesTableDao, scheduleId: Long?) :
+    InputViewModel<Schedule>(activity, dao, scheduleId, Schedule()) {
 
-    private val _schedule = MutableLiveData(Schedule())
-    val schedule: LiveData<Schedule>
-        get() = _schedule
-
-    val whenTime = Transformations.map(schedule) {
-        schedule.value?.whenTime?.toTimeString(activity.applicationContext)
+    val whenTime = Transformations.map(modelMutableLiveData) {
+        modelMutableLiveData.value?.whenTime?.toTimeString(activity.applicationContext)
     }
 
-    val startDate = Transformations.map(schedule) {
-        schedule.value?.startDate?.toDateString(activity.applicationContext)
+    val startDate = Transformations.map(modelMutableLiveData) {
+        modelMutableLiveData.value?.startDate?.toDateString(activity.applicationContext)
     }
 
-    val endDate = Transformations.map(schedule) {
-        schedule.value?.endDate?.toDateString(activity.applicationContext)
-    }
-
-    init {
-        if (scheduleId != null) {
-            _schedule.value = getData(scheduleId)
-        }
+    val endDate = Transformations.map(modelMutableLiveData) {
+        modelMutableLiveData.value?.endDate?.toDateString(activity.applicationContext)
     }
 
     fun setWhenTime(whenTime: Date) {
-        _schedule.value?.whenTime = whenTime
+        modelMutableLiveData.value?.whenTime = whenTime
     }
 
     fun setStartDate(startDate: Date) {
-        _schedule.value?.startDate = startDate
+        modelMutableLiveData.value?.startDate = startDate
     }
 
     fun setEndDate(endDate: Date) {
-        _schedule.value?.endDate = endDate
-    }
-
-    fun saveData() {
-        super.saveData(scheduleId, _schedule.value!!)
+        modelMutableLiveData.value?.endDate = endDate
     }
 }

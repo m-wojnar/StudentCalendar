@@ -37,7 +37,7 @@ class CourseFragment : Fragment() {
             (activity as ToolbarActivity).setActionBarText(R.string.update_course)
         }
 
-        viewModel.course.observe(viewLifecycleOwner, {
+        viewModel.model.observe(viewLifecycleOwner, {
             binding.iconText.setText(viewModel.iconsTextMap[it.iconId])
             binding.colorText.setText(viewModel.colorsTextMap[it.colorId])
         })

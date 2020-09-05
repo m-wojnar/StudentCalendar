@@ -36,7 +36,7 @@ class ScheduleFragment : Fragment() {
             (activity as ToolbarActivity).setActionBarText(R.string.update_schedule)
         }
 
-        viewModel.schedule.observe(viewLifecycleOwner, {
+        viewModel.model.observe(viewLifecycleOwner, {
             binding.whenText.setText(it.whenTime.toTimeString(requireContext()))
             binding.startText.setText(it.startDate.toDateString(requireContext()))
             binding.endText.setText(it.endDate.toDateString(requireContext()))

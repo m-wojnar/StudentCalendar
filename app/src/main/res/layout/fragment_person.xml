@@ -33,7 +33,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:text="@={viewModel.person.firstName}" />
+                    android:text="@={viewModel.model.firstName}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -50,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:text="@={viewModel.person.lastName}" />
+                    android:text="@={viewModel.model.lastName}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -67,7 +67,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:text="@={viewModel.person.title}" />
+                    android:text="@={viewModel.model.title}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -84,7 +84,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="phone"
                     android:maxLines="1"
-                    android:text="@={viewModel.person.phone}" />
+                    android:text="@={viewModel.model.phone}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -101,7 +101,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
-                    android:text="@={viewModel.person.email}" />
+                    android:text="@={viewModel.model.email}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -118,7 +118,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:text="@={viewModel.person.location}" />
+                    android:text="@={viewModel.model.location}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -134,7 +134,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"
-                    android:text="@={viewModel.person.moreInfo}" />
+                    android:text="@={viewModel.model.moreInfo}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
@@ -145,6 +145,7 @@
                 android:layout_gravity="end"
                 android:clickable="true"
                 android:focusable="true"
+                android:onClick="@{() -> viewModel.saveData()}"
                 android:text="@string/save" />
 
         </LinearLayout>

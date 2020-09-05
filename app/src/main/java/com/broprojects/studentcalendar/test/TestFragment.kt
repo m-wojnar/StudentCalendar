@@ -38,7 +38,7 @@ class TestFragment : Fragment() {
             (activity as ToolbarActivity).setActionBarText(R.string.update_test)
         }
 
-        viewModel.test.observe(viewLifecycleOwner, {
+        viewModel.model.observe(viewLifecycleOwner, {
             binding.whenText.setText(it.whenDateTime.toDateTimeString(requireContext()))
         })
 

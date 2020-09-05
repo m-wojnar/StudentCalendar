@@ -1,8 +1,6 @@
 package com.broprojects.studentcalendar.task
 
 import android.app.Activity
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.broprojects.studentcalendar.R
 import com.broprojects.studentcalendar.database.Task
@@ -14,8 +12,8 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 
-class TaskViewModel(activity: Activity, dao: TasksTableDao, private val taskId: Long?) :
-    InputViewModel<Task>(activity, dao) {
+class TaskViewModel(activity: Activity, dao: TasksTableDao, taskId: Long?) :
+    InputViewModel<Task>(activity, dao, taskId, Task()) {
     val remindersArray = arrayOf(
         ValueDropdownItem(getString(R.string.five_min), TimeUnit.MINUTES.toMillis(5)),
         ValueDropdownItem(getString(R.string.ten_min), TimeUnit.MINUTES.toMillis(10)),
@@ -54,33 +52,19 @@ class TaskViewModel(activity: Activity, dao: TasksTableDao, private val taskId: 
         Pair(0L, getString(R.string.low))
     )
 
-    private val _task = MutableLiveData(Task())
-    val task: LiveData<Task>
-        get() = _task
-
-    val whenDateTime = Transformations.map(task) {
-        task.value?.whenDateTime?.toDateTimeString(activity.applicationContext)
-    }
-
-    init {
-        if (taskId != null) {
-            _task.value = getData(taskId)
-        }
+    val whenDateTime = Transformations.map(modelMutableLiveData) {
+        modelMutableLiveData.value?.whenDateTime?.toDateTimeString(activity.applicationContext)
     }
 
     fun setPriority(priority: Long) {
-        _task.value?.priority = priority
+        modelMutableLiveData.value?.priority = priority
     }
 
     fun setReminder(reminderTime: Long) {
-        _task.value?.reminder = reminderTime
+        modelMutableLiveData.value?.reminder = reminderTime
     }
 
     fun setWhenDateTime(whenDateTime: Date) {
-        _task.value?.whenDateTime = whenDateTime
-    }
-
-    fun saveData() {
-        super.saveData(taskId, _task.value!!)
+        modelMutableLiveData.value?.whenDateTime = whenDateTime
     }
 }

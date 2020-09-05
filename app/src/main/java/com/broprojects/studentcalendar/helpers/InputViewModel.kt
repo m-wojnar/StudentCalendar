@@ -11,7 +11,13 @@ import com.broprojects.studentcalendar.R
 import com.broprojects.studentcalendar.database.BaseDao
 import kotlinx.coroutines.*
 
-open class InputViewModel<T>(private val activity: Activity, private val dao: BaseDao<T>) : ViewModel() {
+open class InputViewModel<T>(
+    private val activity: Activity,
+    private val dao: BaseDao<T>,
+    private val id: Long?,
+    defaultModel: T
+) : ViewModel() {
+
     private val _colorStateList = MutableLiveData<ColorStateList>()
     val colorStateList: LiveData<ColorStateList>
         get() = _colorStateList
@@ -19,6 +25,10 @@ open class InputViewModel<T>(private val activity: Activity, private val dao: Ba
     private val _goToMainFragment = MutableLiveData<Boolean>()
     val goToMainFragment: LiveData<Boolean>
         get() = _goToMainFragment
+
+    protected val modelMutableLiveData = MutableLiveData(defaultModel)
+    val model: LiveData<T>
+        get() = modelMutableLiveData
 
     private val viewModelJob = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.Main + viewModelJob)
@@ -28,31 +38,42 @@ open class InputViewModel<T>(private val activity: Activity, private val dao: Ba
         val preferences = activity.getPreferences(Context.MODE_PRIVATE)
         val colorId = preferences.getInt(activity.getString(R.string.random_welcome_color), R.color.primary_color)
         _colorStateList.value = ContextCompat.getColorStateList(activity.applicationContext, colorId)!!
-    }
 
-    protected fun saveData(id: Long?, data: T) {
-        coroutineScope.launch {
-            withContext(Dispatchers.IO) {
-                if (id == null) {
-                    dao.insert(data)
-                } else {
-                    dao.update(data)
-                }
-            }
+        // If id != null, then user is updating data
+        if (id != null) {
+            getData()
         }
-
-        _goToMainFragment.value = true
-    }
-
-    fun getData(id: Long) = dao.get(id)
-
-    fun goToMainFragmentDone() {
-        _goToMainFragment.value = false
     }
 
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
+    }
+
+    fun saveData() {
+        if (id == null) {
+            dbOperation { dao.insert(modelMutableLiveData.value!!) }
+        } else {
+            dbOperation { dao.update(modelMutableLiveData.value!!) }
+        }
+
+        _goToMainFragment.value = true
+    }
+
+    private fun getData() {
+        dbOperation { modelMutableLiveData.postValue(dao.get(id!!)) }
+    }
+
+    private fun dbOperation(func: () -> Unit) {
+        coroutineScope.launch {
+            withContext(Dispatchers.IO) {
+                func()
+            }
+        }
+    }
+
+    fun goToMainFragmentDone() {
+        _goToMainFragment.value = false
     }
 
     protected fun getString(id: Int) = activity.getString(id)

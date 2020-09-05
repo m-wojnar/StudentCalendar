@@ -1,8 +1,6 @@
 package com.broprojects.studentcalendar.course
 
 import android.app.Activity
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.broprojects.studentcalendar.R
 import com.broprojects.studentcalendar.database.Course
 import com.broprojects.studentcalendar.database.CoursesTableDao
@@ -10,7 +8,7 @@ import com.broprojects.studentcalendar.helpers.IconDropdownItem
 import com.broprojects.studentcalendar.helpers.InputViewModel
 
 class CourseViewModel(activity: Activity, dao: CoursesTableDao, private val courseId: Long?) :
-    InputViewModel<Course>(activity, dao) {
+    InputViewModel<Course>(activity, dao, courseId, Course()) {
     val colorsItemsArray = arrayOf(
         IconDropdownItem(getString(R.string.orange), R.color.app_color_1),
         IconDropdownItem(getString(R.string.pink), R.color.app_color_2),
@@ -53,25 +51,11 @@ class CourseViewModel(activity: Activity, dao: CoursesTableDao, private val cour
         Pair(R.drawable.ic_baseline_wb_sunny_24, getString(R.string.sun))
     )
 
-    private val _course = MutableLiveData(Course())
-    val course: LiveData<Course>
-        get() = _course
-
-    init {
-        if (courseId != null) {
-            _course.value = getData(courseId)
-        }
-    }
-
     fun setColor(colorId: Int) {
-        _course.value?.colorId = colorId
+        modelMutableLiveData.value?.colorId = colorId
     }
 
     fun setIcon(iconId: Int) {
-        _course.value?.iconId = iconId
-    }
-
-    fun saveData() {
-        super.saveData(courseId, _course.value!!)
+        modelMutableLiveData.value?.iconId = iconId
     }
 }
