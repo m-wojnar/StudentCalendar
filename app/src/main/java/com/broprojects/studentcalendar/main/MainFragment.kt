@@ -32,6 +32,7 @@ class MainFragment : Fragment(), TabLayout.OnTabSelectedListener {
         val viewModelFactory = MainViewModelFactory(requireActivity())
         val viewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this
 
         // Get header of navigation drawer
         val navigationView = activity?.findViewById<NavigationView>(R.id.navigation_view)
@@ -56,7 +57,7 @@ class MainFragment : Fragment(), TabLayout.OnTabSelectedListener {
                 1 -> findNavController().navigate(MainFragmentDirections.actionMainFragmentToTaskFragment())
                 2 -> findNavController().navigate(MainFragmentDirections.actionMainFragmentToTestFragment())
                 3 -> findNavController().navigate(MainFragmentDirections.actionMainFragmentToScheduleFragment())
-                4 -> findNavController().navigate(MainFragmentDirections.actionMainFragmentToCourseFragment())
+                4 -> findNavController().navigate(MainFragmentDirections.actionMainFragmentToCourseFragment("1"))
                 5 -> findNavController().navigate(MainFragmentDirections.actionMainFragmentToPersonFragment())
                 else -> return@setOnClickListener
             }

@@ -31,6 +31,7 @@ class CourseFragment : Fragment() {
         val viewModelFactory = CourseViewModelFactory(requireActivity(), dao, args.courseId?.toLong())
         val viewModel = ViewModelProvider(this, viewModelFactory)[CourseViewModel::class.java]
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this
 
         // If user is updating data, change action bar title and fill text fields
         if (args.courseId != null) {
@@ -38,8 +39,8 @@ class CourseFragment : Fragment() {
         }
 
         viewModel.model.observe(viewLifecycleOwner, {
-            binding.iconText.setText(viewModel.iconsTextMap[it.iconId])
-            binding.colorText.setText(viewModel.colorsTextMap[it.colorId])
+            binding.iconText.setText(viewModel.iconsTextMap[it.iconId], false)
+            binding.colorText.setText(viewModel.colorsTextMap[it.colorId], false)
         })
 
         // Set app color theme on views

@@ -29,6 +29,7 @@ class TaskFragment : Fragment() {
         val viewModelFactory = TaskViewModelFactory(requireActivity(), dao, args.taskId?.toLong())
         val viewModel = ViewModelProvider(this, viewModelFactory)[TaskViewModel::class.java]
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this
 
         // Set app color theme on views
         viewModel.colorStateList.observe(viewLifecycleOwner, {
@@ -49,8 +50,8 @@ class TaskFragment : Fragment() {
         }
 
         viewModel.model.observe(viewLifecycleOwner, {
-            binding.priorityText.setText(viewModel.priorityTextMap[it.priority])
-            binding.reminderText.setText(viewModel.remindersTextMap[it.reminder])
+            binding.priorityText.setText(viewModel.priorityTextMap[it.priority], false)
+            binding.reminderText.setText(viewModel.remindersTextMap[it.reminder], false)
             binding.whenText.setText(it.whenDateTime?.toDateTimeString(requireContext()))
         })
 

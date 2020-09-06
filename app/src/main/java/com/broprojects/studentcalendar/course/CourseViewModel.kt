@@ -7,7 +7,7 @@ import com.broprojects.studentcalendar.database.CoursesTableDao
 import com.broprojects.studentcalendar.helpers.IconDropdownItem
 import com.broprojects.studentcalendar.helpers.InputViewModel
 
-class CourseViewModel(activity: Activity, dao: CoursesTableDao, private val courseId: Long?) :
+class CourseViewModel(activity: Activity, dao: CoursesTableDao, courseId: Long?) :
     InputViewModel<Course>(activity, dao, courseId, Course()) {
     val colorsItemsArray = arrayOf(
         IconDropdownItem(getString(R.string.orange), R.color.app_color_1),

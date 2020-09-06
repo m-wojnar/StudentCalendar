@@ -32,6 +32,7 @@ class TestFragment : Fragment() {
         val viewModelFactory = TestViewModelFactory(requireActivity(), dao, args.testId?.toLong())
         val viewModel = ViewModelProvider(this, viewModelFactory)[TestViewModel::class.java]
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this
 
         // If user is updating data, change action bar title and fill text fields
         if (args.testId != null) {

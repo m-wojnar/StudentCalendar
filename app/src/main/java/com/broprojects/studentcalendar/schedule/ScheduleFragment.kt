@@ -30,6 +30,7 @@ class ScheduleFragment : Fragment() {
         val viewModelFactory = ScheduleViewModelFactory(requireActivity(), dao, args.scheduleId?.toLong())
         val viewModel = ViewModelProvider(this, viewModelFactory)[ScheduleViewModel::class.java]
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this
 
         // If user is updating data, change action bar title and fill text fields
         if (args.scheduleId != null) {

@@ -9,7 +9,7 @@ class StudentCalendarApplication: Application() {
         super.onCreate()
 
         val preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
-        val darkTheme = preferences.getBoolean(getString(R.string.theme_preference), false)
+        val darkTheme = preferences.getBoolean(getString(R.string.theme_preference), true)
 
         if (darkTheme) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)

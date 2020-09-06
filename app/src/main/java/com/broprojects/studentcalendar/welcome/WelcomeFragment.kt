@@ -28,6 +28,7 @@ class WelcomeFragment : Fragment() {
         val viewModelFactory = WelcomeViewModelFactory(requireActivity())
         viewModel = ViewModelProvider(this, viewModelFactory)[WelcomeViewModel::class.java]
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this
 
         viewModel.color.observe(viewLifecycleOwner, {
             binding.linearLayout.setBackgroundResource(it)

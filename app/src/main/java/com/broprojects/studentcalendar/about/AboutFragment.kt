@@ -17,6 +17,7 @@ class AboutFragment : Fragment() {
         val binding: FragmentAboutBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_about, container,false
         )
+        binding.lifecycleOwner = this
 
         return binding.root
     }

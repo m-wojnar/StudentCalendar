@@ -29,6 +29,7 @@ class PersonFragment : Fragment() {
         val viewModelFactory = PersonViewModelFactory(requireActivity(), peopleDao, args.personId?.toLong())
         val viewModel = ViewModelProvider(this, viewModelFactory)[PersonViewModel::class.java]
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this
 
         // If user is updating data, change action bar title and fill text fields
         if (args.personId != null) {
