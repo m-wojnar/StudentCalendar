@@ -1,19 +1,22 @@
 package com.broprojects.studentcalendar.task
 
 import android.app.Activity
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.broprojects.studentcalendar.R
-import com.broprojects.studentcalendar.database.Task
-import com.broprojects.studentcalendar.database.TasksTableDao
+import com.broprojects.studentcalendar.database.*
 import com.broprojects.studentcalendar.helpers.InputViewModel
 import com.broprojects.studentcalendar.helpers.ValueDropdownItem
-import com.broprojects.studentcalendar.helpers.toDateTimeString
 import java.util.*
 import java.util.concurrent.TimeUnit
 
 
-class TaskViewModel(activity: Activity, dao: TasksTableDao, taskId: Long?) :
-    InputViewModel<Task>(activity, dao, taskId, Task()) {
+class TaskViewModel(
+    activity: Activity,
+    dao: TasksTableDao,
+    private val coursesDao: CoursesTableDao,
+    taskId: Long?
+) : InputViewModel<Task>(activity, dao, taskId, Task()) {
     val remindersArray = arrayOf(
         ValueDropdownItem(getString(R.string.five_min), TimeUnit.MINUTES.toMillis(5)),
         ValueDropdownItem(getString(R.string.ten_min), TimeUnit.MINUTES.toMillis(10)),
@@ -52,8 +55,26 @@ class TaskViewModel(activity: Activity, dao: TasksTableDao, taskId: Long?) :
         Pair(0L, getString(R.string.low))
     )
 
-    val whenDateTime = Transformations.map(modelMutableLiveData) {
-        modelMutableLiveData.value?.whenDateTime?.toDateTimeString(activity.applicationContext)
+    private val coursesMutableLiveData = MutableLiveData<List<CoursesDropdownItem>>()
+    val coursesList: LiveData<List<CoursesDropdownItem>>
+        get() = coursesMutableLiveData
+
+    private val selectedCourseMutableLiveData = MutableLiveData<Course>()
+    val selectedCourse: LiveData<Course>
+        get() = selectedCourseMutableLiveData
+
+    init {
+        dbOperation { coursesMutableLiveData.postValue(coursesDao.getDropdownList()) }
+    }
+
+    fun loadCourseName() {
+        if (model.value?.courseId != null ){
+            dbOperation { selectedCourseMutableLiveData.postValue(coursesDao.get(model.value?.courseId!!)) }
+        }
+    }
+
+    fun setCourse(courseId: Long) {
+        modelMutableLiveData.value?.courseId = courseId
     }
 
     fun setPriority(priority: Long) {

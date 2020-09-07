@@ -25,9 +25,14 @@ class ScheduleFragment : Fragment() {
         )
 
         val args = ScheduleFragmentArgs.fromBundle(requireArguments())
-        val dao = CalendarDatabase.getInstance(requireContext()).schedulesTableDao
+        val database = CalendarDatabase.getInstance(requireContext())
 
-        val viewModelFactory = ScheduleViewModelFactory(requireActivity(), dao, args.scheduleId?.toLong())
+        val dao = database.schedulesTableDao
+        val coursesDao = database.coursesTableDao
+        val peopleDao = database.peopleTableDao
+
+        val viewModelFactory =
+            ScheduleViewModelFactory(requireActivity(), dao, coursesDao, peopleDao, args.scheduleId?.toLong())
         val viewModel = ViewModelProvider(this, viewModelFactory)[ScheduleViewModel::class.java]
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
@@ -38,9 +43,23 @@ class ScheduleFragment : Fragment() {
         }
 
         viewModel.model.observe(viewLifecycleOwner, {
-            binding.whenText.setText(it.whenTime.toTimeString(requireContext()))
-            binding.startText.setText(it.startDate.toDateString(requireContext()))
-            binding.endText.setText(it.endDate.toDateString(requireContext()))
+            binding.whenText.setText(it.whenTime?.toTimeString(requireContext()))
+            binding.startText.setText(it.startDate?.toDateString(requireContext()))
+            binding.endText.setText(it.endDate?.toDateString(requireContext()))
+            viewModel.loadCourseAndPersonName()
+        })
+
+        // If model LiveData has already been loaded, load course and person from database
+        viewModel.selectedCourse.observe(viewLifecycleOwner, {
+            if (it != null) {
+                binding.courseText.setText(it.name, false)
+            }
+        })
+
+        viewModel.selectedPerson.observe(viewLifecycleOwner, {
+            if (it != null) {
+                binding.personText.setText(it.toString(), false)
+            }
         })
 
         // Set app color theme on views
@@ -55,18 +74,33 @@ class ScheduleFragment : Fragment() {
             binding.infoTextLayout.setBoxStrokeColorStateList(it)
         })
 
-        viewModel.goToMainFragment.observe(viewLifecycleOwner, {
-            if (it == true) {
-                findNavController().navigate(ScheduleFragmentDirections.actionScheduleFragmentToMainFragment())
-                viewModel.goToMainFragmentDone()
+        binding.typeText.setAdapter(
+            ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_dropdown_item_1line,
+                resources.getStringArray(R.array.schedule_array)
+            )
+        )
+
+        // Load courses dropdown items and set list in adapter
+        viewModel.coursesList.observe(viewLifecycleOwner, { dropdownList ->
+            binding.courseText.setAdapter(
+                ValueAdapter(requireContext(), dropdownList.map { it.toValueDropdownItem() }.toTypedArray())
+            )
+            binding.courseText.setOnItemClickListener { adapterView, _, position, _ ->
+                viewModel.setCourse((adapterView.getItemAtPosition(position) as ValueDropdownItem).value)
             }
         })
 
-        binding.typeText.setAdapter(ArrayAdapter(
-            requireContext(),
-            android.R.layout.simple_dropdown_item_1line,
-            resources.getStringArray(R.array.schedule_array)
-        ))
+        // Load people dropdown items and set list in adapter
+        viewModel.peopleList.observe(viewLifecycleOwner, { dropdownList ->
+            binding.personText.setAdapter(
+                ValueAdapter(requireContext(), dropdownList.map { it.toValueDropdownItem() }.toTypedArray())
+            )
+            binding.personText.setOnItemClickListener { adapterView, _, position, _ ->
+                viewModel.setPerson((adapterView.getItemAtPosition(position) as ValueDropdownItem).value)
+            }
+        })
 
         binding.startText.setOnClickListener {
             activity?.datePickerDialog {
@@ -90,6 +124,7 @@ class ScheduleFragment : Fragment() {
         }
 
         binding.saveButton.setOnClickListener {
+            // Validate input fields
             val courseEmpty = validateEmpty(this, binding.courseTextLayout, binding.courseText)
             val whenEmpty = validateEmpty(this, binding.whenTextLayout, binding.whenText)
             val startEmpty = validateEmpty(this, binding.startTextLayout, binding.startText)
@@ -99,6 +134,13 @@ class ScheduleFragment : Fragment() {
                 viewModel.saveData()
             }
         }
+
+        viewModel.goToMainFragment.observe(viewLifecycleOwner, {
+            if (it == true) {
+                findNavController().navigate(ScheduleFragmentDirections.actionScheduleFragmentToMainFragment())
+                viewModel.goToMainFragmentDone()
+            }
+        })
 
         return binding.root
     }

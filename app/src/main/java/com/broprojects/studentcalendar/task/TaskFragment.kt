@@ -24,9 +24,12 @@ class TaskFragment : Fragment() {
         )
 
         val args = TaskFragmentArgs.fromBundle(requireArguments())
-        val dao = CalendarDatabase.getInstance(requireContext()).tasksTableDao
+        val database = CalendarDatabase.getInstance(requireContext())
 
-        val viewModelFactory = TaskViewModelFactory(requireActivity(), dao, args.taskId?.toLong())
+        val dao = database.tasksTableDao
+        val coursesDao = database.coursesTableDao
+
+        val viewModelFactory = TaskViewModelFactory(requireActivity(), dao, coursesDao, args.taskId?.toLong())
         val viewModel = ViewModelProvider(this, viewModelFactory)[TaskViewModel::class.java]
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
@@ -53,26 +56,35 @@ class TaskFragment : Fragment() {
             binding.priorityText.setText(viewModel.priorityTextMap[it.priority], false)
             binding.reminderText.setText(viewModel.remindersTextMap[it.reminder], false)
             binding.whenText.setText(it.whenDateTime?.toDateTimeString(requireContext()))
+            viewModel.loadCourseName()
         })
 
-        viewModel.goToMainFragment.observe(viewLifecycleOwner, {
-            if (it == true) {
-                findNavController().navigate(TaskFragmentDirections.actionTaskFragmentToMainFragment())
-                viewModel.goToMainFragmentDone()
+        // If model LiveData has already been loaded, load course from database
+        viewModel.selectedCourse.observe(viewLifecycleOwner, {
+            if (it != null) {
+                binding.courseText.setText(it.name, false)
             }
         })
 
-        // Setup adapter for priority picker and save value in selectedPriority
         binding.priorityText.setAdapter(ValueAdapter(requireContext(), viewModel.priorityArray))
         binding.priorityText.setOnItemClickListener { adapterView, _, position, _ ->
             viewModel.setPriority((adapterView.getItemAtPosition(position) as ValueDropdownItem).value)
         }
 
-        // Setup adapter for time picker and save time in selectedReminderTime
         binding.reminderText.setAdapter(ValueAdapter(requireContext(), viewModel.remindersArray))
         binding.reminderText.setOnItemClickListener { adapterView, _, position, _ ->
             viewModel.setReminder((adapterView.getItemAtPosition(position) as ValueDropdownItem).value)
         }
+
+        // Load courses dropdown items and set list in adapter
+        viewModel.coursesList.observe(viewLifecycleOwner, { dropdownList ->
+            binding.courseText.setAdapter(
+                ValueAdapter(requireContext(), dropdownList.map { it.toValueDropdownItem() }.toTypedArray())
+            )
+            binding.courseText.setOnItemClickListener { adapterView, _, position, _ ->
+                viewModel.setCourse((adapterView.getItemAtPosition(position) as ValueDropdownItem).value)
+            }
+        })
 
         binding.whenText.setOnClickListener {
             activity?.dateTimePickerDialog {
@@ -82,17 +94,25 @@ class TaskFragment : Fragment() {
         }
 
         binding.saveButton.setOnClickListener {
+            // Validate input fields
             val titleEmpty = validateEmpty(this, binding.titleTextLayout, binding.titleText)
-            val reminderEmpty = if (!binding.whenText.text.isNullOrEmpty()) {
-                    validateEmpty(this, binding.reminderTextLayout, binding.reminderText)
-                } else {
-                    true
-                }
+            var whenEmpty = true
 
-            if (titleEmpty && reminderEmpty) {
+            if (!binding.reminderText.text.isNullOrEmpty()) {
+                whenEmpty = validateEmpty(this, binding.whenTextLayout, binding.whenText)
+            }
+
+            if (titleEmpty && whenEmpty) {
                 viewModel.saveData()
             }
         }
+
+        viewModel.goToMainFragment.observe(viewLifecycleOwner, {
+            if (it == true) {
+                findNavController().navigate(TaskFragmentDirections.actionTaskFragmentToMainFragment())
+                viewModel.goToMainFragmentDone()
+            }
+        })
 
         return binding.root
     }

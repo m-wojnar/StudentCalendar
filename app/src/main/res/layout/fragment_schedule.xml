@@ -64,8 +64,7 @@
                     android:layout_height="wrap_content"
                     android:clickable="true"
                     android:focusable="false"
-                    android:inputType="textCapWords"
-                    android:text="@{viewModel.whenTime}" />
+                    android:inputType="textCapWords" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
@@ -90,8 +89,7 @@
                         android:layout_height="wrap_content"
                         android:clickable="true"
                         android:focusable="false"
-                        android:inputType="textCapWords"
-                        android:text="@{viewModel.startDate}" />
+                        android:inputType="textCapWords" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -110,8 +108,7 @@
                         android:layout_height="wrap_content"
                         android:clickable="true"
                         android:focusable="false"
-                        android:inputType="textCapWords"
-                        android:text="@{viewModel.endDate}" />
+                        android:inputType="textCapWords" />
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>

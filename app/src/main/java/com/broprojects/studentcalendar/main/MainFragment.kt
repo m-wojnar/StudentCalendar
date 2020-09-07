@@ -57,7 +57,7 @@ class MainFragment : Fragment(), TabLayout.OnTabSelectedListener {
                 1 -> findNavController().navigate(MainFragmentDirections.actionMainFragmentToTaskFragment())
                 2 -> findNavController().navigate(MainFragmentDirections.actionMainFragmentToTestFragment())
                 3 -> findNavController().navigate(MainFragmentDirections.actionMainFragmentToScheduleFragment())
-                4 -> findNavController().navigate(MainFragmentDirections.actionMainFragmentToCourseFragment("1"))
+                4 -> findNavController().navigate(MainFragmentDirections.actionMainFragmentToCourseFragment())
                 5 -> findNavController().navigate(MainFragmentDirections.actionMainFragmentToPersonFragment())
                 else -> return@setOnClickListener
             }

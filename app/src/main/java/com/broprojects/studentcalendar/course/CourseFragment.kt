@@ -63,18 +63,19 @@ class CourseFragment : Fragment() {
             viewModel.setIcon((adapterView.getItemAtPosition(position) as IconDropdownItem).id)
         }
 
+        binding.saveButton.setOnClickListener {
+            // Validate input fields
+            if (validateEmpty(this, binding.nameTextLayout, binding.nameText)) {
+                viewModel.saveData()
+            }
+        }
+
         viewModel.goToMainFragment.observe(viewLifecycleOwner, {
             if (it == true) {
                 findNavController().navigate(CourseFragmentDirections.actionCourseFragmentToMainFragment())
                 viewModel.goToMainFragmentDone()
             }
         })
-
-        binding.saveButton.setOnClickListener {
-            if (validateEmpty(this, binding.nameTextLayout, binding.nameText)) {
-                viewModel.saveData()
-            }
-        }
 
         return binding.root
     }

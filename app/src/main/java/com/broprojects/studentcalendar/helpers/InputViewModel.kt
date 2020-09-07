@@ -41,7 +41,7 @@ open class InputViewModel<T>(
 
         // If id != null, then user is updating data
         if (id != null) {
-            getData()
+            loadData()
         }
     }
 
@@ -60,11 +60,11 @@ open class InputViewModel<T>(
         _goToMainFragment.value = true
     }
 
-    private fun getData() {
+    private fun loadData() {
         dbOperation { modelMutableLiveData.postValue(dao.get(id!!)) }
     }
 
-    private fun dbOperation(func: () -> Unit) {
+    protected fun dbOperation(func: () -> Unit) {
         coroutineScope.launch {
             withContext(Dispatchers.IO) {
                 func()

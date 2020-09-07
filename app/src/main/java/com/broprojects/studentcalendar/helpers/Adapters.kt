@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.room.Ignore
 import com.broprojects.studentcalendar.R
 
 data class IconDropdownItem(val name: String, val id: Int) {
@@ -29,7 +30,10 @@ class IconAdapter(context: Context, private val objects: Array<out IconDropdownI
     }
 }
 
-data class ValueDropdownItem(val text: String, val value: Long) {
+open class ValueDropdownItem(
+    @Ignore open val text: String,
+    @Ignore val value: Long
+) {
     override fun toString() = text
 }
 

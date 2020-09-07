@@ -56,6 +56,7 @@ class PersonFragment : Fragment() {
         })
 
         binding.saveButton.setOnClickListener {
+            // Validate input fields
             if (validateEmpty(this, binding.lastNameTextLayout, binding.lastNameText)) {
                 viewModel.saveData()
             }

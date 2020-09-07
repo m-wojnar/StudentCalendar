@@ -4,6 +4,7 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.Relation
+import com.broprojects.studentcalendar.helpers.ValueDropdownItem
 import java.util.*
 
 @Entity(tableName = "courses")
@@ -26,7 +27,9 @@ data class Person(
     var email: String? = null,
     var location: String? = null,
     var moreInfo: String? = null
-)
+) {
+    override fun toString() = "$lastName ${firstName ?: ""}"
+}
 
 @Entity(tableName = "schedules")
 data class Schedule(
@@ -34,9 +37,9 @@ data class Schedule(
     var scheduleId: Long? = null,
     var courseId: Long = 0L,
     var type: String? = null,
-    var whenTime: Date = Date(),
-    var startDate: Date = Date(),
-    var endDate: Date = Date(),
+    var whenTime: Date? = null,
+    var startDate: Date? = null,
+    var endDate: Date? = null,
     var personId: Long? = null,
     var location: String? = null,
     var moreInfo: String? = null
@@ -50,7 +53,7 @@ data class Test(
     var type: String? = null,
     var subject: String = "",
     var location: String? = null,
-    var whenDateTime: Date = Date(),
+    var whenDateTime: Date? = null,
     var moreInfo: String? = null
 )
 
@@ -102,3 +105,11 @@ data class PersonWithSchedulesAndLocation(
     )
     var schedule: List<Schedule>,
 )
+
+data class CoursesDropdownItem(val name: String, val courseId: Long): ToValueItem {
+    override fun toValueDropdownItem() = ValueDropdownItem(name, courseId)
+}
+
+data class PeopleDropdownItem(val lastName: String, val firstName: String?, val personId: Long): ToValueItem {
+    override fun toValueDropdownItem() = ValueDropdownItem("$lastName ${firstName ?: ""}", personId)
+}

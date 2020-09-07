@@ -13,9 +13,7 @@ import com.broprojects.studentcalendar.R
 import com.broprojects.studentcalendar.ToolbarActivity
 import com.broprojects.studentcalendar.database.CalendarDatabase
 import com.broprojects.studentcalendar.databinding.FragmentTestBinding
-import com.broprojects.studentcalendar.helpers.dateTimePickerDialog
-import com.broprojects.studentcalendar.helpers.toDateTimeString
-import com.broprojects.studentcalendar.helpers.validateEmpty
+import com.broprojects.studentcalendar.helpers.*
 
 class TestFragment : Fragment() {
     override fun onCreateView(
@@ -27,9 +25,12 @@ class TestFragment : Fragment() {
         )
 
         val args = TestFragmentArgs.fromBundle(requireArguments())
-        val dao = CalendarDatabase.getInstance(requireContext()).testsTableDao
+        val database = CalendarDatabase.getInstance(requireContext())
 
-        val viewModelFactory = TestViewModelFactory(requireActivity(), dao, args.testId?.toLong())
+        val dao = database.testsTableDao
+        val coursesDao = database.coursesTableDao
+
+        val viewModelFactory = TestViewModelFactory(requireActivity(), dao, coursesDao, args.testId?.toLong())
         val viewModel = ViewModelProvider(this, viewModelFactory)[TestViewModel::class.java]
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
@@ -40,7 +41,15 @@ class TestFragment : Fragment() {
         }
 
         viewModel.model.observe(viewLifecycleOwner, {
-            binding.whenText.setText(it.whenDateTime.toDateTimeString(requireContext()))
+            binding.whenText.setText(it.whenDateTime?.toDateTimeString(requireContext()))
+            viewModel.loadCourseName()
+        })
+
+        // If model LiveData has already been loaded, load course from database
+        viewModel.selectedCourse.observe(viewLifecycleOwner, {
+            if (it != null) {
+                binding.courseText.setText(it.name, false)
+            }
         })
 
         // Set app color theme on views
@@ -54,18 +63,21 @@ class TestFragment : Fragment() {
             binding.infoTextLayout.setBoxStrokeColorStateList(it)
         })
 
-        viewModel.goToMainFragment.observe(viewLifecycleOwner, {
-            if (it == true) {
-                findNavController().navigate(TestFragmentDirections.actionTestFragmentToMainFragment())
-                viewModel.goToMainFragmentDone()
-            }
-        })
-
         binding.typeText.setAdapter(ArrayAdapter(
             requireContext(),
             android.R.layout.simple_dropdown_item_1line,
             resources.getStringArray(R.array.test_array)
         ))
+
+        // Load courses dropdown items and set list in adapter
+        viewModel.coursesList.observe(viewLifecycleOwner, { dropdownList ->
+            binding.courseText.setAdapter(
+                ValueAdapter(requireContext(), dropdownList.map { it.toValueDropdownItem() }.toTypedArray())
+            )
+            binding.courseText.setOnItemClickListener { adapterView, _, position, _ ->
+                viewModel.setCourse((adapterView.getItemAtPosition(position) as ValueDropdownItem).value)
+            }
+        })
 
         binding.whenText.setOnClickListener {
             activity?.dateTimePickerDialog {
@@ -75,6 +87,7 @@ class TestFragment : Fragment() {
         }
 
         binding.saveButton.setOnClickListener {
+            // Validate input fields
             val courseEmpty = validateEmpty(this, binding.courseTextLayout, binding.courseText)
             val subjectEmpty = validateEmpty(this, binding.subjectTextLayout, binding.subjectText)
             val whenEmpty = validateEmpty(this, binding.whenTextLayout, binding.whenText)
@@ -83,6 +96,13 @@ class TestFragment : Fragment() {
                 viewModel.saveData()
             }
         }
+
+        viewModel.goToMainFragment.observe(viewLifecycleOwner, {
+            if (it == true) {
+                findNavController().navigate(TestFragmentDirections.actionTestFragmentToMainFragment())
+                viewModel.goToMainFragmentDone()
+            }
+        })
 
         return binding.root
     }

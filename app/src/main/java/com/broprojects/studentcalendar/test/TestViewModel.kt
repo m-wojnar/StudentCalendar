@@ -1,21 +1,42 @@
 package com.broprojects.studentcalendar.test
 
 import android.app.Activity
-import androidx.lifecycle.Transformations
-import com.broprojects.studentcalendar.database.Test
-import com.broprojects.studentcalendar.database.TestsTableDao
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.broprojects.studentcalendar.database.*
 import com.broprojects.studentcalendar.helpers.InputViewModel
-import com.broprojects.studentcalendar.helpers.toDateTimeString
 import java.util.*
 
-class TestViewModel(activity: Activity, dao: TestsTableDao, testId: Long?) :
-    InputViewModel<Test>(activity, dao, testId, Test()) {
+class TestViewModel(
+    activity: Activity,
+    dao: TestsTableDao,
+    private val coursesDao: CoursesTableDao,
+    testId: Long?
+) : InputViewModel<Test>(activity, dao, testId, Test()) {
 
-    val whenDateTime = Transformations.map(modelMutableLiveData) {
-        modelMutableLiveData.value?.whenDateTime?.toDateTimeString(activity.applicationContext)
+    private val coursesMutableLiveData = MutableLiveData<List<CoursesDropdownItem>>()
+    val coursesList: LiveData<List<CoursesDropdownItem>>
+        get() = coursesMutableLiveData
+
+    private val selectedCourseMutableLiveData = MutableLiveData<Course>()
+    val selectedCourse: LiveData<Course>
+        get() = selectedCourseMutableLiveData
+
+    init {
+        dbOperation { coursesMutableLiveData.postValue(coursesDao.getDropdownList()) }
+    }
+
+    fun loadCourseName() {
+        if (model.value?.courseId != null ){
+            dbOperation { selectedCourseMutableLiveData.postValue(coursesDao.get(model.value?.courseId!!)) }
+        }
     }
 
     fun setWhenDateTime(whenDateTime: Date) {
         modelMutableLiveData.value?.whenDateTime = whenDateTime
+    }
+
+    fun setCourse(courseId: Long) {
+        modelMutableLiveData.value?.courseId = courseId
     }
 }
