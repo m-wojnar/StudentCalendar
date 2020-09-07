@@ -1,5 +1,7 @@
 package com.broprojects.studentcalendar
 
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -14,6 +16,7 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.preference.PreferenceManager
 import com.broprojects.studentcalendar.databinding.ActivityMainBinding
+import com.broprojects.studentcalendar.intro.StudentCalendarIntro
 import com.broprojects.studentcalendar.main.MainFragmentDirections
 
 interface ToolbarActivity {
@@ -32,11 +35,20 @@ class MainActivity : AppCompatActivity(), ToolbarActivity {
     private lateinit var navController: NavController
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var binding: ActivityMainBinding
+    private lateinit var preferences: SharedPreferences
     private val animationDuration = 300L
-    private var whiteTheme = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+        val showIntro = preferences.getBoolean(getString(R.string.show_intro), true)
+
+        // Go to intro screen only on first startup
+        if (showIntro) {
+            goToIntroActivity()
+        }
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         // Setup navigation by navigation drawer
@@ -49,9 +61,7 @@ class MainActivity : AppCompatActivity(), ToolbarActivity {
         setSupportActionBar(binding.toolbar)
         setupActionBarWithNavController(navController, drawerLayout)
 
-        val preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
         val showWelcome = preferences.getBoolean(getString(R.string.show_welcome_preference), true)
-        whiteTheme = preferences.getBoolean(getString(R.string.theme_preference), false)
 
         // Go to welcome screen on startup
         if (showWelcome) {
@@ -74,6 +84,12 @@ class MainActivity : AppCompatActivity(), ToolbarActivity {
 
     private fun goToWelcomeFragment(): Boolean {
         navController.navigate(MainFragmentDirections.actionMainFragmentToWelcomeFragment())
+        return true
+    }
+
+    private fun goToIntroActivity(): Boolean {
+        preferences.edit().putBoolean(getString(R.string.show_intro), false).apply()
+        startActivity(Intent(this, StudentCalendarIntro::class.java))
         return true
     }
 

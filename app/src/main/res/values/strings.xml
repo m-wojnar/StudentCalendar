@@ -1,12 +1,11 @@
 <resources>
-    <string name="app_name">Student Calendar</string>
+    <string name="app_name" translatable="false">Student Calendar</string>
 
-    <string name="welcome_1">Welcome to our app!</string>
+    <string name="welcome_1">Welcome to my app!</string>
     <string name="welcome_2">Good morning!</string>
     <string name="welcome_3">Have a nice day!</string>
     <string name="welcome_4">Organise your day</string>
     <string name="welcome_5">Hello, bonjour, hola!</string>
-    <string name="welcome_6">It\'s student calendar!</string>
     <string name="welcome_7">Surprise!</string>
 
     <string name="your_day">Your day</string>
@@ -32,11 +31,11 @@
     <string name="settings">Settings</string>
     <string name="about">About</string>
 
-    <string name="random_welcome_text">random_welcome_text</string>
-    <string name="random_welcome_icon">random_welcome_icon</string>
-    <string name="random_welcome_color">random_welcome_color</string>
-    <string name="show_welcome_preference">show_welcome_preference</string>
-    <string name="theme_preference">theme_preference</string>
+    <string name="random_welcome_text" translatable="false">random_welcome_text</string>
+    <string name="random_welcome_color" translatable="false">random_welcome_color</string>
+    <string name="show_welcome_preference" translatable="false">show_welcome_preference</string>
+    <string name="theme_preference" translatable="false">theme_preference</string>
+    <string name="show_intro" translatable="false">show_intro</string>
 
     <string name="about_text">
         Student Calendar is an application designed especially for university students.\n\n
@@ -45,12 +44,9 @@
         Copyright &#169; 2020, Maksymilian Wojnar
     </string>
 
-    <string name="black">Black</string>
-    <string name="white">White</string>
-
     <string name="show_welcome">Show welcome screen</string>
     <string name="select_theme">Dark theme</string>
-    <string name="welcome_again">Welcome again!</string>
+    <string name="welcome_again" translatable="false">Welcome again!</string>
 
     <string name="name">Name</string>
     <string name="save">Save</string>
@@ -115,7 +111,20 @@
     <string name="priority">Priority</string>
     <string name="reminder">Reminder</string>
     <string name="person">Person</string>
-    <string name="date_time">%1$s %2$s</string>
+    <string name="date_time" translatable="false">%1$s %2$s</string>
     <string name="subject">Subject</string>
     <string name="required">*Required</string>
+
+    <string name="start_tutorial">Start tutorial</string>
+    <string name="introduction_1">Welcome to Student Calendar! Here is a quick tutorial on how to use my app, let me show you!</string>
+    <string name="first_steps">First steps</string>
+    <string name="first_steps_text_2">To start use this app, you have to add some basic information, so we can start organising your time.</string>
+    <string name="first_steps_text_3">Firstly, you have to add some courses that you attend (tab \"Courses\" and \"+\" button)…</string>
+    <string name="first_steps_text_4">…and academic teachers that are responsible for that courses (tab \"People\").</string>
+    <string name="setup_your_day">Setup your day</string>
+    <string name="setup_your_day_5">Now you can setup your schedules, add tests and exams - we will show all of that on \"Your day\" page.</string>
+    <string name="setup_your_day_6">You can also add some important tasks and set a reminders - all you have to do will be shown on \"Your day\" page.</string>
+    <string name="settings_7">Take a look at the settings page! You can turn on and off welcome screen or switch between light and dark theme.</string>
+    <string name="text_8">That\' all! I hope that you will enjoy using my app, so let\'s begin!</string>
+    <string name="welcome_6">It\'s Sudent Calendar!</string>
 </resources>

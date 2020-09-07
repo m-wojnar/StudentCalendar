@@ -140,4 +140,9 @@
         android:id="@+id/preferencesFragment"
         android:name="com.broprojects.studentcalendar.settings.PreferencesFragment"
         android:label="@string/settings" />
+    <activity
+        android:id="@+id/studentCalendarIntro"
+        android:name="com.broprojects.studentcalendar.intro.StudentCalendarIntro"
+        tools:layout="@layout/appintro_intro_layout"
+        android:label="StudentCalendarIntro" />
 </navigation>
