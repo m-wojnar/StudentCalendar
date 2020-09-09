@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="welcome_1">Cześć!</string>
     <string name="welcome_2">Dzień dobry!</string>
     <string name="welcome_3">Miłego dnia!</string>
     <string name="welcome_4">Organizuj swój czas</string>
     <string name="welcome_5">Hello, bonjour, hola!</string>
     <string name="welcome_6">Oto Student Calendar!</string>
     <string name="welcome_7">Niespodzianka!</string>
-    <string name="welcome_1">Cześć!</string>
     <string name="your_day">Twój dzień</string>
     <string name="tasks">Zadania</string>
     <string name="tests">Testy</string>
@@ -30,6 +30,8 @@
         Student Calendar to program zaprojektowany specjalnie dla studentów.\n\n
         Aplikacja ma otwarty kod - odwiedź mój github, aby zobaczyć jak działa!\n
         https://github.com/maximax579/StudentCalendar\n\n
+        Aplikacja wykorzystuję bibliotekę AppIntro:\n
+        https://github.com/AppIntro/AppIntro\n\n
         Copyright &#169; 2020, Maksymilian Wojnar
     </string>
     <string name="name">Nazwa</string>
@@ -103,4 +105,7 @@
     <string name="text_8">To już wszystko! Mam nadzieję, że korzystanie z mojej aplikacji będzie pomocne i przyjemne! Zaczynajmy!</string>
     <string name="select_theme">Ciemny temat</string>
     <string name="show_welcome">Pokaż ekran powitalny</string>
+    <string name="reminders_channel_description">Przypomnienie o zadaniach z aplikacji Student Calendar</string>
+    <string name="reminders_channel_name">Przypomnienia</string>
+    <string name="remind_in_15_min">PRZYPOMNIJ ZA 15 MIN</string>
 </resources>

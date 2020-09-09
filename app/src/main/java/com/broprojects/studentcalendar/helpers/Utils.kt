@@ -29,7 +29,7 @@ fun FragmentActivity.dateTimePickerDialog(func: (date: Date) -> Unit) {
             val dateTime =  Calendar.getInstance()
             dateTime.set(year, month, day, hour, min)
             func(dateTime.time)
-        }, currentDateTime[Calendar.HOUR], currentDateTime[Calendar.MINUTE], false).show()
+        }, currentDateTime[Calendar.HOUR], currentDateTime[Calendar.MINUTE], true).show()
     }, currentDateTime[Calendar.YEAR], currentDateTime[Calendar.MONTH], currentDateTime[Calendar.DATE]).show()
 }
 
@@ -50,22 +50,26 @@ fun FragmentActivity.timePickerDialog(func: (date: Date) -> Unit) {
         val dateTime =  Calendar.getInstance()
         dateTime.set(currentDateTime[Calendar.YEAR], currentDateTime[Calendar.MONTH], currentDateTime[Calendar.DATE], hour, min)
         func(dateTime.time)
-    }, currentDateTime[Calendar.HOUR], currentDateTime[Calendar.MINUTE], false).show()
+    }, currentDateTime[Calendar.HOUR], currentDateTime[Calendar.MINUTE], true).show()
 }
 
 fun Date.toDateString(context: Context): String {
     val dateFormat = DateFormat.getDateFormat(context)
+    dateFormat.timeZone = TimeZone.getDefault()
     return dateFormat.format(this)
 }
 
 fun Date.toTimeString(context: Context): String {
     val timeFormat = DateFormat.getTimeFormat(context)
+    timeFormat.timeZone = TimeZone.getDefault()
     return timeFormat.format(this)
 }
 
 fun Date.toDateTimeString(context: Context): String {
     val dateFormat = DateFormat.getDateFormat(context)
+    dateFormat.timeZone = TimeZone.getDefault()
     val timeFormat = DateFormat.getTimeFormat(context)
+    timeFormat.timeZone = TimeZone.getDefault()
     return context.getString(R.string.date_time, dateFormat.format(this), timeFormat.format(this))
 }
 

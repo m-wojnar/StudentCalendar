@@ -18,8 +18,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".intro.StudentCalendarIntro" />
+
+        <receiver
+            android:name=".helpers.NotificationReceiver"
+            android:directBootAware="true"
+            android:enabled="true"
+            android:exported="false" />
+        <receiver
+            android:name=".helpers.ScheduledNotificationReceiver"
+            android:directBootAware="true"
+            android:enabled="true"
+            android:exported="false" />
 
         <meta-data
             android:name="preloaded_fonts"

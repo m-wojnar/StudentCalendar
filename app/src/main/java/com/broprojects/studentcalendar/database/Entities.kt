@@ -106,6 +106,10 @@ data class PersonWithSchedulesAndLocation(
     var schedule: List<Schedule>,
 )
 
+interface ToValueItem {
+    fun toValueDropdownItem(): ValueDropdownItem
+}
+
 data class CoursesDropdownItem(val name: String, val courseId: Long): ToValueItem {
     override fun toValueDropdownItem() = ValueDropdownItem(name, courseId)
 }

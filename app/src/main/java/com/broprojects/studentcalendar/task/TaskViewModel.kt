@@ -7,12 +7,13 @@ import com.broprojects.studentcalendar.R
 import com.broprojects.studentcalendar.database.*
 import com.broprojects.studentcalendar.helpers.InputViewModel
 import com.broprojects.studentcalendar.helpers.ValueDropdownItem
+import com.broprojects.studentcalendar.helpers.scheduleNotification
 import java.util.*
 import java.util.concurrent.TimeUnit
 
 
 class TaskViewModel(
-    activity: Activity,
+    private val activity: Activity,
     dao: TasksTableDao,
     private val coursesDao: CoursesTableDao,
     taskId: Long?
@@ -67,8 +68,22 @@ class TaskViewModel(
         dbOperation { coursesMutableLiveData.postValue(coursesDao.getDropdownList()) }
     }
 
+    fun saveData() {
+        super.saveData { taskId ->
+            // Schedule notification
+            if (model.value?.reminder != null) {
+                val notificationTime = model.value?.whenDateTime?.time
+                    ?.minus(model.value?.reminder!!)
+
+                scheduleNotification(
+                    activity.applicationContext, taskId, model.value?.title!!, notificationTime!!
+                )
+            }
+        }
+    }
+
     fun loadCourseName() {
-        if (model.value?.courseId != null ){
+        if (model.value?.courseId != null) {
             dbOperation { selectedCourseMutableLiveData.postValue(coursesDao.get(model.value?.courseId!!)) }
         }
     }

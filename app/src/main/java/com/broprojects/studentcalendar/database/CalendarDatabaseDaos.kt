@@ -2,12 +2,11 @@ package com.broprojects.studentcalendar.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.broprojects.studentcalendar.helpers.ValueDropdownItem
 
 @Dao
 interface BaseDao<T> {
     @Insert
-    fun insert(obj: T)
+    fun insert(obj: T): Long
 
     @Update
     fun update(obj: T)
@@ -44,10 +43,6 @@ interface SchedulesTableDao : BaseDao<Schedule> {
 
     @Query("SELECT * FROM schedules ORDER BY courseId")
     override fun getAll(): LiveData<List<Schedule>>?
-}
-
-interface ToValueItem {
-    fun toValueDropdownItem(): ValueDropdownItem
 }
 
 @Dao

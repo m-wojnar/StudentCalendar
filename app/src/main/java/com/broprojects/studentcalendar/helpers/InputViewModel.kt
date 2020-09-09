@@ -50,11 +50,17 @@ open class InputViewModel<T>(
         viewModelJob.cancel()
     }
 
-    fun saveData() {
+    fun saveData(funcOnFinish: (id: Long) -> Unit = {}) {
         if (id == null) {
-            dbOperation { dao.insert(modelMutableLiveData.value!!) }
+            dbOperation {
+                val modelId = dao.insert(modelMutableLiveData.value!!)
+                funcOnFinish(modelId)
+            }
         } else {
-            dbOperation { dao.update(modelMutableLiveData.value!!) }
+            dbOperation {
+                dao.update(modelMutableLiveData.value!!)
+                funcOnFinish(id)
+            }
         }
 
         _goToMainFragment.value = true
