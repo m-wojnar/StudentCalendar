@@ -10,7 +10,8 @@
         android:id="@+id/dropdown_item_color"
         android:layout_width="@dimen/action_icon_size"
         android:layout_height="@dimen/action_icon_size"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:contentDescription="@string/icon" />
 
     <TextView
         android:id="@+id/dropdown_item_text"

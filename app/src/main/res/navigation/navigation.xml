@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/welcomeFragment"
-        android:name="com.broprojects.studentcalendar.welcome.WelcomeFragment"
+        android:name="com.mwojnar.studentcalendar.welcome.WelcomeFragment"
         tools:layout="@layout/fragment_welcome">
         <action
             android:id="@+id/action_welcomeFragment_to_mainFragment"
@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.broprojects.studentcalendar.main.MainFragment"
+        android:name="com.mwojnar.studentcalendar.main.MainFragment"
         tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_welcomeFragment"
@@ -53,12 +53,12 @@
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
-        android:name="com.broprojects.studentcalendar.about.AboutFragment"
+        android:name="com.mwojnar.studentcalendar.about.AboutFragment"
         android:label="@string/about"
         tools:layout="@layout/fragment_about" />
     <fragment
         android:id="@+id/courseFragment"
-        android:name="com.broprojects.studentcalendar.course.CourseFragment"
+        android:name="com.mwojnar.studentcalendar.course.CourseFragment"
         android:label="@string/new_course"
         tools:layout="@layout/fragment_course" >
         <action
@@ -74,7 +74,7 @@
     </fragment>
     <fragment
         android:id="@+id/personFragment"
-        android:name="com.broprojects.studentcalendar.person.PersonFragment"
+        android:name="com.mwojnar.studentcalendar.person.PersonFragment"
         android:label="@string/new_person"
         tools:layout="@layout/fragment_person">
         <action
@@ -90,7 +90,7 @@
     </fragment>
     <fragment
         android:id="@+id/scheduleFragment"
-        android:name="com.broprojects.studentcalendar.schedule.ScheduleFragment"
+        android:name="com.mwojnar.studentcalendar.schedule.ScheduleFragment"
         android:label="@string/new_schedule"
         tools:layout="@layout/fragment_schedule">
         <action
@@ -106,7 +106,7 @@
     </fragment>
     <fragment
         android:id="@+id/testFragment"
-        android:name="com.broprojects.studentcalendar.test.TestFragment"
+        android:name="com.mwojnar.studentcalendar.test.TestFragment"
         android:label="@string/new_test"
         tools:layout="@layout/fragment_test">
         <action
@@ -122,7 +122,7 @@
     </fragment>
     <fragment
         android:id="@+id/taskFragment"
-        android:name="com.broprojects.studentcalendar.task.TaskFragment"
+        android:name="com.mwojnar.studentcalendar.task.TaskFragment"
         android:label="@string/new_task"
         tools:layout="@layout/fragment_task">
         <action
@@ -138,11 +138,11 @@
     </fragment>
     <fragment
         android:id="@+id/preferencesFragment"
-        android:name="com.broprojects.studentcalendar.settings.PreferencesFragment"
+        android:name="com.mwojnar.studentcalendar.settings.PreferencesFragment"
         android:label="@string/settings" />
     <activity
         android:id="@+id/studentCalendarIntro"
-        android:name="com.broprojects.studentcalendar.intro.StudentCalendarIntro"
+        android:name="com.mwojnar.studentcalendar.intro.StudentCalendarIntro"
         tools:layout="@layout/appintro_intro_layout"
         android:label="StudentCalendarIntro" />
 </navigation>

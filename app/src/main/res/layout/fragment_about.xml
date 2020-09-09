@@ -17,6 +17,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_big"
+                android:contentDescription="@string/application_icon"
                 android:src="@mipmap/ic_launcher" />
 
             <TextView
@@ -28,12 +29,12 @@
                 android:textAlignment="center" />
 
             <TextView
-                android:textSize="@dimen/about_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_big"
                 android:text="@string/about_text"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textSize="@dimen/about_text" />
         </LinearLayout>
     </ScrollView>
 </layout>

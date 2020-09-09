@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.broprojects.studentcalendar.task.TaskViewModel" />
+            type="com.mwojnar.studentcalendar.task.TaskViewModel" />
     </data>
 
     <ScrollView

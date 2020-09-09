@@ -108,4 +108,6 @@
     <string name="reminders_channel_description">Przypomnienie o zadaniach z aplikacji Student Calendar</string>
     <string name="reminders_channel_name">Przypomnienia</string>
     <string name="remind_in_15_min">PRZYPOMNIJ ZA 15 MIN</string>
+    <string name="application_icon">Ikona aplikacji</string>
+    <string name="random_welcome_icon">Losowa ikona na powitanie</string>
 </resources>

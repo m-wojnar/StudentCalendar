@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.broprojects.studentcalendar.welcome.WelcomeViewModel" />
+            type="com.mwojnar.studentcalendar.welcome.WelcomeViewModel" />
     </data>
 
     <LinearLayout
@@ -29,6 +29,7 @@
             android:id="@+id/welcome_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/random_welcome_icon"
             tools:src="@drawable/ic_baseline_wb_sunny_140" />
 
         <TextView

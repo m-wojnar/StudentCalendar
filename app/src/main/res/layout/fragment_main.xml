@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.broprojects.studentcalendar.main.MainViewModel" />
+            type="com.mwojnar.studentcalendar.main.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -136,4 +136,6 @@
     <string name="notification_id" translatable="false">notification_id</string>
     <string name="notification_message" translatable="false">notification_message</string>
     <string name="notification_time" translatable="false">notification_time</string>
+    <string name="application_icon">Application icon</string>
+    <string name="random_welcome_icon">Random welcome icon</string>
 </resources>

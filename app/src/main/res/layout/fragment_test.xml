@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.broprojects.studentcalendar.test.TestViewModel" />
+            type="com.mwojnar.studentcalendar.test.TestViewModel" />
     </data>
 
     <ScrollView

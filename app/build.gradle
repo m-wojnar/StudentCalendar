@@ -9,7 +9,7 @@ android {
     buildToolsVersion "30.0.0"
 
     defaultConfig {
-        applicationId "com.broprojects.studentcalendar"
+        applicationId "com.mwojnar.studentcalendar"
         minSdkVersion 24
         targetSdkVersion 30
         versionCode 1

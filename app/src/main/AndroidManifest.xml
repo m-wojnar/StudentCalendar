@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.broprojects.studentcalendar">
+    package="com.mwojnar.studentcalendar">
 
     <application
-        android:name=".StudentCalendarApplication"
+        android:name="com.mwojnar.studentcalendar.StudentCalendarApplication"
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,21 +12,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".MainActivity">
+        <activity android:name="com.mwojnar.studentcalendar.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".intro.StudentCalendarIntro" />
+        <activity android:name="com.mwojnar.studentcalendar.intro.StudentCalendarIntro" />
 
         <receiver
-            android:name=".helpers.NotificationReceiver"
+            android:name="com.mwojnar.studentcalendar.helpers.NotificationReceiver"
             android:directBootAware="true"
             android:enabled="true"
             android:exported="false" />
         <receiver
-            android:name=".helpers.ScheduledNotificationReceiver"
+            android:name="com.mwojnar.studentcalendar.helpers.ScheduledNotificationReceiver"
             android:directBootAware="true"
             android:enabled="true"
             android:exported="false" />
