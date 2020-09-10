@@ -9,8 +9,7 @@ import com.mwojnar.studentcalendar.helpers.Converters
 
 @Database(
     entities = [Task::class, Test::class, Schedule::class, Course::class, Person::class],
-    version = 1,
-    exportSchema = false
+    version = 1
 )
 @TypeConverters(Converters::class)
 abstract class CalendarDatabase : RoomDatabase() {
@@ -32,9 +31,7 @@ abstract class CalendarDatabase : RoomDatabase() {
                     context.applicationContext,
                     CalendarDatabase::class.java,
                     "calendar_database"
-                )
-                    .fallbackToDestructiveMigration()
-                    .build()
+                ).build()
 
                 return INSTANCE as CalendarDatabase
             }

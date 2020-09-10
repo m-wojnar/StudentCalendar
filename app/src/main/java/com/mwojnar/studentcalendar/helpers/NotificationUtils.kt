@@ -39,7 +39,7 @@ fun NotificationManager.sendReminderNotification(context: Context, notificationI
 
     // Add "Remind me in 15 minutes" button
     val notifyPendingIntent = createScheduledNotifyPendingIntent(
-        context, notificationId, message, TimeUnit.SECONDS.toMillis(15) + System.currentTimeMillis()
+        context, notificationId, message, TimeUnit.MINUTES.toMillis(15) + System.currentTimeMillis()
     )
 
     val builder =
@@ -60,12 +60,19 @@ fun NotificationManager.sendReminderNotification(context: Context, notificationI
 }
 
 fun scheduleNotification(context: Context, notificationId: Long, message: String, notificationTime: Long) {
+    cancelNotification(context, notificationId)
+
     val notifyPendingIntent = createNotifyPendingIntent(
         context, notificationId, message
     )
     schedulePendingIntent(
         context, notifyPendingIntent, notificationTime
     )
+}
+
+private fun cancelNotification(context: Context, notificationId: Long) {
+    val notificationManager = context.getSystemService(NotificationManager::class.java)
+    notificationManager.cancel(notificationId.toInt())
 }
 
 private fun createNotifyPendingIntent(
