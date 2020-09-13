@@ -24,6 +24,10 @@ interface TasksTableDao : BaseDao<Task> {
 
     @Query("SELECT * FROM tasks ORDER BY priority DESC, whenDateTime")
     override fun getAll(): List<Task>?
+
+    @Transaction
+    @Query("SELECT * FROM tasks ORDER BY priority DESC, whenDateTime")
+    fun getAllWithCourse(): List<TaskAndCourse>?
 }
 
 @Dao
@@ -33,6 +37,10 @@ interface TestsTableDao : BaseDao<Test> {
 
     @Query("SELECT * FROM tests ORDER BY whenDateTime")
     override fun getAll(): List<Test>?
+
+    @Transaction
+    @Query("SELECT * FROM tests ORDER BY whenDateTime")
+    fun getAllWithCourse(): List<TestAndCourse>?
 }
 
 @Dao

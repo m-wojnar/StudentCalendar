@@ -36,7 +36,6 @@ data class Person(
 ) : EntityClass {
     override fun getId() = personId
     override fun toString() = "$lastName ${firstName ?: ""}"
-
 }
 
 @Entity(tableName = "schedules")
@@ -76,7 +75,7 @@ data class Task(
     var taskId: Long? = null,
     var courseId: Long? = null,
     var title: String = "",
-    var priority: Long? = null,
+    var priority: Int? = null,
     var location: String? = null,
     var whenDateTime: Date? = null,
     var reminder: Long? = null,
@@ -85,32 +84,36 @@ data class Task(
     override fun getId() = taskId
 }
 
-data class CourseWithTests(
+data class TestAndCourse(
+    @Embedded var test: Test,
+    @Relation(
+        parentColumn = "courseId",
+        entityColumn = "courseId"
+    )
+    var course: Course
+) : EntityClass {
+    override fun getId() = test.testId
+}
+
+data class ScheduleAndCourse(
     @Embedded var course: Course,
     @Relation(
         parentColumn = "courseId",
         entityColumn = "courseId"
     )
-    var tests: List<Test>
+    var schedule: Schedule
 )
 
-data class CourseWithSchedules(
-    @Embedded var course: Course,
+data class TaskAndCourse(
+    @Embedded var task: Task,
     @Relation(
         parentColumn = "courseId",
         entityColumn = "courseId"
     )
-    var schedules: List<Schedule>
-)
-
-data class CourseWithTasks(
-    @Embedded var course: Course,
-    @Relation(
-        parentColumn = "courseId",
-        entityColumn = "courseId"
-    )
-    var tasks: List<Task>
-)
+    var course: Course?
+) : EntityClass {
+    override fun getId() = task.taskId
+}
 
 data class PersonWithSchedulesAndLocation(
     @Embedded var person: Person,
@@ -121,15 +124,15 @@ data class PersonWithSchedulesAndLocation(
     var schedule: List<Schedule>,
 )
 
-interface ToValueItem {
+interface ToValueItemConvertible {
     fun toValueDropdownItem(): ValueDropdownItem
 }
 
-data class CoursesDropdownItem(val name: String, val courseId: Long) : ToValueItem {
+data class CoursesDropdownItem(val name: String, val courseId: Long) : ToValueItemConvertible {
     override fun toValueDropdownItem() = ValueDropdownItem(name, courseId)
 }
 
 data class PeopleDropdownItem(val lastName: String, val firstName: String?, val personId: Long) :
-    ToValueItem {
+    ToValueItemConvertible {
     override fun toValueDropdownItem() = ValueDropdownItem("$lastName ${firstName ?: ""}", personId)
 }

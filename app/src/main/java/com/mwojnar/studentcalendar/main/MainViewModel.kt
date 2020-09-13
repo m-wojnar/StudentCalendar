@@ -30,12 +30,12 @@ class MainViewModel(private val activity: Activity) : ViewModel() {
     val schedulesData: LiveData<List<Schedule>>
         get() = _schedulesData
 
-    private val _testsData = MutableLiveData<List<Test>>()
-    val testsData: LiveData<List<Test>>
+    private val _testsData = MutableLiveData<List<TestAndCourse>>()
+    val testsData: LiveData<List<TestAndCourse>>
         get() = _testsData
 
-    private val _tasksData = MutableLiveData<List<Task>>()
-    val tasksData: LiveData<List<Task>>
+    private val _tasksData = MutableLiveData<List<TaskAndCourse>>()
+    val tasksData: LiveData<List<TaskAndCourse>>
         get() = _tasksData
 
     private val viewModelJob = Job()
@@ -63,11 +63,12 @@ class MainViewModel(private val activity: Activity) : ViewModel() {
         val database = CalendarDatabase.getInstance(activity.applicationContext)
 
         when (selectedTab) {
-            2 -> dbOperation { _testsData.postValue(database.testsTableDao.getAll()) }
+            1 -> dbOperation { _tasksData.postValue(database.tasksTableDao.getAllWithCourse()) }
+            2 -> dbOperation { _testsData.postValue(database.testsTableDao.getAllWithCourse()) }
             3 -> dbOperation { _schedulesData.postValue(database.schedulesTableDao.getAll()) }
             4 -> dbOperation { _coursesData.postValue(database.coursesTableDao.getAll()) }
             5 -> dbOperation { _peopleData.postValue(database.peopleTableDao.getAll()) }
-            else -> dbOperation { _tasksData.postValue(database.tasksTableDao.getAll()) }
+            else -> {}
         }
     }
 

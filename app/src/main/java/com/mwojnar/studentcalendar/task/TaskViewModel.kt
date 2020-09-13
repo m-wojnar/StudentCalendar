@@ -51,9 +51,9 @@ class TaskViewModel(
     )
 
     val priorityTextMap = mapOf(
-        Pair(2L, getString(R.string.high)),
-        Pair(1L, getString(R.string.normal)),
-        Pair(0L, getString(R.string.low))
+        Pair(2, getString(R.string.high)),
+        Pair(1, getString(R.string.normal)),
+        Pair(0, getString(R.string.low))
     )
 
     private val coursesMutableLiveData = MutableLiveData<List<CoursesDropdownItem>>()
@@ -92,7 +92,7 @@ class TaskViewModel(
         modelMutableLiveData.value?.courseId = courseId
     }
 
-    fun setPriority(priority: Long) {
+    fun setPriority(priority: Int) {
         modelMutableLiveData.value?.priority = priority
     }
 

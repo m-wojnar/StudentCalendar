@@ -68,7 +68,7 @@ class TaskFragment : Fragment() {
 
         binding.priorityText.setAdapter(ValueAdapter(requireContext(), viewModel.priorityArray))
         binding.priorityText.setOnItemClickListener { adapterView, _, position, _ ->
-            viewModel.setPriority((adapterView.getItemAtPosition(position) as ValueDropdownItem).value)
+            viewModel.setPriority((adapterView.getItemAtPosition(position) as ValueDropdownItem).value.toInt())
         }
 
         binding.reminderText.setAdapter(ValueAdapter(requireContext(), viewModel.remindersArray))

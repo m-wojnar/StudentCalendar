@@ -8,9 +8,13 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.mwojnar.studentcalendar.R
 import com.mwojnar.studentcalendar.database.*
 import com.mwojnar.studentcalendar.databinding.RecyclerViewCourseItemBinding
 import com.mwojnar.studentcalendar.databinding.RecyclerViewPersonItemBinding
+import com.mwojnar.studentcalendar.databinding.RecyclerViewTaskItemBinding
+import com.mwojnar.studentcalendar.databinding.RecyclerViewTestItemBinding
+import com.mwojnar.studentcalendar.helpers.toDateTimeString
 
 class ItemDiffCallback<T : EntityClass> : DiffUtil.ItemCallback<T>() {
     override fun areItemsTheSame(oldItem: T, newItem: T) =
@@ -150,8 +154,8 @@ class ScheduleAdapter(private val clickListener: OnItemClickListener<Schedule>) 
     }
 }
 
-class TestAdapter(private val clickListener: OnItemClickListener<Test>) :
-    ListAdapter<Test, TestAdapter.ViewHolder>(ItemDiffCallback()) {
+class TestAdapter(private val clickListener: OnItemClickListener<TestAndCourse>) :
+    ListAdapter<TestAndCourse, TestAdapter.ViewHolder>(ItemDiffCallback()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) =
         holder.bind(clickListener, getItem(position))
@@ -159,12 +163,35 @@ class TestAdapter(private val clickListener: OnItemClickListener<Test>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder.from(parent)
 
-    class ViewHolder private constructor(val binding: RecyclerViewCourseItemBinding) :
+    class ViewHolder private constructor(val binding: RecyclerViewTestItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(clickListener: OnItemClickListener<Test>, item: Test) {
+        fun bind(clickListener: OnItemClickListener<TestAndCourse>, item: TestAndCourse) {
             binding.clickListener = clickListener
-            //binding.model = item
+            binding.model = item
+
+            val context = binding.testItem.context
+
+            item.course.colorId?.let {
+                binding.testItem.backgroundTintList = ContextCompat.getColorStateList(context, it)
+            }
+
+            item.course.iconId?.let {
+                binding.courseIcon.setImageResource(it)
+            }
+
+            binding.titleText.text = if (item.test.type != null) {
+                    "${item.test.type}: ${item.course.name}"
+                } else {
+                    item.course.name
+                }
+
+            binding.whenTextText.text = item.test.whenDateTime?.toDateTimeString(context)
+
+            item.test.location?.let {
+                binding.locationText.text = it
+                binding.locationText.visibility = View.VISIBLE
+            }
 
             binding.executePendingBindings()
         }
@@ -173,7 +200,7 @@ class TestAdapter(private val clickListener: OnItemClickListener<Test>) :
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding =
-                    RecyclerViewCourseItemBinding.inflate(layoutInflater, parent, false)
+                    RecyclerViewTestItemBinding.inflate(layoutInflater, parent, false)
 
                 return ViewHolder(binding)
             }
@@ -181,8 +208,8 @@ class TestAdapter(private val clickListener: OnItemClickListener<Test>) :
     }
 }
 
-class TaskAdapter(private val clickListener: OnItemClickListener<Task>) :
-    ListAdapter<Task, TaskAdapter.ViewHolder>(ItemDiffCallback()) {
+class TaskAdapter(private val clickListener: OnItemClickListener<TaskAndCourse>) :
+    ListAdapter<TaskAndCourse, TaskAdapter.ViewHolder>(ItemDiffCallback()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) =
         holder.bind(clickListener, getItem(position))
@@ -190,12 +217,43 @@ class TaskAdapter(private val clickListener: OnItemClickListener<Task>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder.from(parent)
 
-    class ViewHolder private constructor(val binding: RecyclerViewCourseItemBinding) :
+    class ViewHolder private constructor(val binding: RecyclerViewTaskItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(clickListener: OnItemClickListener<Task>, item: Task) {
+        fun bind(clickListener: OnItemClickListener<TaskAndCourse>, item: TaskAndCourse) {
             binding.clickListener = clickListener
-            //binding.model = item
+            binding.model = item
+
+            val context = binding.taskItem.context
+
+            item.course?.colorId?.let {
+                binding.taskItem.backgroundTintList = ContextCompat.getColorStateList(context, it)
+            }
+
+            item.course?.iconId?.let {
+                binding.courseIcon.setImageResource(it)
+            }
+
+            item.course?.name?.let {
+                binding.courseText.text = it
+                binding.courseText.visibility = View.VISIBLE
+            }
+
+            item.task.whenDateTime?.let {
+                binding.whenText.text = it.toDateTimeString(context)
+                binding.whenText.visibility = View.VISIBLE
+            }
+
+            item.task.location?.let {
+                binding.locationText.text = it
+                binding.locationText.visibility = View.VISIBLE
+            }
+
+            binding.priorityIcon.setImageResource(when (item.task.priority) {
+                2 -> R.drawable.ic_baseline_error_outline_24
+                1 -> R.drawable.ic_baseline_low_priority_24
+                else -> android.R.color.transparent
+            })
 
             binding.executePendingBindings()
         }
@@ -204,7 +262,7 @@ class TaskAdapter(private val clickListener: OnItemClickListener<Task>) :
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding =
-                    RecyclerViewCourseItemBinding.inflate(layoutInflater, parent, false)
+                    RecyclerViewTaskItemBinding.inflate(layoutInflater, parent, false)
 
                 return ViewHolder(binding)
             }

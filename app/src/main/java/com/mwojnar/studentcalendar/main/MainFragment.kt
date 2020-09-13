@@ -178,11 +178,11 @@ class MainFragment : Fragment(), TabLayout.OnTabSelectedListener {
 
     private fun navigate(id: String? = null) {
         when (binding.tabLayout.selectedTabPosition) {
+            1 -> findNavController().navigate(MainFragmentDirections.actionMainFragmentToTaskFragment(id))
             2 -> findNavController().navigate(MainFragmentDirections.actionMainFragmentToTestFragment(id))
             3 -> findNavController().navigate(MainFragmentDirections.actionMainFragmentToScheduleFragment(id))
             4 -> findNavController().navigate(MainFragmentDirections.actionMainFragmentToCourseFragment(id))
             5 -> findNavController().navigate(MainFragmentDirections.actionMainFragmentToPersonFragment(id))
-            else -> findNavController().navigate(MainFragmentDirections.actionMainFragmentToTaskFragment(id))
         }
     }
 }
