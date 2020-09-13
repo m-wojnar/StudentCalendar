@@ -50,6 +50,10 @@ interface SchedulesTableDao : BaseDao<Schedule> {
 
     @Query("SELECT * FROM schedules ORDER BY courseId")
     override fun getAll(): List<Schedule>?
+
+    @Transaction
+    @Query("SELECT * FROM schedules ORDER BY courseId")
+    fun getAllWithCourseAndPerson(): List<ScheduleAndCourseAndPerson>?
 }
 
 @Dao
@@ -59,9 +63,6 @@ interface CoursesTableDao : BaseDao<Course> {
 
     @Query("SELECT * FROM courses ORDER BY courseId")
     override fun getAll(): List<Course>?
-
-    @Query("SELECT name, courseId FROM courses ORDER BY courseId")
-    fun getDropdownList(): List<CoursesDropdownItem>?
 }
 
 @Dao
@@ -71,7 +72,4 @@ interface PeopleTableDao : BaseDao<Person> {
 
     @Query("SELECT * FROM people ORDER BY lastName, firstName")
     override fun getAll(): List<Person>?
-
-    @Query("SELECT lastName, firstName, personId FROM people ORDER BY lastName, firstName")
-    fun getDropdownList(): List<PeopleDropdownItem>?
 }

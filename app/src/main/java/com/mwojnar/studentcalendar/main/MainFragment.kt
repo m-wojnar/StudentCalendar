@@ -56,10 +56,9 @@ class MainFragment : Fragment(), TabLayout.OnTabSelectedListener {
         })
 
         // Load data to recycler view when ready depending on selected tab
-
-        // Set adapter for recycler view for courses items
         viewModel.coursesData.observe(viewLifecycleOwner, {
             if (it != null) {
+                // Set adapter for recycler view for courses items
                 val adapter = CourseAdapter(OnItemClickListener { id ->
                     navigate(id.toString())
                 })
@@ -68,9 +67,9 @@ class MainFragment : Fragment(), TabLayout.OnTabSelectedListener {
             }
         })
 
-        // Set adapter for recycler view for people items
         viewModel.peopleData.observe(viewLifecycleOwner, {
             if (it != null) {
+                // Set adapter for recycler view for people items
                 val adapter = PersonAdapter(OnItemClickListener { id ->
                     navigate(id.toString())
                 })
@@ -79,9 +78,9 @@ class MainFragment : Fragment(), TabLayout.OnTabSelectedListener {
             }
         })
 
-        // Set adapter for recycler view for schedules items
         viewModel.schedulesData.observe(viewLifecycleOwner, {
             if (it != null) {
+                // Set adapter for recycler view for schedules items
                 val adapter = ScheduleAdapter(OnItemClickListener { id ->
                     navigate(id.toString())
                 })
@@ -90,9 +89,9 @@ class MainFragment : Fragment(), TabLayout.OnTabSelectedListener {
             }
         })
 
-        // Set adapter for recycler view for tests items
         viewModel.testsData.observe(viewLifecycleOwner, {
             if (it != null) {
+                // Set adapter for recycler view for tests items
                 val adapter = TestAdapter(OnItemClickListener { id ->
                     navigate(id.toString())
                 })
@@ -101,9 +100,9 @@ class MainFragment : Fragment(), TabLayout.OnTabSelectedListener {
             }
         })
 
-        // Set adapter for recycler view for tasks items
         viewModel.tasksData.observe(viewLifecycleOwner, {
             if (it != null) {
+                // Set adapter for recycler view for tasks items
                 val adapter = TaskAdapter(OnItemClickListener { id ->
                     navigate(id.toString())
                 })
@@ -133,19 +132,18 @@ class MainFragment : Fragment(), TabLayout.OnTabSelectedListener {
     }
 
     override fun onStop() {
-        super.onStop()
-
         // Show action bar icon only on this fragment
+        super.onStop()
         toolbarActivity.hideActionBarIcon()
     }
 
-    // Reload recycler view with animation on tab change
     override fun onTabSelected(tab: TabLayout.Tab?) {
         // Save selected tab
         preferences.edit()
             .putInt(getString(R.string.selected_tab), binding.tabLayout.selectedTabPosition)
             .apply()
 
+        // Reload recycler view with animation on tab change
         hideRecyclerView {
             loadDataToRecyclerView()
             showRecyclerView()

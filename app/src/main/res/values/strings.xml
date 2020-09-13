@@ -121,6 +121,7 @@
     <string name="required">*Required</string>
     <string name="delete">Delete</string>
     <string name="day_of_week">Day of week</string>
+    <string name="start_end_text">From %1$s to %2$s</string>
 
     <string name="start_tutorial">Start tutorial</string>
     <string name="introduction_1">Welcome to Student Calendar! Here is a quick tutorial on how to use my app, let me show you!</string>

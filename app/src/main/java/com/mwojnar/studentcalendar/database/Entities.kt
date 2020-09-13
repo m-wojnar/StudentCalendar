@@ -11,6 +11,10 @@ interface EntityClass {
     fun getId(): Long?
 }
 
+interface ToValueItemConvertible {
+    fun toValueDropdownItem(): ValueDropdownItem
+}
+
 @Entity(tableName = "courses")
 data class Course(
     @PrimaryKey(autoGenerate = true)
@@ -18,8 +22,11 @@ data class Course(
     var name: String = "",
     var iconId: Int? = null,
     var colorId: Int? = null
-) : EntityClass {
+) : EntityClass, ToValueItemConvertible {
     override fun getId() = courseId
+
+    override fun toValueDropdownItem() =
+        ValueDropdownItem(this.name, this.courseId!!)
 }
 
 @Entity(tableName = "people")
@@ -33,9 +40,19 @@ data class Person(
     var email: String? = null,
     var location: String? = null,
     var moreInfo: String? = null
-) : EntityClass {
+) : EntityClass, ToValueItemConvertible {
     override fun getId() = personId
-    override fun toString() = "$lastName ${firstName ?: ""}"
+
+    override fun toString(): String {
+        var titleNameText = ""
+        title?.let { titleNameText += "$it " }
+        firstName?.let { titleNameText += "$it " }
+        titleNameText += lastName
+        return titleNameText
+    }
+
+    override fun toValueDropdownItem() =
+        ValueDropdownItem(this.toString(), personId!!)
 }
 
 @Entity(tableName = "schedules")
@@ -95,14 +112,22 @@ data class TestAndCourse(
     override fun getId() = test.testId
 }
 
-data class ScheduleAndCourse(
-    @Embedded var course: Course,
+data class ScheduleAndCourseAndPerson(
+    @Embedded var schedule: Schedule,
     @Relation(
         parentColumn = "courseId",
         entityColumn = "courseId"
     )
-    var schedule: Schedule
-)
+    var course: Course,
+
+    @Relation(
+        parentColumn = "personId",
+        entityColumn = "personId"
+    )
+    var person: Person?
+) : EntityClass {
+    override fun getId() = schedule.scheduleId
+}
 
 data class TaskAndCourse(
     @Embedded var task: Task,
@@ -113,26 +138,4 @@ data class TaskAndCourse(
     var course: Course?
 ) : EntityClass {
     override fun getId() = task.taskId
-}
-
-data class PersonWithSchedulesAndLocation(
-    @Embedded var person: Person,
-    @Relation(
-        parentColumn = "personId",
-        entityColumn = "personId"
-    )
-    var schedule: List<Schedule>,
-)
-
-interface ToValueItemConvertible {
-    fun toValueDropdownItem(): ValueDropdownItem
-}
-
-data class CoursesDropdownItem(val name: String, val courseId: Long) : ToValueItemConvertible {
-    override fun toValueDropdownItem() = ValueDropdownItem(name, courseId)
-}
-
-data class PeopleDropdownItem(val lastName: String, val firstName: String?, val personId: Long) :
-    ToValueItemConvertible {
-    override fun toValueDropdownItem() = ValueDropdownItem("$lastName ${firstName ?: ""}", personId)
 }

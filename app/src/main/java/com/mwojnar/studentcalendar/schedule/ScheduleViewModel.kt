@@ -37,16 +37,16 @@ class ScheduleViewModel(
         Pair(7, getString(R.string.sunday))
     )
 
-    private val coursesMutableLiveData = MutableLiveData<List<CoursesDropdownItem>>()
-    val coursesList: LiveData<List<CoursesDropdownItem>>
+    private val coursesMutableLiveData = MutableLiveData<List<Course>>()
+    val coursesList: LiveData<List<Course>>
         get() = coursesMutableLiveData
 
     private val selectedCourseMutableLiveData = MutableLiveData<Course>()
     val selectedCourse: LiveData<Course>
         get() = selectedCourseMutableLiveData
 
-    private val peopleMutableLiveData = MutableLiveData<List<PeopleDropdownItem>>()
-    val peopleList: LiveData<List<PeopleDropdownItem>>
+    private val peopleMutableLiveData = MutableLiveData<List<Person>>()
+    val peopleList: LiveData<List<Person>>
         get() = peopleMutableLiveData
 
     private val selectedPersonMutableLiveData = MutableLiveData<Person>()
@@ -54,8 +54,8 @@ class ScheduleViewModel(
         get() = selectedPersonMutableLiveData
 
     init {
-        dbOperation { coursesMutableLiveData.postValue(coursesDao.getDropdownList()) }
-        dbOperation { peopleMutableLiveData.postValue(peopleDao.getDropdownList()) }
+        dbOperation { coursesMutableLiveData.postValue(coursesDao.getAll()) }
+        dbOperation { peopleMutableLiveData.postValue(peopleDao.getAll()) }
     }
 
     fun loadCourseAndPersonName() {

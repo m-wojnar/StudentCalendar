@@ -7,7 +7,7 @@
 
         <variable
             name="model"
-            type="com.mwojnar.studentcalendar.database.TestAndCourse" />
+            type="com.mwojnar.studentcalendar.database.ScheduleAndCourseAndPerson" />
 
         <variable
             name="clickListener"
@@ -15,7 +15,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/test_item"
+        android:id="@+id/schedule_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/recycler_view_margin"
@@ -38,10 +38,11 @@
             tools:src="@drawable/ic_baseline_beach_access_24" />
 
         <TextView
-            android:id="@+id/title_text"
+            android:id="@+id/course_type_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_standard"
+            android:layout_marginBottom="@dimen/margin_small"
             android:textColor="@android:color/white"
             android:textSize="@dimen/item_title_text"
             app:layout_constraintStart_toEndOf="@id/course_icon"
@@ -49,16 +50,14 @@
             tools:text="@string/app_name" />
 
         <TextView
-            android:id="@+id/subject_text"
+            android:id="@+id/person_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_standard"
-            android:layout_marginTop="@dimen/margin_small"
-            android:text="@{model.test.subject}"
             android:textColor="@android:color/white"
+            android:visibility="gone"
             app:layout_constraintStart_toEndOf="@id/course_icon"
-            app:layout_constraintTop_toBottomOf="@id/title_text"
-            tools:text="Subject of the test" />
+            app:layout_constraintTop_toBottomOf="@id/course_type_text" />
 
         <TextView
             android:id="@+id/when_text"
@@ -67,8 +66,18 @@
             android:layout_marginStart="@dimen/margin_standard"
             android:textColor="@android:color/white"
             app:layout_constraintStart_toEndOf="@id/course_icon"
-            app:layout_constraintTop_toBottomOf="@id/subject_text"
-            tools:text="3:30 PM, 9/13/2020" />
+            app:layout_constraintTop_toBottomOf="@id/person_text"
+            tools:text="3:30 PM, Monday" />
+
+        <TextView
+            android:id="@+id/start_end_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_standard"
+            android:textColor="@android:color/white"
+            app:layout_constraintStart_toEndOf="@id/course_icon"
+            app:layout_constraintTop_toBottomOf="@id/when_text"
+            tools:text="From 9/13/2020 to 3/2/2021" />
 
         <TextView
             android:id="@+id/location_text"
@@ -78,6 +87,6 @@
             android:textColor="@android:color/white"
             android:visibility="gone"
             app:layout_constraintStart_toEndOf="@id/course_icon"
-            app:layout_constraintTop_toBottomOf="@id/when_text" />
+            app:layout_constraintTop_toBottomOf="@id/start_end_text" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -4,7 +4,10 @@ import android.app.Activity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.mwojnar.studentcalendar.R
-import com.mwojnar.studentcalendar.database.*
+import com.mwojnar.studentcalendar.database.Course
+import com.mwojnar.studentcalendar.database.CoursesTableDao
+import com.mwojnar.studentcalendar.database.Task
+import com.mwojnar.studentcalendar.database.TasksTableDao
 import com.mwojnar.studentcalendar.helpers.InputViewModel
 import com.mwojnar.studentcalendar.helpers.ValueDropdownItem
 import com.mwojnar.studentcalendar.helpers.scheduleNotification
@@ -56,8 +59,8 @@ class TaskViewModel(
         Pair(0, getString(R.string.low))
     )
 
-    private val coursesMutableLiveData = MutableLiveData<List<CoursesDropdownItem>>()
-    val coursesList: LiveData<List<CoursesDropdownItem>>
+    private val coursesMutableLiveData = MutableLiveData<List<Course>>()
+    val coursesList: LiveData<List<Course>>
         get() = coursesMutableLiveData
 
     private val selectedCourseMutableLiveData = MutableLiveData<Course>()
@@ -65,7 +68,7 @@ class TaskViewModel(
         get() = selectedCourseMutableLiveData
 
     init {
-        dbOperation { coursesMutableLiveData.postValue(coursesDao.getDropdownList()) }
+        dbOperation { coursesMutableLiveData.postValue(coursesDao.getAll()) }
     }
 
     fun saveData() {

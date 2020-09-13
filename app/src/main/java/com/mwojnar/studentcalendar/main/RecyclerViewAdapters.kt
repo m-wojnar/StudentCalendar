@@ -10,11 +10,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mwojnar.studentcalendar.R
 import com.mwojnar.studentcalendar.database.*
-import com.mwojnar.studentcalendar.databinding.RecyclerViewCourseItemBinding
-import com.mwojnar.studentcalendar.databinding.RecyclerViewPersonItemBinding
-import com.mwojnar.studentcalendar.databinding.RecyclerViewTaskItemBinding
-import com.mwojnar.studentcalendar.databinding.RecyclerViewTestItemBinding
+import com.mwojnar.studentcalendar.databinding.*
+import com.mwojnar.studentcalendar.helpers.toDateString
 import com.mwojnar.studentcalendar.helpers.toDateTimeString
+import com.mwojnar.studentcalendar.helpers.toTimeString
 
 class ItemDiffCallback<T : EntityClass> : DiffUtil.ItemCallback<T>() {
     override fun areItemsTheSame(oldItem: T, newItem: T) =
@@ -101,13 +100,6 @@ class PersonAdapter(private val clickListener: OnItemClickListener<Person>) :
                 binding.locationText.visibility = View.VISIBLE
             }
 
-            var titleNameText = ""
-            item.title?.let { titleNameText += "$it " }
-            item.firstName?.let { titleNameText += "$it " }
-            titleNameText += item.lastName
-
-            binding.titleNameText.text = titleNameText
-
             binding.executePendingBindings()
         }
 
@@ -123,8 +115,8 @@ class PersonAdapter(private val clickListener: OnItemClickListener<Person>) :
     }
 }
 
-class ScheduleAdapter(private val clickListener: OnItemClickListener<Schedule>) :
-    ListAdapter<Schedule, ScheduleAdapter.ViewHolder>(ItemDiffCallback()) {
+class ScheduleAdapter(private val clickListener: OnItemClickListener<ScheduleAndCourseAndPerson>) :
+    ListAdapter<ScheduleAndCourseAndPerson, ScheduleAdapter.ViewHolder>(ItemDiffCallback()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) =
         holder.bind(clickListener, getItem(position))
@@ -132,12 +124,55 @@ class ScheduleAdapter(private val clickListener: OnItemClickListener<Schedule>) 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder.from(parent)
 
-    class ViewHolder private constructor(val binding: RecyclerViewCourseItemBinding) :
+    class ViewHolder private constructor(val binding: RecyclerViewScheduleItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(clickListener: OnItemClickListener<Schedule>, item: Schedule) {
+        fun bind(clickListener: OnItemClickListener<ScheduleAndCourseAndPerson>, item: ScheduleAndCourseAndPerson) {
             binding.clickListener = clickListener
-            //binding.model = item
+            binding.model = item
+            val context = binding.scheduleItem.context
+
+            item.course.colorId?.let {
+                binding.scheduleItem.backgroundTintList = ContextCompat.getColorStateList(context, it)
+            }
+
+            item.course.iconId?.let {
+                binding.courseIcon.setImageResource(it)
+            }
+
+            binding.courseTypeText.text = if (item.schedule.type != null) {
+                    "${item.course.name}: ${item.schedule.type}"
+                } else {
+                    item.course.name
+                }
+
+            item.person?.let {
+                binding.personText.text = item.person.toString()
+                binding.personText.visibility = View.VISIBLE
+            }
+
+            var whenText = "${item.schedule.whenTime?.toTimeString(context)}, "
+            whenText += when (item.schedule.weekday) {
+                1 -> context.getString(R.string.monday)
+                2 -> context.getString(R.string.tuesday)
+                3 -> context.getString(R.string.wednesday)
+                4 -> context.getString(R.string.thursday)
+                5 -> context.getString(R.string.friday)
+                6 -> context.getString(R.string.saturday)
+                else -> context.getString(R.string.sunday)
+            }
+            binding.whenText.text = whenText
+
+            binding.startEndText.text = context.getString(
+                R.string.start_end_text,
+                item.schedule.startDate?.toDateString(context),
+                item.schedule.endDate?.toDateString(context)
+            )
+
+            item.schedule.location?.let {
+                binding.locationText.text = it
+                binding.locationText.visibility = View.VISIBLE
+            }
 
             binding.executePendingBindings()
         }
@@ -146,7 +181,7 @@ class ScheduleAdapter(private val clickListener: OnItemClickListener<Schedule>) 
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding =
-                    RecyclerViewCourseItemBinding.inflate(layoutInflater, parent, false)
+                    RecyclerViewScheduleItemBinding.inflate(layoutInflater, parent, false)
 
                 return ViewHolder(binding)
             }
@@ -169,7 +204,6 @@ class TestAdapter(private val clickListener: OnItemClickListener<TestAndCourse>)
         fun bind(clickListener: OnItemClickListener<TestAndCourse>, item: TestAndCourse) {
             binding.clickListener = clickListener
             binding.model = item
-
             val context = binding.testItem.context
 
             item.course.colorId?.let {
@@ -186,7 +220,7 @@ class TestAdapter(private val clickListener: OnItemClickListener<TestAndCourse>)
                     item.course.name
                 }
 
-            binding.whenTextText.text = item.test.whenDateTime?.toDateTimeString(context)
+            binding.whenText.text = item.test.whenDateTime?.toDateTimeString(context)
 
             item.test.location?.let {
                 binding.locationText.text = it
@@ -223,7 +257,6 @@ class TaskAdapter(private val clickListener: OnItemClickListener<TaskAndCourse>)
         fun bind(clickListener: OnItemClickListener<TaskAndCourse>, item: TaskAndCourse) {
             binding.clickListener = clickListener
             binding.model = item
-
             val context = binding.taskItem.context
 
             item.course?.colorId?.let {

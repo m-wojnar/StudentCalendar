@@ -3,7 +3,10 @@ package com.mwojnar.studentcalendar.test
 import android.app.Activity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.mwojnar.studentcalendar.database.*
+import com.mwojnar.studentcalendar.database.Course
+import com.mwojnar.studentcalendar.database.CoursesTableDao
+import com.mwojnar.studentcalendar.database.Test
+import com.mwojnar.studentcalendar.database.TestsTableDao
 import com.mwojnar.studentcalendar.helpers.InputViewModel
 import java.util.*
 
@@ -14,8 +17,8 @@ class TestViewModel(
     testId: Long?
 ) : InputViewModel<Test>(activity, dao, testId, Test()) {
 
-    private val coursesMutableLiveData = MutableLiveData<List<CoursesDropdownItem>>()
-    val coursesList: LiveData<List<CoursesDropdownItem>>
+    private val coursesMutableLiveData = MutableLiveData<List<Course>>()
+    val coursesList: LiveData<List<Course>>
         get() = coursesMutableLiveData
 
     private val selectedCourseMutableLiveData = MutableLiveData<Course>()
@@ -23,7 +26,7 @@ class TestViewModel(
         get() = selectedCourseMutableLiveData
 
     init {
-        dbOperation { coursesMutableLiveData.postValue(coursesDao.getDropdownList()) }
+        dbOperation { coursesMutableLiveData.postValue(coursesDao.getAll()) }
     }
 
     fun loadCourseName() {

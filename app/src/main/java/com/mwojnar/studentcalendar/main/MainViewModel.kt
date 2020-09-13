@@ -26,8 +26,8 @@ class MainViewModel(private val activity: Activity) : ViewModel() {
     val peopleData: LiveData<List<Person>>
         get() = _peopleData
 
-    private val _schedulesData = MutableLiveData<List<Schedule>>()
-    val schedulesData: LiveData<List<Schedule>>
+    private val _schedulesData = MutableLiveData<List<ScheduleAndCourseAndPerson>>()
+    val schedulesData: LiveData<List<ScheduleAndCourseAndPerson>>
         get() = _schedulesData
 
     private val _testsData = MutableLiveData<List<TestAndCourse>>()
@@ -65,7 +65,7 @@ class MainViewModel(private val activity: Activity) : ViewModel() {
         when (selectedTab) {
             1 -> dbOperation { _tasksData.postValue(database.tasksTableDao.getAllWithCourse()) }
             2 -> dbOperation { _testsData.postValue(database.testsTableDao.getAllWithCourse()) }
-            3 -> dbOperation { _schedulesData.postValue(database.schedulesTableDao.getAll()) }
+            3 -> dbOperation { _schedulesData.postValue(database.schedulesTableDao.getAllWithCourseAndPerson()) }
             4 -> dbOperation { _coursesData.postValue(database.coursesTableDao.getAll()) }
             5 -> dbOperation { _peopleData.postValue(database.peopleTableDao.getAll()) }
             else -> {}

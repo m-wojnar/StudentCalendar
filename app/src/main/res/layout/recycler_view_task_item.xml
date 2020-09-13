@@ -66,9 +66,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_standard"
             android:textColor="@android:color/white"
+            android:visibility="gone"
             app:layout_constraintStart_toEndOf="@id/course_icon"
-            app:layout_constraintTop_toBottomOf="@id/title_text"
-            android:visibility="gone" />
+            app:layout_constraintTop_toBottomOf="@id/title_text" />
 
         <TextView
             android:id="@+id/when_text"
@@ -76,9 +76,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_standard"
             android:textColor="@android:color/white"
+            android:visibility="gone"
             app:layout_constraintStart_toEndOf="@id/course_icon"
-            app:layout_constraintTop_toBottomOf="@id/course_text"
-            android:visibility="gone" />
+            app:layout_constraintTop_toBottomOf="@id/course_text" />
 
         <TextView
             android:id="@+id/location_text"
