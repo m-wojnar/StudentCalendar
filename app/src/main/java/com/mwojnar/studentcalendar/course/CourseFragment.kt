@@ -33,9 +33,10 @@ class CourseFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        // If user is updating data, change action bar title and fill text fields
+        // If user is updating data, change action bar title, fill text fields and show deleteButton
         if (args.courseId != null) {
             (activity as ToolbarActivity).setActionBarText(R.string.update_course)
+            binding.deleteButton.visibility = View.VISIBLE
         }
 
         viewModel.model.observe(viewLifecycleOwner, {

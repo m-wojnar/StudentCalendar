@@ -110,4 +110,14 @@
     <string name="remind_in_15_min">PRZYPOMNIJ ZA 15 MIN</string>
     <string name="application_icon">Ikona aplikacji</string>
     <string name="random_welcome_icon">Losowa ikona na powitanie</string>
+    <string name="course_icon">Ikona przedmiotu</string>
+    <string name="delete">Usuń</string>
+    <string name="monday">Poniedziałek</string>
+    <string name="tuesday">Wtorek</string>
+    <string name="wednesday">Środa</string>
+    <string name="thursday">Czwartek</string>
+    <string name="friday">Piątek</string>
+    <string name="saturday">Sobota</string>
+    <string name="sunday">Niedziela</string>
+    <string name="day_of_week">Dzień tygodnia</string>
 </resources>

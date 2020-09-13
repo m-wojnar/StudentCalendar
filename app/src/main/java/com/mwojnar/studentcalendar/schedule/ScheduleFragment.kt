@@ -37,19 +37,20 @@ class ScheduleFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        // If user is updating data, change action bar title and fill text fields
+        // If user is updating data, change action bar title, fill text fields and show deleteButton
         if (args.scheduleId != null) {
             (activity as ToolbarActivity).setActionBarText(R.string.update_schedule)
+            binding.deleteButton.visibility = View.VISIBLE
         }
 
         viewModel.model.observe(viewLifecycleOwner, {
             binding.whenText.setText(it.whenTime?.toTimeString(requireContext()))
+            binding.weekdayText.setText(viewModel.weekdayTextMap[it.weekday], false)
             binding.startText.setText(it.startDate?.toDateString(requireContext()))
             binding.endText.setText(it.endDate?.toDateString(requireContext()))
             viewModel.loadCourseAndPersonName()
         })
 
-        // If model LiveData has already been loaded, load course and person from database
         viewModel.selectedCourse.observe(viewLifecycleOwner, {
             if (it != null) {
                 binding.courseText.setText(it.name, false)
@@ -81,6 +82,11 @@ class ScheduleFragment : Fragment() {
                 resources.getStringArray(R.array.schedule_array)
             )
         )
+
+        binding.weekdayText.setAdapter(ValueAdapter(requireContext(), viewModel.weekdayArray))
+        binding.weekdayText.setOnItemClickListener { adapterView, _, position, _ ->
+            viewModel.setWeekday((adapterView.getItemAtPosition(position) as ValueDropdownItem).value.toInt())
+        }
 
         // Load courses dropdown items and set list in adapter
         viewModel.coursesList.observe(viewLifecycleOwner, { dropdownList ->
@@ -127,10 +133,11 @@ class ScheduleFragment : Fragment() {
             // Validate input fields
             val courseEmpty = validateEmpty(this, binding.courseTextLayout, binding.courseText)
             val whenEmpty = validateEmpty(this, binding.whenTextLayout, binding.whenText)
+            val weekdayEmpty = validateEmpty(this, binding.weekdayTextLayout, binding.weekdayText)
             val startEmpty = validateEmpty(this, binding.startTextLayout, binding.startText)
             val endEmpty = validateEmpty(this, binding.endTextLayout, binding.endText)
 
-            if (courseEmpty && whenEmpty && startEmpty && endEmpty) {
+            if (courseEmpty && whenEmpty && weekdayEmpty && startEmpty && endEmpty) {
                 viewModel.saveData()
             }
         }

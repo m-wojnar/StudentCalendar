@@ -47,9 +47,10 @@ class TaskFragment : Fragment() {
             binding.infoTextLayout.setBoxStrokeColorStateList(it)
         })
 
-        // If user is updating data, change action bar title and fill text fields
+        // If user is updating data, change action bar title, fill text fields and show deleteButton
         if (args.taskId != null) {
             (activity as ToolbarActivity).setActionBarText(R.string.update_task)
+            binding.deleteButton.visibility = View.VISIBLE
         }
 
         viewModel.model.observe(viewLifecycleOwner, {
@@ -59,7 +60,6 @@ class TaskFragment : Fragment() {
             viewModel.loadCourseName()
         })
 
-        // If model LiveData has already been loaded, load course from database
         viewModel.selectedCourse.observe(viewLifecycleOwner, {
             if (it != null) {
                 binding.courseText.setText(it.name, false)

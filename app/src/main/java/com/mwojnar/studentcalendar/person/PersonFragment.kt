@@ -31,9 +31,10 @@ class PersonFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        // If user is updating data, change action bar title and fill text fields
+        // If user is updating data, change action bar title and show deleteButton
         if (args.personId != null) {
             (activity as ToolbarActivity).setActionBarText(R.string.update_person)
+            binding.deleteButton.visibility = View.VISIBLE
         }
 
         // Set app color theme on views

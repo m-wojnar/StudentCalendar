@@ -7,6 +7,10 @@ import androidx.room.Relation
 import com.mwojnar.studentcalendar.helpers.ValueDropdownItem
 import java.util.*
 
+interface EntityClass {
+    fun getId(): Long?
+}
+
 @Entity(tableName = "courses")
 data class Course(
     @PrimaryKey(autoGenerate = true)
@@ -14,7 +18,9 @@ data class Course(
     var name: String = "",
     var iconId: Int? = null,
     var colorId: Int? = null
-)
+) : EntityClass {
+    override fun getId() = courseId
+}
 
 @Entity(tableName = "people")
 data class Person(
@@ -27,8 +33,10 @@ data class Person(
     var email: String? = null,
     var location: String? = null,
     var moreInfo: String? = null
-) {
+) : EntityClass {
+    override fun getId() = personId
     override fun toString() = "$lastName ${firstName ?: ""}"
+
 }
 
 @Entity(tableName = "schedules")
@@ -38,12 +46,15 @@ data class Schedule(
     var courseId: Long = 0L,
     var type: String? = null,
     var whenTime: Date? = null,
+    var weekday: Int? = null,
     var startDate: Date? = null,
     var endDate: Date? = null,
     var personId: Long? = null,
     var location: String? = null,
     var moreInfo: String? = null
-)
+) : EntityClass {
+    override fun getId() = scheduleId
+}
 
 @Entity(tableName = "tests")
 data class Test(
@@ -55,7 +66,9 @@ data class Test(
     var location: String? = null,
     var whenDateTime: Date? = null,
     var moreInfo: String? = null
-)
+) : EntityClass {
+    override fun getId() = testId
+}
 
 @Entity(tableName = "tasks")
 data class Task(
@@ -68,7 +81,9 @@ data class Task(
     var whenDateTime: Date? = null,
     var reminder: Long? = null,
     var moreInfo: String? = null
-)
+) : EntityClass {
+    override fun getId() = taskId
+}
 
 data class CourseWithTests(
     @Embedded var course: Course,
@@ -110,10 +125,11 @@ interface ToValueItem {
     fun toValueDropdownItem(): ValueDropdownItem
 }
 
-data class CoursesDropdownItem(val name: String, val courseId: Long): ToValueItem {
+data class CoursesDropdownItem(val name: String, val courseId: Long) : ToValueItem {
     override fun toValueDropdownItem() = ValueDropdownItem(name, courseId)
 }
 
-data class PeopleDropdownItem(val lastName: String, val firstName: String?, val personId: Long): ToValueItem {
+data class PeopleDropdownItem(val lastName: String, val firstName: String?, val personId: Long) :
+    ToValueItem {
     override fun toValueDropdownItem() = ValueDropdownItem("$lastName ${firstName ?: ""}", personId)
 }

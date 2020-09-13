@@ -92,6 +92,14 @@
     <string name="two_days">2 days</string>
     <string name="one_week">1 week</string>
 
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+
     <string name="first_name">First name</string>
     <string name="last_name">Last name</string>
     <string name="title">Title</string>
@@ -111,6 +119,8 @@
     <string name="date_time" translatable="false">%1$s %2$s</string>
     <string name="subject">Subject</string>
     <string name="required">*Required</string>
+    <string name="delete">Delete</string>
+    <string name="day_of_week">Day of week</string>
 
     <string name="start_tutorial">Start tutorial</string>
     <string name="introduction_1">Welcome to Student Calendar! Here is a quick tutorial on how to use my app, let me show you!</string>
@@ -127,6 +137,10 @@
     <string name="reminders_channel_description">Tasks reminder from Student Calendar</string>
     <string name="remind_in_15_min">REMIND IN 15 MIN</string>
 
+    <string name="application_icon">Application icon</string>
+    <string name="random_welcome_icon">Random welcome icon</string>
+    <string name="course_icon">Course icon</string>
+
     <string name="random_welcome_text" translatable="false">random_welcome_text</string>
     <string name="random_welcome_color" translatable="false">random_welcome_color</string>
     <string name="show_welcome_preference" translatable="false">show_welcome_preference</string>
@@ -136,6 +150,5 @@
     <string name="notification_id" translatable="false">notification_id</string>
     <string name="notification_message" translatable="false">notification_message</string>
     <string name="notification_time" translatable="false">notification_time</string>
-    <string name="application_icon">Application icon</string>
-    <string name="random_welcome_icon">Random welcome icon</string>
+    <string name="selected_tab" translatable="false">selected_tab</string>
 </resources>

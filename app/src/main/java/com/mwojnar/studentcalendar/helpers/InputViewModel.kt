@@ -70,6 +70,11 @@ open class InputViewModel<T>(
         dbOperation { modelMutableLiveData.postValue(dao.get(id!!)) }
     }
 
+    fun deleteData() {
+        dbOperation { dao.delete(modelMutableLiveData.value!!) }
+        _goToMainFragment.value = true
+    }
+
     protected fun dbOperation(func: () -> Unit) {
         coroutineScope.launch {
             withContext(Dispatchers.IO) {

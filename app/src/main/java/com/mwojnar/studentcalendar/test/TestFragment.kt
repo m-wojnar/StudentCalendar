@@ -35,9 +35,10 @@ class TestFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        // If user is updating data, change action bar title and fill text fields
+        // If user is updating data, change action bar title, fill text fields and show deleteButton
         if (args.testId != null) {
             (activity as ToolbarActivity).setActionBarText(R.string.update_test)
+            binding.deleteButton.visibility = View.VISIBLE
         }
 
         viewModel.model.observe(viewLifecycleOwner, {
@@ -45,7 +46,6 @@ class TestFragment : Fragment() {
             viewModel.loadCourseName()
         })
 
-        // If model LiveData has already been loaded, load course from database
         viewModel.selectedCourse.observe(viewLifecycleOwner, {
             if (it != null) {
                 binding.courseText.setText(it.name, false)

@@ -3,8 +3,10 @@ package com.mwojnar.studentcalendar.schedule
 import android.app.Activity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.mwojnar.studentcalendar.R
 import com.mwojnar.studentcalendar.database.*
 import com.mwojnar.studentcalendar.helpers.InputViewModel
+import com.mwojnar.studentcalendar.helpers.ValueDropdownItem
 import java.util.*
 
 class ScheduleViewModel(
@@ -14,6 +16,26 @@ class ScheduleViewModel(
     private val peopleDao: PeopleTableDao,
     scheduleId: Long?
 ) : InputViewModel<Schedule>(activity, dao, scheduleId, Schedule()) {
+
+    val weekdayArray = arrayOf(
+        ValueDropdownItem(getString(R.string.monday), 1),
+        ValueDropdownItem(getString(R.string.tuesday), 2),
+        ValueDropdownItem(getString(R.string.wednesday), 3),
+        ValueDropdownItem(getString(R.string.thursday), 4),
+        ValueDropdownItem(getString(R.string.friday), 5),
+        ValueDropdownItem(getString(R.string.saturday), 6),
+        ValueDropdownItem(getString(R.string.sunday), 7)
+    )
+
+    val weekdayTextMap = mapOf(
+        Pair(1, getString(R.string.monday)),
+        Pair(2, getString(R.string.tuesday)),
+        Pair(3, getString(R.string.wednesday)),
+        Pair(4, getString(R.string.thursday)),
+        Pair(5, getString(R.string.friday)),
+        Pair(6, getString(R.string.saturday)),
+        Pair(7, getString(R.string.sunday))
+    )
 
     private val coursesMutableLiveData = MutableLiveData<List<CoursesDropdownItem>>()
     val coursesList: LiveData<List<CoursesDropdownItem>>
@@ -48,6 +70,10 @@ class ScheduleViewModel(
 
     fun setWhenTime(whenTime: Date) {
         modelMutableLiveData.value?.whenTime = whenTime
+    }
+
+    fun setWeekday(weekday: Int) {
+        modelMutableLiveData.value?.weekday = weekday
     }
 
     fun setStartDate(startDate: Date) {

@@ -1,6 +1,5 @@
 package com.mwojnar.studentcalendar.database
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao
@@ -15,7 +14,7 @@ interface BaseDao<T> {
     fun delete(obj: T)
 
     fun get(id: Long): T?
-    fun getAll(): LiveData<List<T>>?
+    fun getAll(): List<T>?
 }
 
 @Dao
@@ -24,7 +23,7 @@ interface TasksTableDao : BaseDao<Task> {
     override fun get(id: Long): Task?
 
     @Query("SELECT * FROM tasks ORDER BY priority DESC, whenDateTime")
-    override fun getAll(): LiveData<List<Task>>?
+    override fun getAll(): List<Task>?
 }
 
 @Dao
@@ -33,7 +32,7 @@ interface TestsTableDao : BaseDao<Test> {
     override fun get(id: Long): Test?
 
     @Query("SELECT * FROM tests ORDER BY whenDateTime")
-    override fun getAll(): LiveData<List<Test>>?
+    override fun getAll(): List<Test>?
 }
 
 @Dao
@@ -42,7 +41,7 @@ interface SchedulesTableDao : BaseDao<Schedule> {
     override fun get(id: Long): Schedule?
 
     @Query("SELECT * FROM schedules ORDER BY courseId")
-    override fun getAll(): LiveData<List<Schedule>>?
+    override fun getAll(): List<Schedule>?
 }
 
 @Dao
@@ -51,7 +50,7 @@ interface CoursesTableDao : BaseDao<Course> {
     override fun get(id: Long): Course?
 
     @Query("SELECT * FROM courses ORDER BY courseId")
-    override fun getAll(): LiveData<List<Course>>?
+    override fun getAll(): List<Course>?
 
     @Query("SELECT name, courseId FROM courses ORDER BY courseId")
     fun getDropdownList(): List<CoursesDropdownItem>?
@@ -63,7 +62,7 @@ interface PeopleTableDao : BaseDao<Person> {
     override fun get(id: Long): Person?
 
     @Query("SELECT * FROM people ORDER BY lastName, firstName")
-    override fun getAll(): LiveData<List<Person>>?
+    override fun getAll(): List<Person>?
 
     @Query("SELECT lastName, firstName, personId FROM people ORDER BY lastName, firstName")
     fun getDropdownList(): List<PeopleDropdownItem>?

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "93d623644935baba82303a480b89a263",
+    "identityHash": "aabce122d37fcb457c486734bdd1e240",
     "entities": [
       {
         "tableName": "tasks",
@@ -124,7 +124,7 @@
       },
       {
         "tableName": "schedules",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`scheduleId` INTEGER PRIMARY KEY AUTOINCREMENT, `courseId` INTEGER NOT NULL, `type` TEXT, `whenTime` INTEGER, `startDate` INTEGER, `endDate` INTEGER, `personId` INTEGER, `location` TEXT, `moreInfo` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`scheduleId` INTEGER PRIMARY KEY AUTOINCREMENT, `courseId` INTEGER NOT NULL, `type` TEXT, `whenTime` INTEGER, `weekday` INTEGER, `startDate` INTEGER, `endDate` INTEGER, `personId` INTEGER, `location` TEXT, `moreInfo` TEXT)",
         "fields": [
           {
             "fieldPath": "scheduleId",
@@ -147,6 +147,12 @@
           {
             "fieldPath": "whenTime",
             "columnName": "whenTime",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "weekday",
+            "columnName": "weekday",
             "affinity": "INTEGER",
             "notNull": false
           },
@@ -294,7 +300,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '93d623644935baba82303a480b89a263')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'aabce122d37fcb457c486734bdd1e240')"
     ]
   }
 }

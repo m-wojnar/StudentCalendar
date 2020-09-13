@@ -3,9 +3,11 @@
     <dimen name="margin_small">8dp</dimen>
     <dimen name="margin_standard">16dp</dimen>
     <dimen name="margin_big">24dp</dimen>
+    <dimen name="recycler_view_margin">6dp</dimen>
 
     <dimen name="welcome_text">40sp</dimen>
     <dimen name="title_text">23sp</dimen>
+    <dimen name="item_title_text">18sp</dimen>
     <dimen name="about_text">15sp</dimen>
 
     <dimen name="action_icon_size">28dp</dimen>
