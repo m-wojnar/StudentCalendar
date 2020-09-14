@@ -15,6 +15,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
 import com.mwojnar.studentcalendar.R
 import com.mwojnar.studentcalendar.ToolbarActivity
+import com.mwojnar.studentcalendar.database.YourDayItem
 import com.mwojnar.studentcalendar.databinding.FragmentMainBinding
 
 class MainFragment : Fragment(), TabLayout.OnTabSelectedListener {
@@ -27,6 +28,11 @@ class MainFragment : Fragment(), TabLayout.OnTabSelectedListener {
 
     private val toolbarActivity: ToolbarActivity
         get() = activity as ToolbarActivity
+
+    private val yourDayList = mutableListOf<YourDayItem>()
+    private var schedulesLoaded = false
+    private var tasksLoaded = false
+    private var testsLoaded = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -111,6 +117,20 @@ class MainFragment : Fragment(), TabLayout.OnTabSelectedListener {
             }
         })
 
+        // Set adapter for recycler view for you day items
+        viewModel.yourDaySchedulesData.observe(viewLifecycleOwner, {
+            schedulesLoaded = true
+            setYourDataAdapter(it)
+        })
+        viewModel.yourDayTasksData.observe(viewLifecycleOwner, {
+            tasksLoaded = true
+            setYourDataAdapter(it)
+        })
+        viewModel.yourDayTestsData.observe(viewLifecycleOwner, {
+            testsLoaded = true
+            setYourDataAdapter(it)
+        })
+
         binding.tabLayout.addOnTabSelectedListener(this)
         binding.floatingActionButton.setOnClickListener {
             navigate()
@@ -127,7 +147,7 @@ class MainFragment : Fragment(), TabLayout.OnTabSelectedListener {
 
         // Select recently selected "Your day" tab on startup
         val recentTab = preferences.getInt(getString(R.string.selected_tab), 0)
-        binding.tabLayout.getTabAt(recentTab)?.select()
+        binding.tabLayout.getTabAt(1)?.select()
         binding.tabLayout.getTabAt(recentTab)?.select()
     }
 
@@ -145,7 +165,8 @@ class MainFragment : Fragment(), TabLayout.OnTabSelectedListener {
 
         // Reload recycler view with animation on tab change
         hideRecyclerView {
-            loadDataToRecyclerView()
+            yourDayList.clear()
+            loadDataToRecyclerView(binding.tabLayout.selectedTabPosition)
             showRecyclerView()
         }
     }
@@ -162,8 +183,8 @@ class MainFragment : Fragment(), TabLayout.OnTabSelectedListener {
             .start()
     }
 
-    private fun loadDataToRecyclerView() {
-        viewModel.loadData(binding.tabLayout.selectedTabPosition)
+    private fun loadDataToRecyclerView(selectedTab: Int) {
+        viewModel.loadData(selectedTab)
     }
 
     private fun showRecyclerView() {
@@ -176,11 +197,27 @@ class MainFragment : Fragment(), TabLayout.OnTabSelectedListener {
 
     private fun navigate(id: String? = null) {
         when (binding.tabLayout.selectedTabPosition) {
-            1 -> findNavController().navigate(MainFragmentDirections.actionMainFragmentToTaskFragment(id))
             2 -> findNavController().navigate(MainFragmentDirections.actionMainFragmentToTestFragment(id))
             3 -> findNavController().navigate(MainFragmentDirections.actionMainFragmentToScheduleFragment(id))
             4 -> findNavController().navigate(MainFragmentDirections.actionMainFragmentToCourseFragment(id))
             5 -> findNavController().navigate(MainFragmentDirections.actionMainFragmentToPersonFragment(id))
+            else -> findNavController().navigate(MainFragmentDirections.actionMainFragmentToTaskFragment(id))
+        }
+    }
+
+    private fun setYourDataAdapter(list: List<YourDayItem>) {
+        yourDayList.addAll(list)
+
+        if (schedulesLoaded && testsLoaded && tasksLoaded) {
+            val adapter = YourDayAdapter()
+            binding.recyclerView.adapter = adapter
+
+            yourDayList.sortBy { it.whenDateTime?.time }
+            adapter.submitList(yourDayList)
+
+            schedulesLoaded = false
+            testsLoaded = false
+            tasksLoaded = false
         }
     }
 }

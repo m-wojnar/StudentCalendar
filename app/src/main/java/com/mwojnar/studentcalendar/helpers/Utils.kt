@@ -38,7 +38,7 @@ fun FragmentActivity.datePickerDialog(func: (date: Date) -> Unit) {
 
     DatePickerDialog(this, { _, year, month, day ->
         val dateTime =  Calendar.getInstance()
-        dateTime.set(year, month, day)
+        dateTime.set(year, month, day, 0, 0)
         func(dateTime.time)
     }, currentDateTime[Calendar.YEAR], currentDateTime[Calendar.MONTH], currentDateTime[Calendar.DATE]).show()
 }

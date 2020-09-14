@@ -2,7 +2,7 @@
 buildscript {
     ext {
         gradle_version = "4.0.1"
-        kotlin_version = "1.4.0"
+        kotlin_version = "1.4.10"
 
         app_intro_version = "6.0.0"
 

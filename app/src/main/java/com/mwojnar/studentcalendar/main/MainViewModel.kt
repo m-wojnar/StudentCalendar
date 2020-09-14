@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import com.mwojnar.studentcalendar.R
 import com.mwojnar.studentcalendar.database.*
 import kotlinx.coroutines.*
+import java.util.*
 
 class MainViewModel(private val activity: Activity) : ViewModel() {
     private val _text = MutableLiveData<Int>()
@@ -37,6 +38,16 @@ class MainViewModel(private val activity: Activity) : ViewModel() {
     private val _tasksData = MutableLiveData<List<TaskAndCourse>>()
     val tasksData: LiveData<List<TaskAndCourse>>
         get() = _tasksData
+
+    private val _yourDaySchedulesData = MutableLiveData<List<YourDayItem>>()
+    private val _yourDayTestsData = MutableLiveData<List<YourDayItem>>()
+    private val _yourDayTasksData = MutableLiveData<List<YourDayItem>>()
+    val yourDaySchedulesData: LiveData<List<YourDayItem>>
+        get() = _yourDaySchedulesData
+    val yourDayTestsData: LiveData<List<YourDayItem>>
+        get() = _yourDayTestsData
+    val yourDayTasksData: LiveData<List<YourDayItem>>
+        get() = _yourDayTasksData
 
     private val viewModelJob = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.Main + viewModelJob)
@@ -68,7 +79,40 @@ class MainViewModel(private val activity: Activity) : ViewModel() {
             3 -> dbOperation { _schedulesData.postValue(database.schedulesTableDao.getAllWithCourseAndPerson()) }
             4 -> dbOperation { _coursesData.postValue(database.coursesTableDao.getAll()) }
             5 -> dbOperation { _peopleData.postValue(database.peopleTableDao.getAll()) }
-            else -> {}
+            else -> loadYourDayItems()
+        }
+    }
+
+    private fun loadYourDayItems() {
+        val database = CalendarDatabase.getInstance(activity.applicationContext)
+        val context = activity.applicationContext
+
+        val today =  Calendar.getInstance()
+        today.set(today[Calendar.YEAR], today[Calendar.MONTH], today[Calendar.DATE], 0, 0)
+        val tomorrow = Calendar.getInstance()
+        tomorrow.set(today[Calendar.YEAR], today[Calendar.MONTH], today[Calendar.DATE], 0, 0)
+        tomorrow.add(Calendar.DATE, 1)
+
+        dbOperation {
+            _yourDaySchedulesData.postValue(
+                database.schedulesTableDao
+                    .getYourDayItems(today.time, today[Calendar.DAY_OF_WEEK])
+                    .map { it.toYourDayItem(context) }
+            )
+        }
+        dbOperation {
+            _yourDayTasksData.postValue(
+                database.tasksTableDao
+                    .getYourDayItems(today.time, tomorrow.time)
+                    .map { it.toYourDayItem(context) }
+            )
+        }
+        dbOperation {
+            _yourDayTestsData.postValue(
+                database.testsTableDao
+                    .getYourDayItems(today.time, tomorrow.time)
+                    .map { it.toYourDayItem(context) }
+            )
         }
     }
 

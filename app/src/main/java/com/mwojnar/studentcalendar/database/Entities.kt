@@ -1,10 +1,14 @@
 package com.mwojnar.studentcalendar.database
 
+import android.content.Context
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.Relation
 import com.mwojnar.studentcalendar.helpers.ValueDropdownItem
+import com.mwojnar.studentcalendar.helpers.toDateString
+import com.mwojnar.studentcalendar.helpers.toDateTimeString
+import com.mwojnar.studentcalendar.helpers.toTimeString
 import java.util.*
 
 interface EntityClass {
@@ -13,6 +17,20 @@ interface EntityClass {
 
 interface ToValueItemConvertible {
     fun toValueDropdownItem(): ValueDropdownItem
+}
+
+data class YourDayItem(
+    val course: Course?,
+    val title: String,
+    val whenDateTime: Date?,
+    val whenText: String?,
+    val priority: Int?,
+    val location: String?,
+    val moreInfo: String?
+)
+
+interface ToYourDayItemConvertible {
+    fun toYourDayItem(context: Context? = null): YourDayItem
 }
 
 @Entity(tableName = "courses")
@@ -108,8 +126,22 @@ data class TestAndCourse(
         entityColumn = "courseId"
     )
     var course: Course
-) : EntityClass {
+) : EntityClass, ToYourDayItemConvertible {
     override fun getId() = test.testId
+
+    override fun toYourDayItem(context: Context?) = YourDayItem(
+        course,
+        if (test.type != null) {
+            "${course.name}: ${test.type}"
+        } else {
+            course.name
+        },
+        test.whenDateTime,
+        test.whenDateTime?.toDateTimeString(context!!),
+        null,
+        test.location,
+        test.subject
+    )
 }
 
 data class ScheduleAndCourseAndPerson(
@@ -125,8 +157,22 @@ data class ScheduleAndCourseAndPerson(
         entityColumn = "personId"
     )
     var person: Person?
-) : EntityClass {
+) : EntityClass, ToYourDayItemConvertible {
     override fun getId() = schedule.scheduleId
+
+    override fun toYourDayItem(context: Context?) = YourDayItem(
+        course,
+        if (schedule.type != null) {
+            "${course.name}: ${schedule.type}"
+        } else {
+            course.name
+        },
+        schedule.whenTime,
+        "${Date().toDateString(context!!)} ${schedule.whenTime?.toTimeString(context)}",
+        null,
+        schedule.location,
+        person?.toString()
+    )
 }
 
 data class TaskAndCourse(
@@ -136,6 +182,16 @@ data class TaskAndCourse(
         entityColumn = "courseId"
     )
     var course: Course?
-) : EntityClass {
+) : EntityClass, ToYourDayItemConvertible {
     override fun getId() = task.taskId
+
+    override fun toYourDayItem(context: Context?) = YourDayItem(
+        course,
+        task.title,
+        task.whenDateTime,
+        task.whenDateTime?.toDateTimeString(context!!),
+        task.priority,
+        task.location,
+        course?.name
+    )
 }

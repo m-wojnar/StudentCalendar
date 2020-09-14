@@ -215,7 +215,7 @@ class TestAdapter(private val clickListener: OnItemClickListener<TestAndCourse>)
             }
 
             binding.titleText.text = if (item.test.type != null) {
-                    "${item.test.type}: ${item.course.name}"
+                    "${item.course.name}: ${item.test.type}"
                 } else {
                     item.course.name
                 }
@@ -296,6 +296,69 @@ class TaskAdapter(private val clickListener: OnItemClickListener<TaskAndCourse>)
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding =
                     RecyclerViewTaskItemBinding.inflate(layoutInflater, parent, false)
+
+                return ViewHolder(binding)
+            }
+        }
+    }
+}
+
+
+class YourDayDiffCallback : DiffUtil.ItemCallback<YourDayItem>() {
+    override fun areItemsTheSame(oldItem: YourDayItem, newItem: YourDayItem) =
+        oldItem == newItem
+
+    override fun areContentsTheSame(oldItem: YourDayItem, newItem: YourDayItem) =
+        oldItem == newItem
+}
+
+class YourDayAdapter : ListAdapter<YourDayItem, YourDayAdapter.ViewHolder>(YourDayDiffCallback()) {
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) =
+        holder.bind(getItem(position))
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+        ViewHolder.from(parent)
+
+    class ViewHolder private constructor(val binding: RecyclerViewYourDayItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(item: YourDayItem) {
+            binding.model = item
+            val context = binding.taskItem.context
+
+            item.course?.colorId?.let {
+                binding.taskItem.backgroundTintList = ContextCompat.getColorStateList(context, it)
+            }
+
+            item.course?.iconId?.let {
+                binding.courseIcon.setImageResource(it)
+            }
+
+            binding.priorityIcon.setImageResource(when (item.priority) {
+                2 -> R.drawable.ic_baseline_error_outline_24
+                1 -> R.drawable.ic_baseline_low_priority_24
+                else -> android.R.color.transparent
+            })
+
+            item.moreInfo?.let {
+                binding.moreText.text = it
+                binding.moreText.visibility = View.VISIBLE
+            }
+
+            item.location?.let {
+                binding.locationText.text = it
+                binding.locationText.visibility = View.VISIBLE
+            }
+
+            binding.executePendingBindings()
+        }
+
+        companion object {
+            fun from(parent: ViewGroup): ViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val binding =
+                    RecyclerViewYourDayItemBinding.inflate(layoutInflater, parent, false)
 
                 return ViewHolder(binding)
             }

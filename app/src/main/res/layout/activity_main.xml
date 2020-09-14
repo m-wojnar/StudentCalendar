@@ -19,7 +19,10 @@
                 style="@style/Toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:layout_margin="@dimen/action_margin"
+                android:layout_marginStart="@dimen/action_margin"
+                android:layout_marginTop="@dimen/action_margin"
+                android:layout_marginEnd="@dimen/action_margin"
+                android:layout_marginBottom="@dimen/margin_small"
                 app:menu="@menu/toolbar" />
 
             <androidx.fragment.app.FragmentContainerView
