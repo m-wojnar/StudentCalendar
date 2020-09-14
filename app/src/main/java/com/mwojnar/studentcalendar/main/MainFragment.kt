@@ -1,5 +1,6 @@
 package com.mwojnar.studentcalendar.main
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,7 +11,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.preference.PreferenceManager
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
 import com.mwojnar.studentcalendar.R
@@ -24,7 +24,7 @@ class MainFragment : Fragment(), TabLayout.OnTabSelectedListener {
 
     private lateinit var binding: FragmentMainBinding
     private lateinit var viewModel: MainViewModel
-    private lateinit var preferences: SharedPreferences
+    private var preferences: SharedPreferences? = null
 
     private val toolbarActivity: ToolbarActivity
         get() = activity as ToolbarActivity
@@ -39,7 +39,7 @@ class MainFragment : Fragment(), TabLayout.OnTabSelectedListener {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
-        preferences = PreferenceManager.getDefaultSharedPreferences(context)
+        preferences = activity?.getPreferences(Context.MODE_PRIVATE)
 
         val viewModelFactory = MainViewModelFactory(requireActivity())
         viewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
@@ -146,7 +146,7 @@ class MainFragment : Fragment(), TabLayout.OnTabSelectedListener {
         toolbarActivity.showActionBarIcon()
 
         // Select recently selected "Your day" tab on startup
-        val recentTab = preferences.getInt(getString(R.string.selected_tab), 0)
+        val recentTab = preferences?.getInt(getString(R.string.selected_tab), 0) ?: 0
         binding.tabLayout.getTabAt(1)?.select()
         binding.tabLayout.getTabAt(recentTab)?.select()
     }
@@ -159,9 +159,9 @@ class MainFragment : Fragment(), TabLayout.OnTabSelectedListener {
 
     override fun onTabSelected(tab: TabLayout.Tab?) {
         // Save selected tab
-        preferences.edit()
-            .putInt(getString(R.string.selected_tab), binding.tabLayout.selectedTabPosition)
-            .apply()
+        preferences?.edit()
+            ?.putInt(getString(R.string.selected_tab), binding.tabLayout.selectedTabPosition)
+            ?.apply()
 
         // Reload recycler view with animation on tab change
         hideRecyclerView {
