@@ -1,10 +1,8 @@
 package com.mwojnar.studentcalendar.database
 
 import android.content.Context
-import androidx.room.Embedded
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import androidx.room.Relation
+import androidx.room.*
+import androidx.room.ForeignKey.CASCADE
 import com.mwojnar.studentcalendar.helpers.ValueDropdownItem
 import com.mwojnar.studentcalendar.helpers.toDateString
 import com.mwojnar.studentcalendar.helpers.toDateTimeString
@@ -73,7 +71,23 @@ data class Person(
         ValueDropdownItem(this.toString(), personId!!)
 }
 
-@Entity(tableName = "schedules")
+@Entity(
+    tableName = "schedules",
+    foreignKeys = [
+        ForeignKey(
+            entity = Course::class,
+            parentColumns = ["courseId"],
+            childColumns = ["courseId"],
+            onDelete = CASCADE
+        ),
+        ForeignKey(
+            entity = Person::class,
+            parentColumns = ["personId"],
+            childColumns = ["personId"],
+            onDelete = CASCADE
+        )
+    ]
+)
 data class Schedule(
     @PrimaryKey(autoGenerate = true)
     var scheduleId: Long? = null,
@@ -90,7 +104,15 @@ data class Schedule(
     override fun getId() = scheduleId
 }
 
-@Entity(tableName = "tests")
+@Entity(
+    tableName = "tests",
+    foreignKeys = [ForeignKey(
+        entity = Course::class,
+        parentColumns = ["courseId"],
+        childColumns = ["courseId"],
+        onDelete = CASCADE
+    )]
+)
 data class Test(
     @PrimaryKey(autoGenerate = true)
     var testId: Long? = null,
@@ -104,7 +126,15 @@ data class Test(
     override fun getId() = testId
 }
 
-@Entity(tableName = "tasks")
+@Entity(
+    tableName = "tasks",
+    foreignKeys = [ForeignKey(
+        entity = Course::class,
+        parentColumns = ["courseId"],
+        childColumns = ["courseId"],
+        onDelete = CASCADE
+    )]
+)
 data class Task(
     @PrimaryKey(autoGenerate = true)
     var taskId: Long? = null,

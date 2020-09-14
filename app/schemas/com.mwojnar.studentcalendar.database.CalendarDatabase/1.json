@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "aabce122d37fcb457c486734bdd1e240",
+    "identityHash": "6acec8a213d43aebfb3472c71d77e764",
     "entities": [
       {
         "tableName": "tasks",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`taskId` INTEGER PRIMARY KEY AUTOINCREMENT, `courseId` INTEGER, `title` TEXT NOT NULL, `priority` INTEGER, `location` TEXT, `whenDateTime` INTEGER, `reminder` INTEGER, `moreInfo` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`taskId` INTEGER PRIMARY KEY AUTOINCREMENT, `courseId` INTEGER, `title` TEXT NOT NULL, `priority` INTEGER, `location` TEXT, `whenDateTime` INTEGER, `reminder` INTEGER, `moreInfo` TEXT, FOREIGN KEY(`courseId`) REFERENCES `courses`(`courseId`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "taskId",
@@ -64,11 +64,23 @@
           "autoGenerate": true
         },
         "indices": [],
-        "foreignKeys": []
+        "foreignKeys": [
+          {
+            "table": "courses",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "courseId"
+            ],
+            "referencedColumns": [
+              "courseId"
+            ]
+          }
+        ]
       },
       {
         "tableName": "tests",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`testId` INTEGER PRIMARY KEY AUTOINCREMENT, `courseId` INTEGER NOT NULL, `type` TEXT, `subject` TEXT NOT NULL, `location` TEXT, `whenDateTime` INTEGER, `moreInfo` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`testId` INTEGER PRIMARY KEY AUTOINCREMENT, `courseId` INTEGER NOT NULL, `type` TEXT, `subject` TEXT NOT NULL, `location` TEXT, `whenDateTime` INTEGER, `moreInfo` TEXT, FOREIGN KEY(`courseId`) REFERENCES `courses`(`courseId`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "testId",
@@ -120,11 +132,23 @@
           "autoGenerate": true
         },
         "indices": [],
-        "foreignKeys": []
+        "foreignKeys": [
+          {
+            "table": "courses",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "courseId"
+            ],
+            "referencedColumns": [
+              "courseId"
+            ]
+          }
+        ]
       },
       {
         "tableName": "schedules",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`scheduleId` INTEGER PRIMARY KEY AUTOINCREMENT, `courseId` INTEGER NOT NULL, `type` TEXT, `whenTime` INTEGER, `weekday` INTEGER, `startDate` INTEGER, `endDate` INTEGER, `personId` INTEGER, `location` TEXT, `moreInfo` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`scheduleId` INTEGER PRIMARY KEY AUTOINCREMENT, `courseId` INTEGER NOT NULL, `type` TEXT, `whenTime` INTEGER, `weekday` INTEGER, `startDate` INTEGER, `endDate` INTEGER, `personId` INTEGER, `location` TEXT, `moreInfo` TEXT, FOREIGN KEY(`courseId`) REFERENCES `courses`(`courseId`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`personId`) REFERENCES `people`(`personId`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "scheduleId",
@@ -194,7 +218,30 @@
           "autoGenerate": true
         },
         "indices": [],
-        "foreignKeys": []
+        "foreignKeys": [
+          {
+            "table": "courses",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "courseId"
+            ],
+            "referencedColumns": [
+              "courseId"
+            ]
+          },
+          {
+            "table": "people",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "personId"
+            ],
+            "referencedColumns": [
+              "personId"
+            ]
+          }
+        ]
       },
       {
         "tableName": "courses",
@@ -300,7 +347,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'aabce122d37fcb457c486734bdd1e240')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6acec8a213d43aebfb3472c71d77e764')"
     ]
   }
 }
