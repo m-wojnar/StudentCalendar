@@ -24,7 +24,7 @@ class StudentCalendarIntro : AppIntro() {
         addSlide(AppIntroFragment.newInstance(
             title = getString(R.string.first_steps),
             description = getString(R.string.first_steps_text_2),
-            imageDrawable = R.drawable.ic_baseline_thumb_up_140,
+            imageDrawable = R.drawable.ic_baseline_notes_160,
             backgroundColor = ContextCompat.getColor(applicationContext, R.color.app_color_2)
         ))
         addSlide(AppIntroFragment.newInstance(
@@ -60,7 +60,7 @@ class StudentCalendarIntro : AppIntro() {
         addSlide(AppIntroFragment.newInstance(
             title = getString(R.string.app_name),
             description = getString(R.string.text_8),
-            imageDrawable = R.drawable.ic_baseline_mood_140,
+            imageDrawable = R.drawable.ic_baseline_mood_160,
             backgroundColor = ContextCompat.getColor(applicationContext, R.color.app_color_4)
         ))
     }

@@ -66,6 +66,14 @@
     <string name="music">Music</string>
     <string name="thumb_up">Thumb up</string>
     <string name="sun">Sun</string>
+    <string name="airplane">Airplane</string>
+    <string name="android">Android</string>
+    <string name="cake">Cake</string>
+    <string name="camera">Camera</string>
+    <string name="message">Message</string>
+    <string name="laptop">Laptop</string>
+    <string name="leaf">Leaf</string>
+    <string name="notes">Notes</string>
 
     <string name="lecture">Lecture</string>
     <string name="classes">Classes</string>

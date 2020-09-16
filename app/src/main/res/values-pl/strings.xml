@@ -121,4 +121,12 @@
     <string name="sunday">Niedziela</string>
     <string name="day_of_week">Dzień tygodnia</string>
     <string name="start_end_text">Od %1$s do %2$s</string>
+    <string name="airplane">Samolot</string>
+    <string name="android">Android</string>
+    <string name="cake">Ciasto</string>
+    <string name="camera">Aparat</string>
+    <string name="message">Wiadomość</string>
+    <string name="laptop">Laptop</string>
+    <string name="leaf">Liść</string>
+    <string name="notes">Notatnik</string>
 </resources>

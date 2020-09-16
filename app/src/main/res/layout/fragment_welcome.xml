@@ -28,9 +28,9 @@
         <ImageView
             android:id="@+id/welcome_image"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/welcome_image_size"
             android:contentDescription="@string/random_welcome_icon"
-            tools:src="@drawable/ic_baseline_wb_sunny_140" />
+            tools:src="@drawable/ic_baseline_wb_sunny_24" />
 
         <TextView
             android:id="@+id/welcome_text"

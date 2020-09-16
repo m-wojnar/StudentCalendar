@@ -38,7 +38,15 @@ class CourseViewModel(activity: Activity, dao: CoursesTableDao, courseId: Long?)
         IconDropdownItem(getString(R.string.smile), R.drawable.ic_baseline_mood_24),
         IconDropdownItem(getString(R.string.music), R.drawable.ic_baseline_music_note_24),
         IconDropdownItem(getString(R.string.thumb_up), R.drawable.ic_baseline_thumb_up_24),
-        IconDropdownItem(getString(R.string.sun), R.drawable.ic_baseline_wb_sunny_24)
+        IconDropdownItem(getString(R.string.sun), R.drawable.ic_baseline_wb_sunny_24),
+        IconDropdownItem(getString(R.string.airplane), R.drawable.ic_baseline_airplane_active_24),
+        IconDropdownItem(getString(R.string.android), R.drawable.ic_baseline_android_24),
+        IconDropdownItem(getString(R.string.cake), R.drawable.ic_baseline_cake_24),
+        IconDropdownItem(getString(R.string.camera), R.drawable.ic_baseline_camera_24),
+        IconDropdownItem(getString(R.string.message), R.drawable.ic_baseline_chat_24),
+        IconDropdownItem(getString(R.string.laptop), R.drawable.ic_baseline_laptop_24),
+        IconDropdownItem(getString(R.string.leaf), R.drawable.ic_baseline_leaf_24),
+        IconDropdownItem(getString(R.string.notes), R.drawable.ic_baseline_notes_24)
     )
 
     val iconsTextMap = mapOf(
@@ -48,7 +56,15 @@ class CourseViewModel(activity: Activity, dao: CoursesTableDao, courseId: Long?)
         Pair(R.drawable.ic_baseline_mood_24, getString(R.string.smile)),
         Pair(R.drawable.ic_baseline_music_note_24, getString(R.string.music)),
         Pair(R.drawable.ic_baseline_thumb_up_24, getString(R.string.thumb_up)),
-        Pair(R.drawable.ic_baseline_wb_sunny_24, getString(R.string.sun))
+        Pair(R.drawable.ic_baseline_wb_sunny_24, getString(R.string.sun)),
+        Pair(R.drawable.ic_baseline_airplane_active_24, getString(R.string.airplane)),
+        Pair(R.drawable.ic_baseline_android_24, getString(R.string.android)),
+        Pair(R.drawable.ic_baseline_cake_24, getString(R.string.cake)),
+        Pair(R.drawable.ic_baseline_camera_24, getString(R.string.camera)),
+        Pair(R.drawable.ic_baseline_chat_24, getString(R.string.message)),
+        Pair(R.drawable.ic_baseline_laptop_24, getString(R.string.laptop)),
+        Pair(R.drawable.ic_baseline_leaf_24, getString(R.string.leaf)),
+        Pair(R.drawable.ic_baseline_notes_24, getString(R.string.notes)),
     )
 
     fun setColor(colorId: Int) {

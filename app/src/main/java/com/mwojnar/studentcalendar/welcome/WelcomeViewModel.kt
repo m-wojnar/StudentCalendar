@@ -34,13 +34,21 @@ class WelcomeViewModel(private val activity: Activity): ViewModel() {
 
     // Application icons
     private val icons = arrayOf(
-        R.drawable.ic_baseline_beach_access_140,
-        R.drawable.ic_baseline_emoji_food_beverage_140,
-        R.drawable.ic_baseline_local_cafe_140,
-        R.drawable.ic_baseline_mood_140,
-        R.drawable.ic_baseline_music_note_140,
-        R.drawable.ic_baseline_thumb_up_140,
-        R.drawable.ic_baseline_wb_sunny_140
+        R.drawable.ic_baseline_beach_access_24,
+        R.drawable.ic_baseline_emoji_food_beverage_24,
+        R.drawable.ic_baseline_local_cafe_24,
+        R.drawable.ic_baseline_mood_24,
+        R.drawable.ic_baseline_music_note_24,
+        R.drawable.ic_baseline_thumb_up_24,
+        R.drawable.ic_baseline_wb_sunny_24,
+        R.drawable.ic_baseline_airplane_active_24,
+        R.drawable.ic_baseline_android_24,
+        R.drawable.ic_baseline_cake_24,
+        R.drawable.ic_baseline_camera_24,
+        R.drawable.ic_baseline_chat_24,
+        R.drawable.ic_baseline_laptop_24,
+        R.drawable.ic_baseline_leaf_24,
+        R.drawable.ic_baseline_notes_24
     )
     private val _icon = MutableLiveData<Int>()
     val icon: LiveData<Int>
