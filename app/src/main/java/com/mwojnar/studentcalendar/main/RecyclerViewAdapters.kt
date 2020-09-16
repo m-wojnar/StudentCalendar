@@ -153,12 +153,12 @@ class ScheduleAdapter(private val clickListener: OnItemClickListener<ScheduleAnd
 
             var whenText = "${item.schedule.whenTime?.toTimeString(context)}, "
             whenText += when (item.schedule.weekday) {
-                1 -> context.getString(R.string.monday)
-                2 -> context.getString(R.string.tuesday)
-                3 -> context.getString(R.string.wednesday)
-                4 -> context.getString(R.string.thursday)
-                5 -> context.getString(R.string.friday)
-                6 -> context.getString(R.string.saturday)
+                2 -> context.getString(R.string.monday)
+                3 -> context.getString(R.string.tuesday)
+                4 -> context.getString(R.string.wednesday)
+                5 -> context.getString(R.string.thursday)
+                6 -> context.getString(R.string.friday)
+                7 -> context.getString(R.string.saturday)
                 else -> context.getString(R.string.sunday)
             }
             binding.whenText.text = whenText
