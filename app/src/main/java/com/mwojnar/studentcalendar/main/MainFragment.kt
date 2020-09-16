@@ -15,6 +15,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
 import com.mwojnar.studentcalendar.R
 import com.mwojnar.studentcalendar.ToolbarActivity
+import com.mwojnar.studentcalendar.database.ItemType
 import com.mwojnar.studentcalendar.database.YourDayItem
 import com.mwojnar.studentcalendar.databinding.FragmentMainBinding
 
@@ -204,8 +205,8 @@ class MainFragment : Fragment(), TabLayout.OnTabSelectedListener, View.OnTouchLi
             .start()
     }
 
-    private fun navigate(id: String? = null) {
-        when (binding.tabLayout.selectedTabPosition) {
+    private fun navigate(id: String? = null, tabPosition: Int = binding.tabLayout.selectedTabPosition) {
+        when (tabPosition) {
             2 -> findNavController().navigate(MainFragmentDirections.actionMainFragmentToTestFragment(id))
             3 -> findNavController().navigate(MainFragmentDirections.actionMainFragmentToScheduleFragment(id))
             4 -> findNavController().navigate(MainFragmentDirections.actionMainFragmentToCourseFragment(id))
@@ -218,7 +219,13 @@ class MainFragment : Fragment(), TabLayout.OnTabSelectedListener, View.OnTouchLi
         yourDayList.addAll(list)
 
         if (schedulesLoaded && testsLoaded && tasksLoaded) {
-            val adapter = YourDayAdapter()
+            val adapter = YourDayAdapter(OnYourDayItemClickListener { id, type ->
+                when (type) {
+                    ItemType.SCHEDULE -> navigate(id.toString(), 3)
+                    ItemType.TEST -> navigate(id.toString(), 2)
+                    ItemType.TASK -> navigate(id.toString(), 1)
+                }
+            })
             binding.recyclerView.adapter = adapter
 
             yourDayList.sortBy { it.whenDateTime?.time }

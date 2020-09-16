@@ -17,7 +17,13 @@ interface ToValueItemConvertible {
     fun toValueDropdownItem(): ValueDropdownItem
 }
 
+enum class ItemType {
+    SCHEDULE, TEST, TASK
+}
+
 data class YourDayItem(
+    val itemType: ItemType,
+    val itemId: Long?,
     val course: Course?,
     val title: String,
     val whenDateTime: Date?,
@@ -160,6 +166,8 @@ data class TestAndCourse(
     override fun getId() = test.testId
 
     override fun toYourDayItem(context: Context?) = YourDayItem(
+        ItemType.TEST,
+        test.testId,
         course,
         if (test.type != null) {
             "${course.name}: ${test.type}"
@@ -191,6 +199,8 @@ data class ScheduleAndCourseAndPerson(
     override fun getId() = schedule.scheduleId
 
     override fun toYourDayItem(context: Context?) = YourDayItem(
+        ItemType.SCHEDULE,
+        schedule.scheduleId,
         course,
         if (schedule.type != null) {
             "${course.name}: ${schedule.type}"
@@ -216,6 +226,8 @@ data class TaskAndCourse(
     override fun getId() = task.taskId
 
     override fun toYourDayItem(context: Context?) = YourDayItem(
+        ItemType.TASK,
+        task.taskId,
         course,
         task.title,
         task.whenDateTime,

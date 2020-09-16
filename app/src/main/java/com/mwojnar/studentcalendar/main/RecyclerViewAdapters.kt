@@ -303,6 +303,9 @@ class TaskAdapter(private val clickListener: OnItemClickListener<TaskAndCourse>)
     }
 }
 
+class OnYourDayItemClickListener(val func: (id: Long?, type: ItemType) -> Unit) {
+    fun onClick(model: YourDayItem) = func(model.itemId, model.itemType)
+}
 
 class YourDayDiffCallback : DiffUtil.ItemCallback<YourDayItem>() {
     override fun areItemsTheSame(oldItem: YourDayItem, newItem: YourDayItem) =
@@ -312,10 +315,11 @@ class YourDayDiffCallback : DiffUtil.ItemCallback<YourDayItem>() {
         oldItem == newItem
 }
 
-class YourDayAdapter : ListAdapter<YourDayItem, YourDayAdapter.ViewHolder>(YourDayDiffCallback()) {
+class YourDayAdapter(private val clickListener: OnYourDayItemClickListener)
+    : ListAdapter<YourDayItem, YourDayAdapter.ViewHolder>(YourDayDiffCallback()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) =
-        holder.bind(getItem(position))
+        holder.bind(clickListener, getItem(position))
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder.from(parent)
@@ -323,7 +327,8 @@ class YourDayAdapter : ListAdapter<YourDayItem, YourDayAdapter.ViewHolder>(YourD
     class ViewHolder private constructor(val binding: RecyclerViewYourDayItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: YourDayItem) {
+        fun bind(clickListener: OnYourDayItemClickListener, item: YourDayItem) {
+            binding.clickListener = clickListener
             binding.model = item
             val context = binding.taskItem.context
 
