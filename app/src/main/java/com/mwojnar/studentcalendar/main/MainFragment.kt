@@ -1,12 +1,12 @@
 package com.mwojnar.studentcalendar.main
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.core.content.ContextCompat
+import androidx.core.view.GestureDetectorCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -18,13 +18,14 @@ import com.mwojnar.studentcalendar.ToolbarActivity
 import com.mwojnar.studentcalendar.database.YourDayItem
 import com.mwojnar.studentcalendar.databinding.FragmentMainBinding
 
-class MainFragment : Fragment(), TabLayout.OnTabSelectedListener {
+class MainFragment : Fragment(), TabLayout.OnTabSelectedListener, View.OnTouchListener {
     private val animationDuration = 300L
     private val translationXValue = -60f
 
     private lateinit var binding: FragmentMainBinding
     private lateinit var viewModel: MainViewModel
     private var preferences: SharedPreferences? = null
+    private lateinit var gestureDetector: GestureDetectorCompat
 
     private val toolbarActivity: ToolbarActivity
         get() = activity as ToolbarActivity
@@ -34,12 +35,20 @@ class MainFragment : Fragment(), TabLayout.OnTabSelectedListener {
     private var tasksLoaded = false
     private var testsLoaded = false
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
         preferences = activity?.getPreferences(Context.MODE_PRIVATE)
+
+        // Gestures on recycler view
+        gestureDetector = GestureDetectorCompat(
+            requireContext(),
+            GestureListener(requireContext(), binding, preferences)
+        )
+        binding.recyclerView.setOnTouchListener(this)
 
         val viewModelFactory = MainViewModelFactory(requireActivity())
         viewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
@@ -218,6 +227,52 @@ class MainFragment : Fragment(), TabLayout.OnTabSelectedListener {
             schedulesLoaded = false
             testsLoaded = false
             tasksLoaded = false
+        }
+    }
+
+    override fun onTouch(view: View?, event: MotionEvent?) : Boolean {
+        view?.performClick()
+        return gestureDetector.onTouchEvent(event)
+    }
+
+    private class GestureListener(
+        private val context: Context,
+        private val binding: FragmentMainBinding,
+        private val preferences: SharedPreferences?
+    ) : GestureDetector.SimpleOnGestureListener() {
+
+        override fun onFling(
+            e1: MotionEvent?,
+            e2: MotionEvent?,
+            velocityX: Float,
+            velocityY: Float
+        ): Boolean {
+            if (e1 != null && e2 != null) {
+                val selectedTab = binding.tabLayout.selectedTabPosition
+                val distanceX = e2.x - e1.x
+
+                // Swipe left
+                if (distanceX <= -200 && selectedTab < 5) {
+                    preferences?.edit()
+                        ?.putInt(context.getString(R.string.selected_tab), selectedTab + 1)
+                        ?.apply()
+
+                    binding.tabLayout.getTabAt(1)?.select()
+                    binding.tabLayout.getTabAt(selectedTab + 1)?.select()
+                }
+
+                // Swipe right
+                if (distanceX >= 200 && selectedTab > 0) {
+                    preferences?.edit()
+                        ?.putInt(context.getString(R.string.selected_tab), selectedTab - 1)
+                        ?.apply()
+
+                    binding.tabLayout.getTabAt(1)?.select()
+                    binding.tabLayout.getTabAt(selectedTab - 1)?.select()
+                }
+            }
+
+            return true
         }
     }
 }
