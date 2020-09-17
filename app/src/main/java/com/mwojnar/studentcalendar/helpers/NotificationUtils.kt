@@ -11,7 +11,6 @@ import androidx.core.app.AlarmManagerCompat
 import androidx.core.app.NotificationCompat
 import com.mwojnar.studentcalendar.MainActivity
 import com.mwojnar.studentcalendar.R
-import java.util.concurrent.TimeUnit
 
 fun createChannel(context:Context, channelId: String, channelName: String, channelDescription: String) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -38,8 +37,8 @@ fun NotificationManager.sendReminderNotification(context: Context, notificationI
     )
 
     // Add "Remind me in 15 minutes" button
-    val notifyPendingIntent = createScheduledNotifyPendingIntent(
-        context, notificationId, message, TimeUnit.MINUTES.toMillis(15) + System.currentTimeMillis()
+    val notifyPendingIntent = createNotifyPendingIntent<ScheduledNotificationReceiver>(
+        context, notificationId, message
     )
 
     val builder =
@@ -62,7 +61,7 @@ fun NotificationManager.sendReminderNotification(context: Context, notificationI
 fun scheduleNotification(context: Context, notificationId: Long, message: String, notificationTime: Long) {
     cancelNotification(context, notificationId)
 
-    val notifyPendingIntent = createNotifyPendingIntent(
+    val notifyPendingIntent = createNotifyPendingIntent<NotificationReceiver>(
         context, notificationId, message
     )
     schedulePendingIntent(
@@ -75,28 +74,15 @@ private fun cancelNotification(context: Context, notificationId: Long) {
     notificationManager.cancel(notificationId.toInt())
 }
 
-private fun createNotifyPendingIntent(
+private inline fun <reified T> createNotifyPendingIntent(
     context: Context, notificationId: Long, message: String
 ) : PendingIntent {
-    val notifyIntent = Intent(context, NotificationReceiver::class.java)
+    val notifyIntent = Intent(context, T::class.java)
     notifyIntent.putExtra(context.getString(R.string.notification_id), notificationId)
     notifyIntent.putExtra(context.getString(R.string.notification_message), message)
 
     return PendingIntent.getBroadcast(
         context, notificationId.toInt(), notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT
-    )
-}
-
-private fun createScheduledNotifyPendingIntent(
-    context: Context, notificationId: Long, message: String, notificationTime: Long
-) : PendingIntent {
-    val notifyIntent = Intent(context, ScheduledNotificationReceiver::class.java)
-    notifyIntent.putExtra(context.getString(R.string.notification_id), notificationId)
-    notifyIntent.putExtra(context.getString(R.string.notification_message), message)
-    notifyIntent.putExtra(context.getString(R.string.notification_time), notificationTime)
-
-    return PendingIntent.getBroadcast(
-        context, notificationId.toInt(), notifyIntent, 0
     )
 }
 

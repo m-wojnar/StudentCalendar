@@ -43,6 +43,7 @@ class TestFragment : Fragment() {
 
         viewModel.model.observe(viewLifecycleOwner, {
             binding.whenText.setText(it.whenDateTime?.toDateTimeString(requireContext()))
+            binding.typeText.setText(it.type, false)
             viewModel.loadCourseName()
         })
 
@@ -68,6 +69,9 @@ class TestFragment : Fragment() {
             android.R.layout.simple_dropdown_item_1line,
             resources.getStringArray(R.array.test_array)
         ))
+        binding.typeText.setOnItemClickListener { adapterView, _, position, _ ->
+            viewModel.setType(adapterView.getItemAtPosition(position).toString())
+        }
 
         // Load courses dropdown items and set list in adapter
         viewModel.coursesList.observe(viewLifecycleOwner, { dropdownList ->

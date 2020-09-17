@@ -42,4 +42,8 @@ class TestViewModel(
     fun setCourse(courseId: Long) {
         modelMutableLiveData.value?.courseId = courseId
     }
+
+    fun setType(type: String) {
+        modelMutableLiveData.value?.type = type
+    }
 }

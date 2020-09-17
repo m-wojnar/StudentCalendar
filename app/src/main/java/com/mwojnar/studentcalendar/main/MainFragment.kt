@@ -257,29 +257,34 @@ class MainFragment : Fragment(), TabLayout.OnTabSelectedListener, View.OnTouchLi
             if (e1 != null && e2 != null) {
                 val selectedTab = binding.tabLayout.selectedTabPosition
                 val distanceX = e2.x - e1.x
+                val distanceY = e2.y - e1.y
+
+                // Prevent swipe on scroll
+                if (distanceY >= 200 || distanceY <= -200) {
+                    return true
+                }
 
                 // Swipe left
                 if (distanceX <= -200 && selectedTab < 5) {
-                    preferences?.edit()
-                        ?.putInt(context.getString(R.string.selected_tab), selectedTab + 1)
-                        ?.apply()
-
-                    binding.tabLayout.getTabAt(1)?.select()
-                    binding.tabLayout.getTabAt(selectedTab + 1)?.select()
+                    selectTab(selectedTab + 1)
                 }
 
                 // Swipe right
                 if (distanceX >= 200 && selectedTab > 0) {
-                    preferences?.edit()
-                        ?.putInt(context.getString(R.string.selected_tab), selectedTab - 1)
-                        ?.apply()
-
-                    binding.tabLayout.getTabAt(1)?.select()
-                    binding.tabLayout.getTabAt(selectedTab - 1)?.select()
+                    selectTab(selectedTab - 1)
                 }
             }
 
             return true
+        }
+
+        private fun selectTab(tab: Int) {
+            preferences?.edit()
+                ?.putInt(context.getString(R.string.selected_tab), tab)
+                ?.apply()
+
+            binding.tabLayout.getTabAt(1)?.select()
+            binding.tabLayout.getTabAt(tab)?.select()
         }
     }
 }

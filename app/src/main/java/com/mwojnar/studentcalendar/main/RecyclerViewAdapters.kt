@@ -85,18 +85,18 @@ class PersonAdapter(private val clickListener: OnItemClickListener<Person>) :
             binding.clickListener = clickListener
             binding.model = item
 
-            item.phone?.let {
-                binding.phoneText.text = it
+            if (!item.phone.isNullOrEmpty()) {
+                binding.phoneText.text = item.phone
                 binding.phoneText.visibility = View.VISIBLE
             }
 
-            item.email?.let {
-                binding.emailText.text = it
+            if (!item.email.isNullOrEmpty()) {
+                binding.emailText.text = item.email
                 binding.emailText.visibility = View.VISIBLE
             }
 
-            item.location?.let {
-                binding.locationText.text = it
+            if (!item.location.isNullOrEmpty()) {
+                binding.locationText.text = item.location
                 binding.locationText.visibility = View.VISIBLE
             }
 
@@ -169,8 +169,8 @@ class ScheduleAdapter(private val clickListener: OnItemClickListener<ScheduleAnd
                 item.schedule.endDate?.toDateString(context)
             )
 
-            item.schedule.location?.let {
-                binding.locationText.text = it
+            if (!item.schedule.location.isNullOrEmpty()) {
+                binding.locationText.text = item.schedule.location
                 binding.locationText.visibility = View.VISIBLE
             }
 
@@ -222,8 +222,8 @@ class TestAdapter(private val clickListener: OnItemClickListener<TestAndCourse>)
 
             binding.whenText.text = item.test.whenDateTime?.toDateTimeString(context)
 
-            item.test.location?.let {
-                binding.locationText.text = it
+            if (!item.test.location.isNullOrEmpty()) {
+                binding.locationText.text = item.test.location
                 binding.locationText.visibility = View.VISIBLE
             }
 
@@ -267,8 +267,8 @@ class TaskAdapter(private val clickListener: OnItemClickListener<TaskAndCourse>)
                 binding.courseIcon.setImageResource(it)
             }
 
-            item.course?.name?.let {
-                binding.courseText.text = it
+            if (!item.course?.name.isNullOrEmpty()) {
+                binding.courseText.text = item.course?.name
                 binding.courseText.visibility = View.VISIBLE
             }
 
@@ -277,8 +277,8 @@ class TaskAdapter(private val clickListener: OnItemClickListener<TaskAndCourse>)
                 binding.whenText.visibility = View.VISIBLE
             }
 
-            item.task.location?.let {
-                binding.locationText.text = it
+            if (!item.task.location.isNullOrEmpty()) {
+                binding.locationText.text = item.task.location
                 binding.locationText.visibility = View.VISIBLE
             }
 
@@ -346,13 +346,13 @@ class YourDayAdapter(private val clickListener: OnYourDayItemClickListener)
                 else -> android.R.color.transparent
             })
 
-            item.moreInfo?.let {
-                binding.moreText.text = it
+            if (!item.moreInfo.isNullOrEmpty()) {
+                binding.moreText.text = item.moreInfo
                 binding.moreText.visibility = View.VISIBLE
             }
 
-            item.location?.let {
-                binding.locationText.text = it
+            if (!item.location.isNullOrEmpty()) {
+                binding.locationText.text = item.location
                 binding.locationText.visibility = View.VISIBLE
             }
 

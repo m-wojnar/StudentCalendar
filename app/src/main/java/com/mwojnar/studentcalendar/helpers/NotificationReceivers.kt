@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.content.ContextCompat
 import com.mwojnar.studentcalendar.R
+import java.util.concurrent.TimeUnit
 
 class NotificationReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
@@ -21,7 +22,8 @@ class ScheduledNotificationReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         val notificationId = intent?.getLongExtra(context?.getString(R.string.notification_id), 0L)!!
         val message = intent.getStringExtra(context?.getString(R.string.notification_message))!!
-        val notificationTime = intent.getLongExtra(context?.getString(R.string.notification_time), 0L)
+        // Remind in 15 minutes
+        val notificationTime = TimeUnit.MINUTES.toMillis(15) + System.currentTimeMillis()
 
         scheduleNotification(context!!, notificationId, message, notificationTime)
     }

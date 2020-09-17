@@ -91,4 +91,8 @@ class ScheduleViewModel(
     fun setPerson(personId: Long) {
         modelMutableLiveData.value?.personId = personId
     }
+
+    fun setType(type: String) {
+        modelMutableLiveData.value?.type = type
+    }
 }

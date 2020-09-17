@@ -48,6 +48,7 @@ class ScheduleFragment : Fragment() {
             binding.weekdayText.setText(viewModel.weekdayTextMap[it.weekday], false)
             binding.startText.setText(it.startDate?.toDateString(requireContext()))
             binding.endText.setText(it.endDate?.toDateString(requireContext()))
+            binding.typeText.setText(it.type, false)
             viewModel.loadCourseAndPersonName()
         })
 
@@ -66,8 +67,10 @@ class ScheduleFragment : Fragment() {
         // Set app color theme on views
         viewModel.colorStateList.observe(viewLifecycleOwner, {
             binding.saveButton.backgroundTintList = it
+            binding.courseTextLayout.setBoxStrokeColorStateList(it)
             binding.typeTextLayout.setBoxStrokeColorStateList(it)
             binding.whenTextLayout.setBoxStrokeColorStateList(it)
+            binding.weekdayTextLayout.setBoxStrokeColorStateList(it)
             binding.startTextLayout.setBoxStrokeColorStateList(it)
             binding.endTextLayout.setBoxStrokeColorStateList(it)
             binding.personTextLayout.setBoxStrokeColorStateList(it)
@@ -82,6 +85,9 @@ class ScheduleFragment : Fragment() {
                 resources.getStringArray(R.array.schedule_array)
             )
         )
+        binding.typeText.setOnItemClickListener { adapterView, _, position, _ ->
+            viewModel.setType(adapterView.getItemAtPosition(position).toString())
+        }
 
         binding.weekdayText.setAdapter(ValueAdapter(requireContext(), viewModel.weekdayArray))
         binding.weekdayText.setOnItemClickListener { adapterView, _, position, _ ->
