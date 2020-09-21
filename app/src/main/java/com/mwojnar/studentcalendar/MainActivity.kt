@@ -5,9 +5,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.view.menu.ActionMenuItemView
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
@@ -32,8 +30,15 @@ interface ToolbarActivity {
 }
 
 class MainActivity : AppCompatActivity(), ToolbarActivity {
+
+    companion object {
+        // Static field to keep info if welcome screen was already showed
+        var firstWelcome = true
+    }
+
     private lateinit var navController: NavController
     private lateinit var drawerLayout: DrawerLayout
+    private var welcomeAgainButton: MenuItem? = null
     private lateinit var binding: ActivityMainBinding
     private lateinit var preferences: SharedPreferences
     private val animationDuration = 300L
@@ -64,8 +69,16 @@ class MainActivity : AppCompatActivity(), ToolbarActivity {
         val showWelcome = preferences.getBoolean(getString(R.string.show_welcome_preference), true)
 
         // Go to welcome screen on startup
-        if (showWelcome) {
+        if (firstWelcome && showWelcome) {
             goToWelcomeFragment()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        if (isFinishing) {
+            firstWelcome = true
         }
     }
 
@@ -74,6 +87,7 @@ class MainActivity : AppCompatActivity(), ToolbarActivity {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar, menu)
+        welcomeAgainButton = menu?.findItem(R.id.welcome_button)
         return true
     }
 
@@ -112,11 +126,11 @@ class MainActivity : AppCompatActivity(), ToolbarActivity {
     }
 
     override fun hideActionBarIcon() {
-        findViewById<ActionMenuItemView>(R.id.welcome_button).visibility = View.INVISIBLE
+        welcomeAgainButton?.isVisible = false
     }
 
     override fun showActionBarIcon() {
-        findViewById<ActionMenuItemView>(R.id.welcome_button).visibility = View.VISIBLE
+        welcomeAgainButton?.isVisible = true
     }
 
     override fun setBackground(resourceId: Int) {

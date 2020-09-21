@@ -6,16 +6,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.preference.PreferenceManager
+import com.mwojnar.studentcalendar.MainActivity
 import com.mwojnar.studentcalendar.R
 import kotlinx.coroutines.*
 import kotlin.random.Random
 
 class WelcomeViewModel(private val activity: Activity): ViewModel() {
-
-    companion object {
-        // Static field to keep info if welcome screen was already showed
-        var firstWelcome = true
-    }
 
     // Application colors
     private val colors = arrayOf(
@@ -115,10 +111,10 @@ class WelcomeViewModel(private val activity: Activity): ViewModel() {
     fun hideActionBarWithAnimation(): Boolean {
         val preferences = PreferenceManager.getDefaultSharedPreferences(activity.applicationContext)
         val showWelcome = preferences.getBoolean(activity.getString(R.string.show_welcome), true)
-        return showWelcome && firstWelcome
+        return showWelcome && MainActivity.firstWelcome
     }
 
     fun hideActionBarDone() {
-        firstWelcome = false
+        MainActivity.firstWelcome = false
     }
 }

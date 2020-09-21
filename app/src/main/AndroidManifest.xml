@@ -22,12 +22,10 @@
 
         <receiver
             android:name="com.mwojnar.studentcalendar.helpers.NotificationReceiver"
-            android:directBootAware="true"
             android:enabled="true"
             android:exported="false" />
         <receiver
             android:name="com.mwojnar.studentcalendar.helpers.ScheduledNotificationReceiver"
-            android:directBootAware="true"
             android:enabled="true"
             android:exported="false" />
 

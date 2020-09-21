@@ -5,5 +5,6 @@
         android:id="@+id/welcome_button"
         android:icon="@drawable/ic_baseline_refresh_24"
         android:title="@string/welcome_again"
+        android:visible="false"
         app:showAsAction="always" />
 </menu>
