@@ -15,6 +15,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.preference.PreferenceManager
 import com.mwojnar.studentcalendar.databinding.ActivityMainBinding
 import com.mwojnar.studentcalendar.intro.StudentCalendarIntro
+import com.mwojnar.studentcalendar.main.MainFragment
 import com.mwojnar.studentcalendar.main.MainFragmentDirections
 
 interface ToolbarActivity {
@@ -88,6 +89,13 @@ class MainActivity : AppCompatActivity(), ToolbarActivity {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar, menu)
         welcomeAgainButton = menu?.findItem(R.id.welcome_button)
+
+        if (MainFragment.showWelcomeButton) {
+            showActionBarIcon()
+        } else {
+            hideActionBarIcon()
+        }
+
         return true
     }
 

@@ -20,6 +20,12 @@ import com.mwojnar.studentcalendar.database.YourDayItem
 import com.mwojnar.studentcalendar.databinding.FragmentMainBinding
 
 class MainFragment : Fragment(), TabLayout.OnTabSelectedListener, View.OnTouchListener {
+
+    companion object {
+        // Static field to keep info if welcome again button should be visible
+        var showWelcomeButton = true
+    }
+
     private val animationDuration = 300L
     private val translationXValue = -60f
 
@@ -154,6 +160,7 @@ class MainFragment : Fragment(), TabLayout.OnTabSelectedListener, View.OnTouchLi
 
         // Show action bar icon only on this fragment
         toolbarActivity.showActionBarIcon()
+        showWelcomeButton = true
 
         // Select recently selected "Your day" tab on startup
         val recentTab = preferences?.getInt(getString(R.string.selected_tab), 0) ?: 0
@@ -162,9 +169,11 @@ class MainFragment : Fragment(), TabLayout.OnTabSelectedListener, View.OnTouchLi
     }
 
     override fun onStop() {
-        // Show action bar icon only on this fragment
         super.onStop()
+
+        // Show action bar icon only on this fragment
         toolbarActivity.hideActionBarIcon()
+        showWelcomeButton = false
     }
 
     override fun onTabSelected(tab: TabLayout.Tab?) {
