@@ -46,7 +46,8 @@
                     android:id="@+id/type_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="none" />
+                    android:inputType="none"
+                    android:saveEnabled="false" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
@@ -89,7 +90,8 @@
                         android:id="@+id/weekday_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="none" />
+                        android:inputType="none"
+                        android:saveEnabled="false" />
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
