@@ -10,6 +10,7 @@ import com.mwojnar.studentcalendar.database.Task
 import com.mwojnar.studentcalendar.database.TasksTableDao
 import com.mwojnar.studentcalendar.helpers.InputViewModel
 import com.mwojnar.studentcalendar.helpers.ValueDropdownItem
+import com.mwojnar.studentcalendar.helpers.cancelNotification
 import com.mwojnar.studentcalendar.helpers.scheduleNotification
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -22,6 +23,8 @@ class TaskViewModel(
     taskId: Long?
 ) : InputViewModel<Task>(activity, dao, taskId, Task()) {
     val remindersArray = arrayOf(
+        ValueDropdownItem(getString(R.string.none), -1),
+        ValueDropdownItem(getString(R.string.at_the_time), 0),
         ValueDropdownItem(getString(R.string.five_min), TimeUnit.MINUTES.toMillis(5)),
         ValueDropdownItem(getString(R.string.ten_min), TimeUnit.MINUTES.toMillis(10)),
         ValueDropdownItem(getString(R.string.fifteen_min), TimeUnit.MINUTES.toMillis(15)),
@@ -35,6 +38,8 @@ class TaskViewModel(
     )
 
     val remindersTextMap = mapOf(
+        Pair(-1, getString(R.string.none)),
+        Pair(0, getString(R.string.at_the_time)),
         Pair(TimeUnit.MINUTES.toMillis(5), getString(R.string.five_min)),
         Pair(TimeUnit.MINUTES.toMillis(10), getString(R.string.ten_min)),
         Pair(TimeUnit.MINUTES.toMillis(15), getString(R.string.fifteen_min)),
@@ -74,14 +79,28 @@ class TaskViewModel(
     fun saveData() {
         super.saveData { taskId ->
             // Schedule notification
-            if (model.value?.reminder != null) {
-                val notificationTime = model.value?.whenDateTime?.time
-                    ?.minus(model.value?.reminder!!)
+            model.value?.reminder?.let {
+                val notificationTime = model.value?.whenDateTime?.time?.minus(it)
 
-                scheduleNotification(
-                    activity.applicationContext, taskId, model.value?.title!!, notificationTime!!
-                )
+                if (it >= 0) {
+                    scheduleNotification(
+                        activity.applicationContext, taskId, model.value?.title!!, notificationTime!!
+                    )
+                } else {
+                    cancelNotification(
+                        activity.applicationContext, taskId
+                    )
+                }
             }
+        }
+    }
+
+    override fun deleteData() {
+        super.deleteData()
+
+        // Cancel notification if it was scheduled
+        if (model.value?.reminder != null) {
+            cancelNotification(activity.applicationContext, model.value?.taskId!!)
         }
     }
 

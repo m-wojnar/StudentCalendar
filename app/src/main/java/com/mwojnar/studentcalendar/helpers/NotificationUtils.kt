@@ -69,9 +69,15 @@ fun scheduleNotification(context: Context, notificationId: Long, message: String
     )
 }
 
-private fun cancelNotification(context: Context, notificationId: Long) {
+fun cancelNotification(context: Context, notificationId: Long) {
     val notificationManager = context.getSystemService(NotificationManager::class.java)
     notificationManager.cancel(notificationId.toInt())
+
+    val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+    val pendingIntent = createNotifyPendingIntent<NotificationReceiver>(
+        context, notificationId, ""
+    )
+    alarmManager.cancel(pendingIntent)
 }
 
 private inline fun <reified T> createNotifyPendingIntent(

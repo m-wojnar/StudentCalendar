@@ -70,7 +70,7 @@ open class InputViewModel<T>(
         dbOperation { modelMutableLiveData.postValue(dao.get(id!!)) }
     }
 
-    fun deleteData() {
+    open fun deleteData() {
         dbOperation { dao.delete(modelMutableLiveData.value!!) }
         _goToMainFragment.value = true
     }

@@ -99,6 +99,9 @@
     <string name="one_day">1 day</string>
     <string name="two_days">2 days</string>
     <string name="one_week">1 week</string>
+    <string name="at_the_time">At the time</string>
+    <string name="none">None</string>
+    <string name="reminder_in_the_past">*Reminder cannot be set in the past</string>
 
     <string name="monday">Monday</string>
     <string name="tuesday">Tuesday</string>

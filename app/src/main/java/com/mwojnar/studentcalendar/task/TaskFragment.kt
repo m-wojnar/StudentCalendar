@@ -97,12 +97,19 @@ class TaskFragment : Fragment() {
             // Validate input fields
             val titleEmpty = validateEmpty(this, binding.titleTextLayout, binding.titleText)
             var whenEmpty = true
+            var reminderTimeInPast = true
 
-            if (!binding.reminderText.text.isNullOrEmpty()) {
-                whenEmpty = validateEmpty(this, binding.whenTextLayout, binding.whenText)
+            viewModel.model.value?.reminder?.let {
+                if (it >= 0) {
+                    whenEmpty = validateEmpty(this, binding.whenTextLayout, binding.whenText)
+                    val reminderTime = viewModel.model.value?.whenDateTime?.time?.minus(it)
+                    reminderTimeInPast = validateReminderInThePast(
+                        this, binding.reminderTextLayout, reminderTime ?: 0
+                    )
+                }
             }
 
-            if (titleEmpty && whenEmpty) {
+            if (titleEmpty && whenEmpty && reminderTimeInPast) {
                 viewModel.saveData()
             }
         }

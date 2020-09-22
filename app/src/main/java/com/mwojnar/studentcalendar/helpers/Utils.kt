@@ -21,6 +21,15 @@ fun validateEmpty(fragment: Fragment, inputLayout: TextInputLayout, editText: Te
         true
     }
 
+fun validateReminderInThePast(fragment: Fragment, inputLayout: TextInputLayout, reminderTime: Long) =
+    if (System.currentTimeMillis() > reminderTime) {
+        inputLayout.error = fragment.getString(R.string.reminder_in_the_past)
+        false
+    } else {
+        inputLayout.error = null
+        true
+    }
+
 fun FragmentActivity.dateTimePickerDialog(func: (date: Date) -> Unit) {
     val currentDateTime = Calendar.getInstance()
 

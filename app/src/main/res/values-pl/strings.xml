@@ -129,4 +129,7 @@
     <string name="laptop">Laptop</string>
     <string name="leaf">Liść</string>
     <string name="notes">Notatnik</string>
+    <string name="at_the_time">O czasie zadania</string>
+    <string name="none">Brak</string>
+    <string name="reminder_in_the_past">*Przypomnienie nie może być ustawione w przeszłości</string>
 </resources>
