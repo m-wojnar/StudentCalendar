@@ -15,4 +15,5 @@
     <dimen name="action_margin">12dp</dimen>
     <dimen name="status_bar_size">24dp</dimen>
     <dimen name="welcome_image_size">140dp</dimen>
+    <dimen name="about_icon_size">75dp</dimen>
 </resources>
