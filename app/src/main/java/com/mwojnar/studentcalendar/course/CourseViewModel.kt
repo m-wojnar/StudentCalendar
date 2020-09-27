@@ -10,25 +10,37 @@ import com.mwojnar.studentcalendar.helpers.InputViewModel
 class CourseViewModel(activity: Activity, dao: CoursesTableDao, courseId: Long?) :
     InputViewModel<Course>(activity, dao, courseId, Course()) {
     val colorsItemsArray = arrayOf(
-        IconDropdownItem(getString(R.string.orange), R.color.app_color_1),
-        IconDropdownItem(getString(R.string.pink), R.color.app_color_2),
-        IconDropdownItem(getString(R.string.purple), R.color.app_color_3),
-        IconDropdownItem(getString(R.string.indigo), R.color.app_color_4),
-        IconDropdownItem(getString(R.string.blue), R.color.app_color_5),
+        IconDropdownItem(getString(R.string.brown), R.color.app_color_9),
+        IconDropdownItem(getString(R.string.red), R.color.app_color_1),
+        IconDropdownItem(getString(R.string.orange), R.color.app_color_12),
+        IconDropdownItem(getString(R.string.yellow), R.color.app_color_10),
+        IconDropdownItem(getString(R.string.green), R.color.app_color_8),
         IconDropdownItem(getString(R.string.sea), R.color.app_color_6),
-        IconDropdownItem(getString(R.string.gray), R.color.app_color_7),
-        IconDropdownItem(getString(R.string.green), R.color.app_color_8)
+        IconDropdownItem(getString(R.string.cyan), R.color.app_color_11),
+        IconDropdownItem(getString(R.string.blue), R.color.app_color_5),
+        IconDropdownItem(getString(R.string.indigo), R.color.app_color_4),
+        IconDropdownItem(getString(R.string.purple), R.color.app_color_3),
+        IconDropdownItem(getString(R.string.pink), R.color.app_color_2),
+        IconDropdownItem(getString(R.string.maroon), R.color.app_color_13),
+        IconDropdownItem(getString(R.string.steel), R.color.app_color_14),
+        IconDropdownItem(getString(R.string.gray), R.color.app_color_7)
     )
 
     val colorsTextMap = mapOf(
-        Pair(R.color.app_color_1, getString(R.string.orange)),
-        Pair(R.color.app_color_2, getString(R.string.pink)),
-        Pair(R.color.app_color_3, getString(R.string.purple)),
-        Pair(R.color.app_color_4, getString(R.string.indigo)),
-        Pair(R.color.app_color_5, getString(R.string.blue)),
+        Pair(R.color.app_color_9, getString(R.string.brown)),
+        Pair(R.color.app_color_1, getString(R.string.red)),
+        Pair(R.color.app_color_12, getString(R.string.orange)),
+        Pair(R.color.app_color_10, getString(R.string.yellow)),
+        Pair(R.color.app_color_8, getString(R.string.green)),
         Pair(R.color.app_color_6, getString(R.string.sea)),
-        Pair(R.color.app_color_7, getString(R.string.gray)),
-        Pair(R.color.app_color_8, getString(R.string.green))
+        Pair(R.color.app_color_11, getString(R.string.cyan)),
+        Pair(R.color.app_color_5, getString(R.string.blue)),
+        Pair(R.color.app_color_4, getString(R.string.indigo)),
+        Pair(R.color.app_color_3, getString(R.string.purple)),
+        Pair(R.color.app_color_2, getString(R.string.pink)),
+        Pair(R.color.app_color_13, getString(R.string.maroon)),
+        Pair(R.color.app_color_14, getString(R.string.steel)),
+        Pair(R.color.app_color_7, getString(R.string.gray))
     )
 
     val iconsItemsArray = arrayOf(

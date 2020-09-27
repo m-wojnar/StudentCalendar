@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.widget.RemoteViews
+import androidx.preference.PreferenceManager
 import com.mwojnar.studentcalendar.MainActivity
 import com.mwojnar.studentcalendar.R
 
@@ -28,7 +29,12 @@ internal fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManage
     adapterIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
     adapterIntent.data = Uri.parse(adapterIntent.toUri(Intent.URI_INTENT_SCHEME))
 
-    val views = RemoteViews(context.packageName, R.layout.student_calendar_widget)
+    // Set theme
+    val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+    val darkTheme = preferences.getBoolean(context.getString(R.string.theme_preference), true)
+    val layout = if (darkTheme) { R.layout.student_calendar_widget_night } else { R.layout.student_calendar_widget }
+
+    val views = RemoteViews(context.packageName, layout)
     views.setOnClickPendingIntent(R.id.add_button, onClickPendingIntent)
     views.setRemoteAdapter(R.id.widget_list_view, adapterIntent)
 

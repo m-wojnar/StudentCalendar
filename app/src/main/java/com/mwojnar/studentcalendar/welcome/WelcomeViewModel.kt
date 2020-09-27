@@ -22,7 +22,13 @@ class WelcomeViewModel(private val activity: Activity): ViewModel() {
         R.color.app_color_5,
         R.color.app_color_6,
         R.color.app_color_7,
-        R.color.app_color_8
+        R.color.app_color_8,
+        R.color.app_color_9,
+        R.color.app_color_10,
+        R.color.app_color_11,
+        R.color.app_color_12,
+        R.color.app_color_13,
+        R.color.app_color_14
     )
     private val _color = MutableLiveData<Int>()
     val color: LiveData<Int>
