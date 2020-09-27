@@ -40,13 +40,7 @@ class PersonFragment : Fragment() {
         // Set app color theme on views
         viewModel.colorStateList.observe(viewLifecycleOwner, {
             binding.saveButton.backgroundTintList = it
-            binding.firstNameTextLayout.setBoxStrokeColorStateList(it)
-            binding.lastNameTextLayout.setBoxStrokeColorStateList(it)
-            binding.titleTextLayout.setBoxStrokeColorStateList(it)
-            binding.emailTextLayout.setBoxStrokeColorStateList(it)
-            binding.phoneTextLayout.setBoxStrokeColorStateList(it)
-            binding.officeTextLayout.setBoxStrokeColorStateList(it)
-            binding.infoTextLayout.setBoxStrokeColorStateList(it)
+            viewModel.setBoxStrokeColorForChildren(binding.mainLayout, it)
         })
 
         viewModel.goToMainFragment.observe(viewLifecycleOwner, {

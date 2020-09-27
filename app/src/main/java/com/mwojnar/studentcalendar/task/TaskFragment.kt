@@ -37,14 +37,7 @@ class TaskFragment : Fragment() {
         // Set app color theme on views
         viewModel.colorStateList.observe(viewLifecycleOwner, {
             binding.saveButton.backgroundTintList = it
-            binding.courseTextLayout.setBoxStrokeColorStateList(it)
-            binding.titleTextLayout.setBoxStrokeColorStateList(it)
-            binding.whenTextLayout.setBoxStrokeColorStateList(it)
-            binding.priorityTextLayout.setBoxStrokeColorStateList(it)
-            binding.locationTextLayout.setBoxStrokeColorStateList(it)
-            binding.whenTextLayout.setBoxStrokeColorStateList(it)
-            binding.reminderTextLayout.setBoxStrokeColorStateList(it)
-            binding.infoTextLayout.setBoxStrokeColorStateList(it)
+            viewModel.setBoxStrokeColorForChildren(binding.mainLayout, it)
         })
 
         // If user is updating data, change action bar title, fill text fields and show deleteButton

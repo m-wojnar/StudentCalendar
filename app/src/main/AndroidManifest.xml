@@ -3,7 +3,7 @@
     package="com.mwojnar.studentcalendar">
 
     <application
-        android:name="com.mwojnar.studentcalendar.StudentCalendarApplication"
+        android:name=".StudentCalendarApplication"
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,22 +12,36 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name="com.mwojnar.studentcalendar.MainActivity">
+        <receiver android:name=".widget.StudentCalendarWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/student_calendar_widget_info" />
+        </receiver>
+
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.mwojnar.studentcalendar.intro.StudentCalendarIntro" />
+        <activity android:name=".intro.StudentCalendarIntro" />
 
         <receiver
-            android:name="com.mwojnar.studentcalendar.helpers.NotificationReceiver"
+            android:name=".helpers.NotificationReceiver"
             android:enabled="true"
             android:exported="false" />
         <receiver
-            android:name="com.mwojnar.studentcalendar.helpers.ScheduledNotificationReceiver"
+            android:name=".helpers.ScheduledNotificationReceiver"
             android:enabled="true"
             android:exported="false" />
+
+        <service
+            android:name=".widget.StudentCalendarWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <meta-data
             android:name="preloaded_fonts"

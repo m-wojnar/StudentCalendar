@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="com.mwojnar.studentcalendar.helpers.UtilsKt" />
+        <import type="android.view.View" />
 
         <variable
             name="model"
@@ -67,7 +69,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_standard"
             android:textColor="@android:color/white"
-            android:visibility="gone"
+            android:text="@{model.course.name}"
+            android:visibility="@{UtilsKt.isEmpty(model.course.name) ? View.GONE : View.VISIBLE}"
             app:layout_constraintStart_toEndOf="@id/course_icon"
             app:layout_constraintTop_toBottomOf="@id/title_text" />
 
@@ -77,7 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_standard"
             android:textColor="@android:color/white"
-            android:visibility="gone"
+            android:visibility="@{model.task.whenDateTime == null ? View.GONE : View.VISIBLE}"
             app:layout_constraintStart_toEndOf="@id/course_icon"
             app:layout_constraintTop_toBottomOf="@id/course_text" />
 
@@ -87,7 +90,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_standard"
             android:textColor="@android:color/white"
-            android:visibility="gone"
+            android:text="@{model.task.location}"
+            android:visibility="@{UtilsKt.isEmpty(model.task.location) ? View.GONE : View.VISIBLE}"
             app:layout_constraintStart_toEndOf="@id/course_icon"
             app:layout_constraintTop_toBottomOf="@id/when_text" />
     </androidx.constraintlayout.widget.ConstraintLayout>

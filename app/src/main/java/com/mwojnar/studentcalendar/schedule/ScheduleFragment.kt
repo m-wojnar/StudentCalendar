@@ -67,24 +67,14 @@ class ScheduleFragment : Fragment() {
         // Set app color theme on views
         viewModel.colorStateList.observe(viewLifecycleOwner, {
             binding.saveButton.backgroundTintList = it
-            binding.courseTextLayout.setBoxStrokeColorStateList(it)
-            binding.typeTextLayout.setBoxStrokeColorStateList(it)
-            binding.whenTextLayout.setBoxStrokeColorStateList(it)
-            binding.weekdayTextLayout.setBoxStrokeColorStateList(it)
-            binding.startTextLayout.setBoxStrokeColorStateList(it)
-            binding.endTextLayout.setBoxStrokeColorStateList(it)
-            binding.personTextLayout.setBoxStrokeColorStateList(it)
-            binding.locationTextLayout.setBoxStrokeColorStateList(it)
-            binding.infoTextLayout.setBoxStrokeColorStateList(it)
+            viewModel.setBoxStrokeColorForChildren(binding.mainLayout, it)
         })
 
-        binding.typeText.setAdapter(
-            ArrayAdapter(
-                requireContext(),
-                android.R.layout.simple_dropdown_item_1line,
-                resources.getStringArray(R.array.schedule_array)
-            )
-        )
+        binding.typeText.setAdapter(ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_dropdown_item_1line,
+            resources.getStringArray(R.array.schedule_array)
+        ))
         binding.typeText.setOnItemClickListener { adapterView, _, position, _ ->
             viewModel.setType(adapterView.getItemAtPosition(position).toString())
         }

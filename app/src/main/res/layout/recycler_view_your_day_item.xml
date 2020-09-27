@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="com.mwojnar.studentcalendar.helpers.UtilsKt" />
+        <import type="android.view.View" />
 
         <variable
             name="model"
@@ -15,7 +17,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/task_item"
+        android:id="@+id/your_day_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/recycler_view_margin"
@@ -67,7 +69,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_standard"
             android:textColor="@android:color/white"
-            android:visibility="gone"
+            android:text="@{model.moreInfo}"
+            android:visibility="@{UtilsKt.isEmpty(model.moreInfo) ? View.GONE : View.VISIBLE}"
             app:layout_constraintStart_toEndOf="@id/course_icon"
             app:layout_constraintTop_toBottomOf="@id/title_text" />
 
@@ -88,7 +91,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_standard"
             android:textColor="@android:color/white"
-            android:visibility="gone"
+            android:text="@{model.location}"
+            android:visibility="@{UtilsKt.isEmpty(model.location) ? View.GONE : View.VISIBLE}"
             app:layout_constraintStart_toEndOf="@id/course_icon"
             app:layout_constraintTop_toBottomOf="@id/when_text" />
     </androidx.constraintlayout.widget.ConstraintLayout>

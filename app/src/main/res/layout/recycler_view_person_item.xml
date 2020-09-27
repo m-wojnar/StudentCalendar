@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="com.mwojnar.studentcalendar.helpers.UtilsKt" />
+        <import type="android.view.View" />
 
         <variable
             name="model"
@@ -42,7 +44,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"
-            android:visibility="gone"
+            android:text="@{model.phone}"
+            android:visibility="@{UtilsKt.isEmpty(model.phone) ? View.GONE : View.VISIBLE}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/title_name_text" />
 
@@ -51,7 +54,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"
-            android:visibility="gone"
+            android:text="@{model.email}"
+            android:visibility="@{UtilsKt.isEmpty(model.email) ? View.GONE : View.VISIBLE}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/phone_text" />
 
@@ -60,7 +64,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"
-            android:visibility="gone"
+            android:text="@{model.location}"
+            android:visibility="@{UtilsKt.isEmpty(model.location) ? View.GONE : View.VISIBLE}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/email_text" />
     </androidx.constraintlayout.widget.ConstraintLayout>

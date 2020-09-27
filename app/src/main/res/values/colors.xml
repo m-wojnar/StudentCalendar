@@ -21,4 +21,5 @@
     <color name="status_bar">#999999</color>
     <color name="recycler_view_item">#333333</color>
     <color name="delete_button">#d32f2f</color>
+    <color name="widget_background">#EEEEEE</color>
 </resources>

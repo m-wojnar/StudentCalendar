@@ -3,10 +3,13 @@ package com.mwojnar.studentcalendar.helpers
 import android.app.Activity
 import android.content.Context
 import android.content.res.ColorStateList
+import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.view.children
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.android.material.textfield.TextInputLayout
 import com.mwojnar.studentcalendar.R
 import com.mwojnar.studentcalendar.database.BaseDao
 import kotlinx.coroutines.*
@@ -79,6 +82,16 @@ open class InputViewModel<T>(
         coroutineScope.launch {
             withContext(Dispatchers.IO) {
                 func()
+            }
+        }
+    }
+
+    fun setBoxStrokeColorForChildren(layout: ViewGroup, color: ColorStateList) {
+        for (child in layout.children) {
+            if (child is TextInputLayout) {
+                child.setBoxStrokeColorStateList(color)
+            } else if (child is ViewGroup) {
+                setBoxStrokeColorForChildren(child, color)
             }
         }
     }

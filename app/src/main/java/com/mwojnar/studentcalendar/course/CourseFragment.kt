@@ -47,9 +47,7 @@ class CourseFragment : Fragment() {
         // Set app color theme on views
         viewModel.colorStateList.observe(viewLifecycleOwner, {
             binding.saveButton.backgroundTintList = it
-            binding.nameTextLayout.setBoxStrokeColorStateList(it)
-            binding.iconTextLayout.setBoxStrokeColorStateList(it)
-            binding.colorTextLayout.setBoxStrokeColorStateList(it)
+            viewModel.setBoxStrokeColorForChildren(binding.mainLayout, it)
         })
 
         // Setup adapter for color picker and save colorId in selectedColorId

@@ -1,9 +1,11 @@
 package com.mwojnar.studentcalendar.main
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -29,6 +31,16 @@ class OnItemClickListener<T : EntityClass>(val func: (id: Long?) -> Unit) {
     fun onClick(model: T) = func(model.getId())
 }
 
+fun setCourseColorAndIcon(context: Context, layout: ConstraintLayout, colorId: Int?, imageView: ImageView, iconId: Int?) {
+    colorId?.let {
+        layout.backgroundTintList = ContextCompat.getColorStateList(context, it)
+    }
+
+    iconId?.let {
+        imageView.setImageResource(it)
+    }
+}
+
 class CourseAdapter(private val clickListener: OnItemClickListener<Course>) :
     ListAdapter<Course, CourseAdapter.ViewHolder>(ItemDiffCallback()) {
 
@@ -45,14 +57,8 @@ class CourseAdapter(private val clickListener: OnItemClickListener<Course>) :
             binding.clickListener = clickListener
             binding.model = item
 
-            item.colorId?.let {
-                val context = binding.courseItem.context
-                binding.courseItem.backgroundTintList = ContextCompat.getColorStateList(context, it)
-            }
-
-            item.iconId?.let {
-                binding.imageView.setImageResource(it)
-            }
+            val context = binding.courseItem.context
+            setCourseColorAndIcon(context, binding.courseItem, item.colorId, binding.imageView, item.iconId)
 
             binding.executePendingBindings()
         }
@@ -60,8 +66,7 @@ class CourseAdapter(private val clickListener: OnItemClickListener<Course>) :
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding =
-                    RecyclerViewCourseItemBinding.inflate(layoutInflater, parent, false)
+                val binding = RecyclerViewCourseItemBinding.inflate(layoutInflater, parent, false)
 
                 return ViewHolder(binding)
             }
@@ -85,29 +90,13 @@ class PersonAdapter(private val clickListener: OnItemClickListener<Person>) :
             binding.clickListener = clickListener
             binding.model = item
 
-            if (!item.phone.isNullOrEmpty()) {
-                binding.phoneText.text = item.phone
-                binding.phoneText.visibility = View.VISIBLE
-            }
-
-            if (!item.email.isNullOrEmpty()) {
-                binding.emailText.text = item.email
-                binding.emailText.visibility = View.VISIBLE
-            }
-
-            if (!item.location.isNullOrEmpty()) {
-                binding.locationText.text = item.location
-                binding.locationText.visibility = View.VISIBLE
-            }
-
             binding.executePendingBindings()
         }
 
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding =
-                    RecyclerViewPersonItemBinding.inflate(layoutInflater, parent, false)
+                val binding = RecyclerViewPersonItemBinding.inflate(layoutInflater, parent, false)
 
                 return ViewHolder(binding)
             }
@@ -130,26 +119,9 @@ class ScheduleAdapter(private val clickListener: OnItemClickListener<ScheduleAnd
         fun bind(clickListener: OnItemClickListener<ScheduleAndCourseAndPerson>, item: ScheduleAndCourseAndPerson) {
             binding.clickListener = clickListener
             binding.model = item
+
             val context = binding.scheduleItem.context
-
-            item.course.colorId?.let {
-                binding.scheduleItem.backgroundTintList = ContextCompat.getColorStateList(context, it)
-            }
-
-            item.course.iconId?.let {
-                binding.courseIcon.setImageResource(it)
-            }
-
-            binding.courseTypeText.text = if (item.schedule.type != null) {
-                    "${item.course.name}: ${item.schedule.type}"
-                } else {
-                    item.course.name
-                }
-
-            item.person?.let {
-                binding.personText.text = item.person.toString()
-                binding.personText.visibility = View.VISIBLE
-            }
+            setCourseColorAndIcon(context, binding.scheduleItem, item.course.colorId, binding.courseIcon, item.course.iconId)
 
             var whenText = "${item.schedule.whenTime?.toTimeString(context)}, "
             whenText += when (item.schedule.weekday) {
@@ -169,19 +141,13 @@ class ScheduleAdapter(private val clickListener: OnItemClickListener<ScheduleAnd
                 item.schedule.endDate?.toDateString(context)
             )
 
-            if (!item.schedule.location.isNullOrEmpty()) {
-                binding.locationText.text = item.schedule.location
-                binding.locationText.visibility = View.VISIBLE
-            }
-
             binding.executePendingBindings()
         }
 
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding =
-                    RecyclerViewScheduleItemBinding.inflate(layoutInflater, parent, false)
+                val binding = RecyclerViewScheduleItemBinding.inflate(layoutInflater, parent, false)
 
                 return ViewHolder(binding)
             }
@@ -204,28 +170,11 @@ class TestAdapter(private val clickListener: OnItemClickListener<TestAndCourse>)
         fun bind(clickListener: OnItemClickListener<TestAndCourse>, item: TestAndCourse) {
             binding.clickListener = clickListener
             binding.model = item
+
             val context = binding.testItem.context
-
-            item.course.colorId?.let {
-                binding.testItem.backgroundTintList = ContextCompat.getColorStateList(context, it)
-            }
-
-            item.course.iconId?.let {
-                binding.courseIcon.setImageResource(it)
-            }
-
-            binding.titleText.text = if (item.test.type != null) {
-                    "${item.course.name}: ${item.test.type}"
-                } else {
-                    item.course.name
-                }
+            setCourseColorAndIcon(context, binding.testItem, item.course.colorId, binding.courseIcon, item.course.iconId)
 
             binding.whenText.text = item.test.whenDateTime?.toDateTimeString(context)
-
-            if (!item.test.location.isNullOrEmpty()) {
-                binding.locationText.text = item.test.location
-                binding.locationText.visibility = View.VISIBLE
-            }
 
             binding.executePendingBindings()
         }
@@ -233,8 +182,7 @@ class TestAdapter(private val clickListener: OnItemClickListener<TestAndCourse>)
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding =
-                    RecyclerViewTestItemBinding.inflate(layoutInflater, parent, false)
+                val binding = RecyclerViewTestItemBinding.inflate(layoutInflater, parent, false)
 
                 return ViewHolder(binding)
             }
@@ -257,30 +205,9 @@ class TaskAdapter(private val clickListener: OnItemClickListener<TaskAndCourse>)
         fun bind(clickListener: OnItemClickListener<TaskAndCourse>, item: TaskAndCourse) {
             binding.clickListener = clickListener
             binding.model = item
+
             val context = binding.taskItem.context
-
-            item.course?.colorId?.let {
-                binding.taskItem.backgroundTintList = ContextCompat.getColorStateList(context, it)
-            }
-
-            item.course?.iconId?.let {
-                binding.courseIcon.setImageResource(it)
-            }
-
-            if (!item.course?.name.isNullOrEmpty()) {
-                binding.courseText.text = item.course?.name
-                binding.courseText.visibility = View.VISIBLE
-            }
-
-            item.task.whenDateTime?.let {
-                binding.whenText.text = it.toDateTimeString(context)
-                binding.whenText.visibility = View.VISIBLE
-            }
-
-            if (!item.task.location.isNullOrEmpty()) {
-                binding.locationText.text = item.task.location
-                binding.locationText.visibility = View.VISIBLE
-            }
+            setCourseColorAndIcon(context, binding.taskItem, item.course?.colorId, binding.courseIcon, item.course?.iconId)
 
             binding.priorityIcon.setImageResource(when (item.task.priority) {
                 2 -> R.drawable.ic_baseline_error_outline_24
@@ -288,14 +215,15 @@ class TaskAdapter(private val clickListener: OnItemClickListener<TaskAndCourse>)
                 else -> android.R.color.transparent
             })
 
+            binding.whenText.text = item.task.whenDateTime?.toDateTimeString(context)
+
             binding.executePendingBindings()
         }
 
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding =
-                    RecyclerViewTaskItemBinding.inflate(layoutInflater, parent, false)
+                val binding = RecyclerViewTaskItemBinding.inflate(layoutInflater, parent, false)
 
                 return ViewHolder(binding)
             }
@@ -330,15 +258,9 @@ class YourDayAdapter(private val clickListener: OnYourDayItemClickListener)
         fun bind(clickListener: OnYourDayItemClickListener, item: YourDayItem) {
             binding.clickListener = clickListener
             binding.model = item
-            val context = binding.taskItem.context
 
-            item.course?.colorId?.let {
-                binding.taskItem.backgroundTintList = ContextCompat.getColorStateList(context, it)
-            }
-
-            item.course?.iconId?.let {
-                binding.courseIcon.setImageResource(it)
-            }
+            val context = binding.yourDayItem.context
+            setCourseColorAndIcon(context, binding.yourDayItem, item.course?.colorId, binding.courseIcon, item.course?.iconId)
 
             binding.priorityIcon.setImageResource(when (item.priority) {
                 2 -> R.drawable.ic_baseline_error_outline_24
@@ -346,15 +268,7 @@ class YourDayAdapter(private val clickListener: OnYourDayItemClickListener)
                 else -> android.R.color.transparent
             })
 
-            if (!item.moreInfo.isNullOrEmpty()) {
-                binding.moreText.text = item.moreInfo
-                binding.moreText.visibility = View.VISIBLE
-            }
-
-            if (!item.location.isNullOrEmpty()) {
-                binding.locationText.text = item.location
-                binding.locationText.visibility = View.VISIBLE
-            }
+            binding.whenText.text = item.whenDateTime?.toDateTimeString(context)
 
             binding.executePendingBindings()
         }
@@ -362,8 +276,7 @@ class YourDayAdapter(private val clickListener: OnYourDayItemClickListener)
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding =
-                    RecyclerViewYourDayItemBinding.inflate(layoutInflater, parent, false)
+                val binding = RecyclerViewYourDayItemBinding.inflate(layoutInflater, parent, false)
 
                 return ViewHolder(binding)
             }

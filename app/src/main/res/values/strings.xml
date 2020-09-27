@@ -135,15 +135,28 @@
     <string name="start_end_text">From %1$s to %2$s</string>
 
     <string name="start_tutorial">Start tutorial</string>
-    <string name="introduction_1">Welcome to Student Calendar! Here is a quick tutorial on how to use my app, let me show you!</string>
+    <string name="introduction_1">Welcome to Student Calendar! Here is a quick tutorial on how to use my app, let me
+        show you!
+    </string>
     <string name="first_steps">First steps</string>
-    <string name="first_steps_text_2">To start use this app, you have to add some basic information, so we can start organising your time.</string>
-    <string name="first_steps_text_3">Firstly, you have to add some courses that you attend (tab \"Courses\" and \"+\" button)…</string>
-    <string name="first_steps_text_4">…and academic teachers that are responsible for that courses (tab \"People\").</string>
+    <string name="first_steps_text_2">To start use this app, you have to add some basic information, so we can start
+        organising your time.
+    </string>
+    <string name="first_steps_text_3">Firstly, you have to add some courses that you attend (tab \"Courses\" and \"+\"
+        button)…
+    </string>
+    <string name="first_steps_text_4">…and academic teachers that are responsible for that courses (tab \"People\").
+    </string>
     <string name="setup_your_day">Setup your day</string>
-    <string name="setup_your_day_5">Now you can setup your schedules, add tests and exams - we will show all of that on \"Your day\" page.</string>
-    <string name="setup_your_day_6">You can also add some important tasks and set a reminders - all you have to do will be shown on \"Your day\" page.</string>
-    <string name="settings_7">Take a look at the settings page! You can turn on and off welcome screen or switch between light and dark theme.</string>
+    <string name="setup_your_day_5">Now you can setup your schedules, add tests and exams - we will show all of that on
+        \"Your day\" page.
+    </string>
+    <string name="setup_your_day_6">You can also add some important tasks and set a reminders - all you have to do will
+        be shown on \"Your day\" page.
+    </string>
+    <string name="settings_7">Take a look at the settings page! You can turn on and off welcome screen or switch between
+        light and dark theme.
+    </string>
     <string name="text_8">That\' all! I hope that you will enjoy using my app, so let\'s begin!</string>
     <string name="reminders_channel_name">Reminders</string>
     <string name="reminders_channel_description">Tasks reminder from Student Calendar</string>
@@ -163,4 +176,5 @@
     <string name="notification_message" translatable="false">notification_message</string>
     <string name="notification_time" translatable="false">notification_time</string>
     <string name="selected_tab" translatable="false">selected_tab</string>
+    <string name="add_button">Add button</string>
 </resources>

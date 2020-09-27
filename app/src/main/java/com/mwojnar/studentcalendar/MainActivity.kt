@@ -1,5 +1,7 @@
 package com.mwojnar.studentcalendar
 
+import android.appwidget.AppWidgetManager
+import android.content.ComponentName
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -17,6 +19,8 @@ import com.mwojnar.studentcalendar.databinding.ActivityMainBinding
 import com.mwojnar.studentcalendar.intro.StudentCalendarIntro
 import com.mwojnar.studentcalendar.main.MainFragment
 import com.mwojnar.studentcalendar.main.MainFragmentDirections
+import com.mwojnar.studentcalendar.widget.StudentCalendarWidget
+
 
 interface ToolbarActivity {
     fun hideActionBar()
@@ -73,6 +77,20 @@ class MainActivity : AppCompatActivity(), ToolbarActivity {
         if (firstWelcome && showWelcome) {
             goToWelcomeFragment()
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        // Refresh all widgets on app close
+        val ids = AppWidgetManager.getInstance(application)
+            .getAppWidgetIds(ComponentName(application, StudentCalendarWidget::class.java))
+
+        val intent = Intent(this, StudentCalendarWidget::class.java).apply {
+            action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
+            putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+        }
+        sendBroadcast(intent)
     }
 
     override fun onDestroy() {

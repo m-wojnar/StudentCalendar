@@ -7,4 +7,5 @@
 
     <color name="toolbar">#333333</color>
     <color name="status_bar">#222222</color>
+    <color name="widget_background">#232323</color>
 </resources>

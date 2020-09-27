@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="com.mwojnar.studentcalendar.helpers.UtilsKt" />
+        <import type="android.view.View" />
 
         <variable
             name="model"
@@ -43,11 +45,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_standard"
             android:layout_marginBottom="@dimen/margin_small"
+            android:text="@{UtilsKt.nameAndTypeString(model.course.name, model.schedule.type)}"
             android:textColor="@android:color/white"
             android:textSize="@dimen/item_title_text"
             app:layout_constraintStart_toEndOf="@id/course_icon"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="@string/app_name" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/person_text"
@@ -55,7 +57,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_standard"
             android:textColor="@android:color/white"
-            android:visibility="gone"
+            android:text="@{model.person.toString()}"
+            android:visibility="@{model.person == null ? View.GONE : View.VISIBLE}"
             app:layout_constraintStart_toEndOf="@id/course_icon"
             app:layout_constraintTop_toBottomOf="@id/course_type_text" />
 
@@ -85,7 +88,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_standard"
             android:textColor="@android:color/white"
-            android:visibility="gone"
+            android:text="@{model.schedule.location}"
+            android:visibility="@{UtilsKt.isEmpty(model.schedule.location) ? View.GONE : View.VISIBLE}"
             app:layout_constraintStart_toEndOf="@id/course_icon"
             app:layout_constraintTop_toBottomOf="@id/start_end_text" />
     </androidx.constraintlayout.widget.ConstraintLayout>
