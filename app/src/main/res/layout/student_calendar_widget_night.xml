@@ -2,7 +2,8 @@
     android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/widget_background_night"
+    android:background="@drawable/widget_background"
+    android:backgroundTint="@color/widget_background_night"
     android:orientation="vertical"
     android:padding="@dimen/widget_margin">
 
@@ -11,7 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:layout_margin="@dimen/margin_small"
+        android:layout_margin="@dimen/action_margin"
         android:weightSum="1">
 
         <TextView
@@ -47,8 +48,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:nestedScrollingEnabled="true"
-        android:layout_marginStart="@dimen/margin_tiny"
-        android:layout_marginEnd="@dimen/margin_tiny"
-        android:layout_marginBottom="@dimen/margin_tiny" />
+        android:layout_marginStart="@dimen/margin_small"
+        android:layout_marginEnd="@dimen/margin_small"
+        android:layout_marginBottom="@dimen/margin_small" />
 
 </LinearLayout>

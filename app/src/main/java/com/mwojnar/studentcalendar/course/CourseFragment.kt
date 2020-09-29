@@ -40,8 +40,8 @@ class CourseFragment : Fragment() {
         }
 
         viewModel.model.observe(viewLifecycleOwner, {
-            binding.iconText.setText(viewModel.iconsTextMap[it.iconId], false)
-            binding.colorText.setText(viewModel.colorsTextMap[it.colorId], false)
+            binding.iconText.setText(viewModel.iconsTextMap[it.iconName], false)
+            binding.colorText.setText(viewModel.colorsTextMap[it.colorName], false)
         })
 
         // Set app color theme on views
@@ -51,15 +51,15 @@ class CourseFragment : Fragment() {
         })
 
         // Setup adapter for color picker and save colorId in selectedColorId
-        binding.colorText.setAdapter(IconAdapter(requireContext(), viewModel.colorsItemsArray))
+        binding.colorText.setAdapter(IconAdapter(requireContext(), viewModel.colorsItemsArray, getString(R.string.type_color)))
         binding.colorText.setOnItemClickListener { adapterView, _, position, _ ->
-            viewModel.setColor((adapterView.getItemAtPosition(position) as IconDropdownItem).id)
+            viewModel.setColor((adapterView.getItemAtPosition(position) as IconDropdownItem).resName)
         }
 
         // Setup adapter for icon picker and save iconId in selectedIconId
-        binding.iconText.setAdapter(IconAdapter(requireContext(), viewModel.iconsItemsArray))
+        binding.iconText.setAdapter(IconAdapter(requireContext(), viewModel.iconsItemsArray, getString(R.string.type_drawable)))
         binding.iconText.setOnItemClickListener { adapterView, _, position, _ ->
-            viewModel.setIcon((adapterView.getItemAtPosition(position) as IconDropdownItem).id)
+            viewModel.setIcon((adapterView.getItemAtPosition(position) as IconDropdownItem).resName)
         }
 
         binding.saveButton.setOnClickListener {

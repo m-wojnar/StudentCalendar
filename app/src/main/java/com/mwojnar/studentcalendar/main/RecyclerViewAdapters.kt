@@ -31,13 +31,21 @@ class OnItemClickListener<T : EntityClass>(val func: (id: Long?) -> Unit) {
     fun onClick(model: T) = func(model.getId())
 }
 
-fun setCourseColorAndIcon(context: Context, layout: ConstraintLayout, colorId: Int?, imageView: ImageView, iconId: Int?) {
-    colorId?.let {
-        layout.backgroundTintList = ContextCompat.getColorStateList(context, it)
+fun setCourseColorAndIcon(
+    context: Context,
+    layout: ConstraintLayout,
+    colorName: String?,
+    imageView: ImageView,
+    iconName: String?
+) {
+    colorName?.let {
+        val colorId = context.resources.getIdentifier(it, context.getString(R.string.type_color), context.packageName)
+        layout.backgroundTintList = ContextCompat.getColorStateList(context, colorId)
     }
 
-    iconId?.let {
-        imageView.setImageResource(it)
+    iconName?.let {
+        val iconId = context.resources.getIdentifier(it, context.getString(R.string.type_drawable), context.packageName)
+        imageView.setImageResource(iconId)
     }
 }
 
@@ -58,7 +66,7 @@ class CourseAdapter(private val clickListener: OnItemClickListener<Course>) :
             binding.model = item
 
             val context = binding.courseItem.context
-            setCourseColorAndIcon(context, binding.courseItem, item.colorId, binding.imageView, item.iconId)
+            setCourseColorAndIcon(context, binding.courseItem, item.colorName, binding.imageView, item.iconName)
 
             binding.executePendingBindings()
         }
@@ -121,7 +129,13 @@ class ScheduleAdapter(private val clickListener: OnItemClickListener<ScheduleAnd
             binding.model = item
 
             val context = binding.scheduleItem.context
-            setCourseColorAndIcon(context, binding.scheduleItem, item.course.colorId, binding.courseIcon, item.course.iconId)
+            setCourseColorAndIcon(
+                context,
+                binding.scheduleItem,
+                item.course.colorName,
+                binding.courseIcon,
+                item.course.iconName
+            )
 
             var whenText = "${item.schedule.whenTime?.toTimeString(context)}, "
             whenText += when (item.schedule.weekday) {
@@ -172,7 +186,13 @@ class TestAdapter(private val clickListener: OnItemClickListener<TestAndCourse>)
             binding.model = item
 
             val context = binding.testItem.context
-            setCourseColorAndIcon(context, binding.testItem, item.course.colorId, binding.courseIcon, item.course.iconId)
+            setCourseColorAndIcon(
+                context,
+                binding.testItem,
+                item.course.colorName,
+                binding.courseIcon,
+                item.course.iconName
+            )
 
             binding.whenText.text = item.test.whenDateTime?.toDateTimeString(context)
 
@@ -207,13 +227,21 @@ class TaskAdapter(private val clickListener: OnItemClickListener<TaskAndCourse>)
             binding.model = item
 
             val context = binding.taskItem.context
-            setCourseColorAndIcon(context, binding.taskItem, item.course?.colorId, binding.courseIcon, item.course?.iconId)
+            setCourseColorAndIcon(
+                context,
+                binding.taskItem,
+                item.course?.colorName,
+                binding.courseIcon,
+                item.course?.iconName
+            )
 
-            binding.priorityIcon.setImageResource(when (item.task.priority) {
-                2 -> R.drawable.ic_baseline_error_outline_24
-                1 -> R.drawable.ic_baseline_low_priority_24
-                else -> android.R.color.transparent
-            })
+            binding.priorityIcon.setImageResource(
+                when (item.task.priority) {
+                    2 -> R.drawable.ic_baseline_error_outline_24
+                    1 -> R.drawable.ic_baseline_low_priority_24
+                    else -> android.R.color.transparent
+                }
+            )
 
             binding.whenText.text = item.task.whenDateTime?.toDateTimeString(context)
 
@@ -243,8 +271,8 @@ class YourDayDiffCallback : DiffUtil.ItemCallback<YourDayItem>() {
         oldItem == newItem
 }
 
-class YourDayAdapter(private val clickListener: OnYourDayItemClickListener)
-    : ListAdapter<YourDayItem, YourDayAdapter.ViewHolder>(YourDayDiffCallback()) {
+class YourDayAdapter(private val clickListener: OnYourDayItemClickListener) :
+    ListAdapter<YourDayItem, YourDayAdapter.ViewHolder>(YourDayDiffCallback()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) =
         holder.bind(clickListener, getItem(position))
@@ -260,13 +288,21 @@ class YourDayAdapter(private val clickListener: OnYourDayItemClickListener)
             binding.model = item
 
             val context = binding.yourDayItem.context
-            setCourseColorAndIcon(context, binding.yourDayItem, item.course?.colorId, binding.courseIcon, item.course?.iconId)
+            setCourseColorAndIcon(
+                context,
+                binding.yourDayItem,
+                item.course?.colorName,
+                binding.courseIcon,
+                item.course?.iconName
+            )
 
-            binding.priorityIcon.setImageResource(when (item.priority) {
-                2 -> R.drawable.ic_baseline_error_outline_24
-                1 -> R.drawable.ic_baseline_low_priority_24
-                else -> android.R.color.transparent
-            })
+            binding.priorityIcon.setImageResource(
+                when (item.priority) {
+                    2 -> R.drawable.ic_baseline_error_outline_24
+                    1 -> R.drawable.ic_baseline_low_priority_24
+                    else -> android.R.color.transparent
+                }
+            )
 
             binding.whenText.text = item.whenDateTime?.toDateTimeString(context)
 

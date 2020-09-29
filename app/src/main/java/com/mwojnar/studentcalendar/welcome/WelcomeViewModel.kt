@@ -15,59 +15,59 @@ class WelcomeViewModel(private val activity: Activity): ViewModel() {
 
     // Application colors
     private val colors = arrayOf(
-        R.color.app_color_1,
-        R.color.app_color_2,
-        R.color.app_color_3,
-        R.color.app_color_4,
-        R.color.app_color_5,
-        R.color.app_color_6,
-        R.color.app_color_7,
-        R.color.app_color_8,
-        R.color.app_color_9,
-        R.color.app_color_10,
-        R.color.app_color_11,
-        R.color.app_color_12,
-        R.color.app_color_13,
-        R.color.app_color_14
+        getResourceName(R.color.app_color_1),
+        getResourceName(R.color.app_color_2),
+        getResourceName(R.color.app_color_3),
+        getResourceName(R.color.app_color_4),
+        getResourceName(R.color.app_color_5),
+        getResourceName(R.color.app_color_6),
+        getResourceName(R.color.app_color_7),
+        getResourceName(R.color.app_color_8),
+        getResourceName(R.color.app_color_9),
+        getResourceName(R.color.app_color_10),
+        getResourceName(R.color.app_color_11),
+        getResourceName(R.color.app_color_12),
+        getResourceName(R.color.app_color_13),
+        getResourceName(R.color.app_color_14)
     )
-    private val _color = MutableLiveData<Int>()
-    val color: LiveData<Int>
+    private val _color = MutableLiveData<String>()
+    val color: LiveData<String>
         get() = _color
 
     // Application icons
     private val icons = arrayOf(
-        R.drawable.ic_baseline_beach_access_24,
-        R.drawable.ic_baseline_emoji_food_beverage_24,
-        R.drawable.ic_baseline_local_cafe_24,
-        R.drawable.ic_baseline_mood_24,
-        R.drawable.ic_baseline_music_note_24,
-        R.drawable.ic_baseline_thumb_up_24,
-        R.drawable.ic_baseline_wb_sunny_24,
-        R.drawable.ic_baseline_airplane_active_24,
-        R.drawable.ic_baseline_android_24,
-        R.drawable.ic_baseline_cake_24,
-        R.drawable.ic_baseline_camera_24,
-        R.drawable.ic_baseline_chat_24,
-        R.drawable.ic_baseline_laptop_24,
-        R.drawable.ic_baseline_leaf_24,
-        R.drawable.ic_baseline_notes_24
+        getResourceName(R.drawable.ic_baseline_beach_access_24),
+        getResourceName(R.drawable.ic_baseline_emoji_food_beverage_24),
+        getResourceName(R.drawable.ic_baseline_local_cafe_24),
+        getResourceName(R.drawable.ic_baseline_mood_24),
+        getResourceName(R.drawable.ic_baseline_music_note_24),
+        getResourceName(R.drawable.ic_baseline_thumb_up_24),
+        getResourceName(R.drawable.ic_baseline_wb_sunny_24),
+        getResourceName(R.drawable.ic_baseline_airplane_active_24),
+        getResourceName(R.drawable.ic_baseline_android_24),
+        getResourceName(R.drawable.ic_baseline_cake_24),
+        getResourceName(R.drawable.ic_baseline_camera_24),
+        getResourceName(R.drawable.ic_baseline_chat_24),
+        getResourceName(R.drawable.ic_baseline_laptop_24),
+        getResourceName(R.drawable.ic_baseline_leaf_24),
+        getResourceName(R.drawable.ic_baseline_notes_24)
     )
-    private val _icon = MutableLiveData<Int>()
-    val icon: LiveData<Int>
+    private val _icon = MutableLiveData<String>()
+    val icon: LiveData<String>
         get() = _icon
 
     // Application welcome texts
     private val texts = listOf(
-        R.string.welcome_1,
-        R.string.welcome_2,
-        R.string.welcome_3,
-        R.string.welcome_4,
-        R.string.welcome_5,
-        R.string.welcome_6,
-        R.string.welcome_7
+        getResourceName(R.string.welcome_1),
+        getResourceName(R.string.welcome_2),
+        getResourceName(R.string.welcome_3),
+        getResourceName(R.string.welcome_4),
+        getResourceName(R.string.welcome_5),
+        getResourceName(R.string.welcome_6),
+        getResourceName(R.string.welcome_7)
     )
-    private val _text = MutableLiveData<Int>()
-    val text: LiveData<Int>
+    private val _text = MutableLiveData<String>()
+    val text: LiveData<String>
         get() = _text
 
     private val welcomeScreenTime = 2500L
@@ -87,8 +87,8 @@ class WelcomeViewModel(private val activity: Activity): ViewModel() {
         // Save randomly chosen values to shared preferences
         val sharedPreferences = activity.getPreferences(Context.MODE_PRIVATE)
         with (sharedPreferences.edit()) {
-            putInt(activity.getString(R.string.random_welcome_text), _text.value!!)
-            putInt(activity.getString(R.string.random_welcome_color), _color.value!!)
+            putString(activity.getString(R.string.random_welcome_text_name), _text.value!!)
+            putString(activity.getString(R.string.random_welcome_color_name), _color.value!!)
             apply()
         }
 
@@ -123,4 +123,7 @@ class WelcomeViewModel(private val activity: Activity): ViewModel() {
     fun hideActionBarDone() {
         MainActivity.firstWelcome = false
     }
+
+    private fun getResourceName(id: Int) =
+        activity.resources.getResourceEntryName(id)
 }

@@ -39,8 +39,14 @@ open class InputViewModel<T>(
     init {
         // Read chosen color from shared preferences
         val preferences = activity.getPreferences(Context.MODE_PRIVATE)
-        val colorId = preferences.getInt(activity.getString(R.string.random_welcome_color), R.color.primary_color)
-        _colorStateList.value = ContextCompat.getColorStateList(activity.applicationContext, colorId)!!
+        val colorName = preferences.getString(
+            activity.getString(R.string.random_welcome_color_name),
+            activity.resources.getResourceEntryName(R.color.app_color_10)
+        )
+        _colorStateList.value = ContextCompat.getColorStateList(
+            activity.applicationContext,
+            activity.resources.getIdentifier(colorName, activity.getString(R.string.type_color), activity.applicationContext.packageName)
+        )!!
 
         // If id != null, then user is updating data
         if (id != null) {
@@ -100,5 +106,6 @@ open class InputViewModel<T>(
         _goToMainFragment.value = false
     }
 
-    protected fun getString(id: Int) = activity.getString(id)
+    protected fun getString(id: Int) =
+        activity.getString(id)
 }

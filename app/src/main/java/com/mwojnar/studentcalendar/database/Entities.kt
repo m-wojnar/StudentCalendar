@@ -42,8 +42,8 @@ data class Course(
     @PrimaryKey(autoGenerate = true)
     var courseId: Long? = null,
     var name: String = "",
-    var iconId: Int? = null,
-    var colorId: Int? = null
+    var iconName: String? = null,
+    var colorName: String? = null
 ) : EntityClass, ToValueItemConvertible {
     override fun getId() = courseId
 

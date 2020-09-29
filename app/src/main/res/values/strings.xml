@@ -165,6 +165,7 @@
     </string>
     <string name="widget_8">Maybe you would like to add a widget to your home screen?</string>
     <string name="text_9">That\' all! I hope that you will enjoy using my app, so let\'s begin!</string>
+    <string name="widget">Widget</string>
     <string name="reminders_channel_name">Reminders</string>
     <string name="reminders_channel_description">Tasks reminder from Student Calendar</string>
     <string name="remind_in_15_min">REMIND IN 15 MIN</string>
@@ -172,17 +173,18 @@
     <string name="application_icon">Application icon</string>
     <string name="random_welcome_icon">Random welcome icon</string>
     <string name="course_icon">Course icon</string>
+    <string name="add_button">Add button</string>
 
-    <string name="random_welcome_text" translatable="false">random_welcome_text</string>
-    <string name="random_welcome_color" translatable="false">random_welcome_color</string>
+    <string name="random_welcome_text_name" translatable="false">random_welcome_text_name</string>
+    <string name="random_welcome_color_name" translatable="false">random_welcome_color_name</string>
     <string name="show_welcome_preference" translatable="false">show_welcome_preference</string>
     <string name="theme_preference" translatable="false">theme_preference</string>
     <string name="show_intro" translatable="false">show_intro</string>
     <string name="reminders_channel_id" translatable="false">student_calendar_reminders_channel</string>
     <string name="notification_id" translatable="false">notification_id</string>
     <string name="notification_message" translatable="false">notification_message</string>
-    <string name="notification_time" translatable="false">notification_time</string>
     <string name="selected_tab" translatable="false">selected_tab</string>
-    <string name="add_button">Add button</string>
-    <string name="widget">Widget</string>
+    <string name="type_drawable" translatable="false">drawable</string>
+    <string name="type_color" translatable="false">color</string>
+    <string name="type_string" translatable="false">string</string>
 </resources>

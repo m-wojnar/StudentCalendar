@@ -68,13 +68,15 @@ class MainFragment : Fragment(), TabLayout.OnTabSelectedListener, View.OnTouchLi
 
         // Set chosen color to the action bar and navigation drawer
         viewModel.color.observe(viewLifecycleOwner, {
-            binding.floatingActionButton.backgroundTintList = ContextCompat.getColorStateList(requireContext(), it)
-            headerView?.setBackgroundResource(it)
+            val colorId = resources.getIdentifier(it, getString(R.string.type_color), context?.packageName)
+            binding.floatingActionButton.backgroundTintList = ContextCompat.getColorStateList(requireContext(), colorId)
+            headerView?.setBackgroundResource(colorId)
         })
 
         // Set chosen text to the action bar
         viewModel.text.observe(viewLifecycleOwner, {
-            toolbarActivity.setActionBarText(it)
+            val textId = resources.getIdentifier(it, getString(R.string.type_string), context?.packageName)
+            toolbarActivity.setActionBarText(textId)
         })
 
         // Load data to recycler view when ready depending on selected tab

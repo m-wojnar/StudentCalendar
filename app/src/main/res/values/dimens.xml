@@ -22,4 +22,5 @@
     <dimen name="widget_app_name_text">16sp</dimen>
     <dimen name="widget_text">13sp</dimen>
     <dimen name="widget_icon">15dp</dimen>
+    <dimen name="widget_radius">16dp</dimen>
 </resources>

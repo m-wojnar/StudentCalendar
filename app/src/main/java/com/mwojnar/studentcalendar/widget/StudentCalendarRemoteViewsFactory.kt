@@ -43,24 +43,37 @@ class StudentCalendarRemoteViewsFactory(private val context: Context) : RemoteVi
     }
 
     override fun getViewAt(position: Int): RemoteViews {
+        val course = yourDayList[position].course
+
+        val colorId =
+            if (course?.colorName != null) {
+                context.resources.getIdentifier(
+                    course.colorName,
+                    context.getString(R.string.type_color),
+                    context.packageName
+                )
+            } else {
+                R.color.recycler_view_item
+            }
+
+        val iconId =
+            if (course?.iconName != null) {
+                context.resources.getIdentifier(
+                    course.iconName,
+                    context.getString(R.string.type_drawable),
+                    context.packageName
+                )
+            } else {
+                android.R.color.transparent
+            }
+
         // Style list item and fill text fields
         val remoteViews = RemoteViews(context.packageName, R.layout.widget_your_day_item)
         remoteViews.setTextViewText(R.id.title_text, yourDayList[position].title)
         remoteViews.setTextViewText(R.id.when_text, yourDayList[position].whenText)
-        remoteViews.setImageViewResource(
-            R.id.course_icon,
-            yourDayList[position].course?.iconId ?: android.R.color.transparent
-        )
-        remoteViews.setInt(
-            R.id.your_day_item,
-            "setBackgroundResource",
-            yourDayList[position].course?.colorId ?: R.color.recycler_view_item
-        )
-        remoteViews.setInt(
-            R.id.course_icon,
-            "setColorFilter",
-            android.R.color.white
-        )
+        remoteViews.setImageViewResource(R.id.course_icon, iconId)
+        remoteViews.setInt(R.id.course_icon, "setColorFilter", android.R.color.white)
+        remoteViews.setInt(R.id.your_day_item, "setBackgroundResource", colorId)
 
         return remoteViews
     }

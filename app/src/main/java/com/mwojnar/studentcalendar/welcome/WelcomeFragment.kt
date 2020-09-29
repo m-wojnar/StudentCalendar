@@ -31,16 +31,19 @@ class WelcomeFragment : Fragment() {
         binding.lifecycleOwner = this
 
         viewModel.color.observe(viewLifecycleOwner, {
-            binding.linearLayout.setBackgroundResource(it)
-            toolbarActivity.setBackground(it)
+            val colorId = resources.getIdentifier(it, getString(R.string.type_color), context?.packageName)
+            binding.linearLayout.setBackgroundResource(colorId)
+            toolbarActivity.setBackground(colorId)
         })
 
         viewModel.icon.observe(viewLifecycleOwner, {
-            binding.welcomeImage.setImageResource(it)
+            val iconId = resources.getIdentifier(it, getString(R.string.type_drawable), context?.packageName)
+            binding.welcomeImage.setImageResource(iconId)
         })
 
         viewModel.text.observe(viewLifecycleOwner, {
-            binding.welcomeText.text = getString(it)
+            val textId = resources.getIdentifier(it, getString(R.string.type_string), context?.packageName)
+            binding.welcomeText.text = getString(textId)
         })
 
         viewModel.mainFragmentEvent.observe(viewLifecycleOwner, {

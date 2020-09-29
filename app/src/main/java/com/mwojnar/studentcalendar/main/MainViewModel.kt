@@ -11,12 +11,12 @@ import kotlinx.coroutines.*
 import java.util.*
 
 class MainViewModel(private val activity: Activity) : ViewModel() {
-    private val _text = MutableLiveData<Int>()
-    val text: LiveData<Int>
+    private val _text = MutableLiveData<String>()
+    val text: LiveData<String>
         get() = _text
 
-    private val _color = MutableLiveData<Int>()
-    val color: LiveData<Int>
+    private val _color = MutableLiveData<String>()
+    val color: LiveData<String>
         get() = _color
 
     private val _coursesData = MutableLiveData<List<Course>>()
@@ -55,13 +55,13 @@ class MainViewModel(private val activity: Activity) : ViewModel() {
     init {
         // Get chosen color, text and icon from shared preferences
         val sharedPreferences = activity.getPreferences(Context.MODE_PRIVATE)
-        _color.value = sharedPreferences.getInt(
-            activity.getString(R.string.random_welcome_color),
-            R.color.app_color_4
+        _color.value = sharedPreferences.getString(
+            activity.getString(R.string.random_welcome_color_name),
+            activity.resources.getResourceEntryName(R.color.app_color_10)
         )
-        _text.value = sharedPreferences.getInt(
-            activity.getString(R.string.random_welcome_text),
-            R.string.welcome_6
+        _text.value = sharedPreferences.getString(
+            activity.getString(R.string.random_welcome_text_name),
+            activity.resources.getResourceEntryName(R.string.welcome_6)
         )
     }
 
