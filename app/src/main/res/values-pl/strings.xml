@@ -143,11 +143,11 @@
     <string name="steel">Stalowy</string>
     <string name="welcome_screen">Ekran powitalny</string>
     <string name="import_data">Import</string>
-    <string name="import_data_text">Import danych do pliku</string>
+    <string name="import_data_text">Import danych z pliku</string>
     <string name="export_data">Eksport</string>
     <string name="export_data_text">Eksport danych do pliku</string>
     <string name="welcome_again">Witaj ponownie!</string>
-    <string name="select_theme_text">Włączone - ciemny temat, wyłączony - jasny temat</string>
+    <string name="select_theme_text">Włączone - ciemny temat, wyłączone - jasny temat</string>
     <string name="export_failed">Błąd podczas eksportu danych</string>
     <string name="export_completed">Eksport danych zakończony</string>
     <string name="not_supported">Ta opcja jest niedostępna na Twoim systemie</string>

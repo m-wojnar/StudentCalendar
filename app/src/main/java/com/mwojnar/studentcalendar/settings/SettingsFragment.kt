@@ -93,7 +93,7 @@ class PreferencesFragment : PreferenceFragmentCompat() {
 
             if (requestStoragePermissions(context, fragment.requireActivity())) {
                 val intent = Intent(Intent.ACTION_GET_CONTENT)
-                intent.type = "application/json"
+                intent.type = "*/*"
                 fragment.startActivityForResult(
                     Intent.createChooser(intent, context.getString(R.string.choose_file)), IMPORT_CODE
                 )
