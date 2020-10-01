@@ -41,9 +41,23 @@
         Copyright &#169; 2020, Maksymilian Wojnar
     </string>
 
-    <string name="show_welcome">Show welcome screen</string>
+    <string name="show_welcome_text">Show welcome screen every time you open the application</string>
+    <string name="welcome_screen">Welcome screen</string>
     <string name="select_theme">Dark theme</string>
-    <string name="welcome_again" translatable="false">Welcome again!</string>
+    <string name="select_theme_text">Switch on - dark theme, switch off - light theme</string>
+    <string name="import_data">Import</string>
+    <string name="import_data_text">Import application data from file</string>
+    <string name="export_data">Export</string>
+    <string name="export_data_text">Export application data to file</string>
+    <string name="welcome_again">Welcome again!</string>
+    <string name="choose_directory">Choose directory</string>
+    <string name="choose_file">Choose file</string>
+    <string name="not_supported">This action is not supported on your system</string>
+    <string name="export_failed">Exporting data failed</string>
+    <string name="export_completed">Exporting data complete</string>
+    <string name="import_failed">Importing data failed</string>
+    <string name="import_completed">Importing data complete</string>
+    <string name="grant_access">You have to grant access to external storage to use this function</string>
 
     <string name="name">Name</string>
     <string name="save">Save</string>
@@ -187,4 +201,6 @@
     <string name="type_drawable" translatable="false">drawable</string>
     <string name="type_color" translatable="false">color</string>
     <string name="type_string" translatable="false">string</string>
+    <string name="export_preference" translatable="false">export_preference</string>
+    <string name="import_preference" translatable="false">import_preference</string>
 </resources>

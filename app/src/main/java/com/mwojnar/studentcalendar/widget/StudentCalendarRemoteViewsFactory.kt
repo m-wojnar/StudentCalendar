@@ -6,6 +6,7 @@ import android.widget.RemoteViewsService
 import com.mwojnar.studentcalendar.R
 import com.mwojnar.studentcalendar.database.CalendarDatabase
 import com.mwojnar.studentcalendar.database.YourDayItem
+import com.mwojnar.studentcalendar.helpers.getDayTime
 import java.util.*
 
 class StudentCalendarRemoteViewsFactory(private val context: Context) : RemoteViewsService.RemoteViewsFactory {
@@ -39,7 +40,7 @@ class StudentCalendarRemoteViewsFactory(private val context: Context) : RemoteVi
                 .map { it.toYourDayItem(context) }
         )
 
-        yourDayList.sortBy { it.whenDateTime?.time }
+        yourDayList.sortBy { it.whenDateTime?.getDayTime() }
     }
 
     override fun getViewAt(position: Int): RemoteViews {

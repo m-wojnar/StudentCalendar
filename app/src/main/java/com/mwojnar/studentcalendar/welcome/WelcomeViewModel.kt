@@ -116,7 +116,7 @@ class WelcomeViewModel(private val activity: Activity): ViewModel() {
 
     fun hideActionBarWithAnimation(): Boolean {
         val preferences = PreferenceManager.getDefaultSharedPreferences(activity.applicationContext)
-        val showWelcome = preferences.getBoolean(activity.getString(R.string.show_welcome), true)
+        val showWelcome = preferences.getBoolean(activity.getString(R.string.show_welcome_preference), true)
         return showWelcome && MainActivity.firstWelcome
     }
 

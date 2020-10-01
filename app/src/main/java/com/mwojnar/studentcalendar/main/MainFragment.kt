@@ -18,6 +18,7 @@ import com.mwojnar.studentcalendar.ToolbarActivity
 import com.mwojnar.studentcalendar.database.ItemType
 import com.mwojnar.studentcalendar.database.YourDayItem
 import com.mwojnar.studentcalendar.databinding.FragmentMainBinding
+import com.mwojnar.studentcalendar.helpers.getDayTime
 
 class MainFragment : Fragment(), TabLayout.OnTabSelectedListener, View.OnTouchListener {
 
@@ -239,7 +240,7 @@ class MainFragment : Fragment(), TabLayout.OnTabSelectedListener, View.OnTouchLi
             })
             binding.recyclerView.adapter = adapter
 
-            yourDayList.sortBy { it.whenDateTime?.time }
+            yourDayList.sortBy { it.whenDateTime?.getDayTime() }
             adapter.submitList(yourDayList)
 
             schedulesLoaded = false

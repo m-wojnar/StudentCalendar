@@ -5,7 +5,7 @@ import java.util.*
 
 @Dao
 interface BaseDao<T> {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(obj: T): Long
 
     @Update
@@ -15,12 +15,16 @@ interface BaseDao<T> {
     fun delete(obj: T)
 
     fun get(id: Long): T?
+    fun getAll(): List<T>?
 }
 
 @Dao
 interface TasksTableDao : BaseDao<Task> {
     @Query("SELECT * FROM tasks WHERE taskId = :id")
     override fun get(id: Long): Task?
+
+    @Query("SELECT * FROM tasks")
+    override fun getAll(): List<Task>?
 
     @Transaction
     @Query("SELECT * FROM tasks ORDER BY priority DESC, whenDateTime")
@@ -36,6 +40,9 @@ interface TestsTableDao : BaseDao<Test> {
     @Query("SELECT * FROM tests WHERE testId = :id")
     override fun get(id: Long): Test?
 
+    @Query("SELECT * FROM tests")
+    override fun getAll(): List<Test>?
+
     @Transaction
     @Query("SELECT * FROM tests ORDER BY whenDateTime")
     fun getAllWithCourse(): List<TestAndCourse>?
@@ -49,6 +56,9 @@ interface TestsTableDao : BaseDao<Test> {
 interface SchedulesTableDao : BaseDao<Schedule> {
     @Query("SELECT * FROM schedules WHERE scheduleId = :id")
     override fun get(id: Long): Schedule?
+
+    @Query("SELECT * FROM schedules")
+    override fun getAll(): List<Schedule>?
 
     @Transaction
     @Query("SELECT * FROM schedules ORDER BY courseId")
@@ -65,7 +75,7 @@ interface CoursesTableDao : BaseDao<Course> {
     override fun get(id: Long): Course?
 
     @Query("SELECT * FROM courses ORDER BY courseId")
-    fun getAll(): List<Course>?
+    override fun getAll(): List<Course>?
 }
 
 @Dao
@@ -74,5 +84,5 @@ interface PeopleTableDao : BaseDao<Person> {
     override fun get(id: Long): Person?
 
     @Query("SELECT * FROM people ORDER BY lastName, firstName")
-    fun getAll(): List<Person>?
+    override fun getAll(): List<Person>?
 }

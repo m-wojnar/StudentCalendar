@@ -3,10 +3,8 @@ package com.mwojnar.studentcalendar.database
 import android.content.Context
 import androidx.room.*
 import androidx.room.ForeignKey.CASCADE
-import com.mwojnar.studentcalendar.helpers.ValueDropdownItem
-import com.mwojnar.studentcalendar.helpers.toDateString
-import com.mwojnar.studentcalendar.helpers.toDateTimeString
-import com.mwojnar.studentcalendar.helpers.toTimeString
+import com.mwojnar.studentcalendar.helpers.*
+import kotlinx.serialization.Serializable
 import java.util.*
 
 interface EntityClass {
@@ -37,6 +35,7 @@ interface ToYourDayItemConvertible {
     fun toYourDayItem(context: Context? = null): YourDayItem
 }
 
+@Serializable
 @Entity(tableName = "courses")
 data class Course(
     @PrimaryKey(autoGenerate = true)
@@ -51,6 +50,7 @@ data class Course(
         ValueDropdownItem(this.name, this.courseId!!)
 }
 
+@Serializable
 @Entity(tableName = "people")
 data class Person(
     @PrimaryKey(autoGenerate = true)
@@ -77,6 +77,7 @@ data class Person(
         ValueDropdownItem(this.toString(), personId!!)
 }
 
+@Serializable
 @Entity(
     tableName = "schedules",
     foreignKeys = [
@@ -99,9 +100,12 @@ data class Schedule(
     var scheduleId: Long? = null,
     var courseId: Long = 0L,
     var type: String? = null,
+    @Serializable(with = DateSerializer::class)
     var whenTime: Date? = null,
     var weekday: Int? = null,
+    @Serializable(with = DateSerializer::class)
     var startDate: Date? = null,
+    @Serializable(with = DateSerializer::class)
     var endDate: Date? = null,
     var personId: Long? = null,
     var location: String? = null,
@@ -110,6 +114,7 @@ data class Schedule(
     override fun getId() = scheduleId
 }
 
+@Serializable
 @Entity(
     tableName = "tests",
     foreignKeys = [ForeignKey(
@@ -126,12 +131,14 @@ data class Test(
     var type: String? = null,
     var subject: String = "",
     var location: String? = null,
+    @Serializable(with = DateSerializer::class)
     var whenDateTime: Date? = null,
     var moreInfo: String? = null
 ) : EntityClass {
     override fun getId() = testId
 }
 
+@Serializable
 @Entity(
     tableName = "tasks",
     foreignKeys = [ForeignKey(
@@ -148,6 +155,7 @@ data class Task(
     var title: String = "",
     var priority: Int? = null,
     var location: String? = null,
+    @Serializable(with = DateSerializer::class)
     var whenDateTime: Date? = null,
     var reminder: Long? = null,
     var moreInfo: String? = null
@@ -237,3 +245,12 @@ data class TaskAndCourse(
         course?.name
     )
 }
+
+@Serializable
+data class BackupClass(
+    val courses: List<Course>,
+    val people: List<Person>,
+    val schedules: List<Schedule>,
+    val tasks: List<Task>,
+    val tests: List<Test>
+)

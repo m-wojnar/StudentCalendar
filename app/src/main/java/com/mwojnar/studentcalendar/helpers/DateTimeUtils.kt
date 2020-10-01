@@ -7,6 +7,10 @@ import android.text.format.DateFormat
 import androidx.fragment.app.FragmentActivity
 import androidx.room.TypeConverter
 import com.mwojnar.studentcalendar.R
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.Serializer
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
 import java.util.*
 
 fun FragmentActivity.dateTimePickerDialog(func: (date: Date) -> Unit) {
@@ -61,10 +65,27 @@ fun Date.toDateTimeString(context: Context): String {
     return context.getString(R.string.date_time, dateFormat.format(this), timeFormat.format(this))
 }
 
+fun Date.getDayTime(): Int {
+    val date = Calendar.getInstance()
+    date.time = this
+
+    return date[Calendar.HOUR_OF_DAY] * 60 * 60 + date[Calendar.MINUTE] * 60 + date[Calendar.SECOND]
+}
+
 class Converters {
     @TypeConverter
     fun dateToLong(date: Date?) = date?.time
 
     @TypeConverter
     fun longToDate(long: Long?) = long?.let { Date(it) }
+}
+
+@Serializer(forClass = Date::class)
+object DateSerializer: KSerializer<Date> {
+    override fun serialize(encoder: Encoder, value: Date) {
+        encoder.encodeLong(value.time)
+    }
+
+    override fun deserialize(decoder: Decoder) =
+        Date(decoder.decodeLong())
 }

@@ -104,7 +104,7 @@
     <string name="settings_7">Zwróć uwagę na ustawienia! Możesz tam włączyć i wyłączyć ekran powitalny lub przełączać się między jasnym i ciemnym tematem.</string>
     <string name="text_9">To już wszystko! Mam nadzieję, że korzystanie z mojej aplikacji będzie pomocne i przyjemne! Zaczynajmy!</string>
     <string name="select_theme">Ciemny temat</string>
-    <string name="show_welcome">Pokaż ekran powitalny</string>
+    <string name="show_welcome_text">Pokaż ekran powitalny</string>
     <string name="reminders_channel_description">Przypomnienie o zadaniach z aplikacji Student Calendar</string>
     <string name="reminders_channel_name">Przypomnienia</string>
     <string name="remind_in_15_min">PRZYPOMNIJ ZA 15 MIN</string>
@@ -129,7 +129,7 @@
     <string name="laptop">Laptop</string>
     <string name="leaf">Liść</string>
     <string name="notes">Notatnik</string>
-    <string name="at_the_time">O czasie zadania</string>
+    <string name="at_the_time">W czasie zadania</string>
     <string name="none">Brak</string>
     <string name="reminder_in_the_past">*Przypomnienie nie może być ustawione w przeszłości</string>
     <string name="add_button">Przycisk dodawania</string>
@@ -141,4 +141,19 @@
     <string name="cyan">Cyjan</string>
     <string name="maroon">Bordowy</string>
     <string name="steel">Stalowy</string>
+    <string name="welcome_screen">Ekran powitalny</string>
+    <string name="import_data">Import</string>
+    <string name="import_data_text">Import danych do pliku</string>
+    <string name="export_data">Eksport</string>
+    <string name="export_data_text">Eksport danych do pliku</string>
+    <string name="welcome_again">Witaj ponownie!</string>
+    <string name="select_theme_text">Włączone - ciemny temat, wyłączony - jasny temat</string>
+    <string name="export_failed">Błąd podczas eksportu danych</string>
+    <string name="export_completed">Eksport danych zakończony</string>
+    <string name="not_supported">Ta opcja jest niedostępna na Twoim systemie</string>
+    <string name="choose_file">Wybierz plik</string>
+    <string name="choose_directory">Wybierz folder</string>
+    <string name="import_failed">Błąd podczas importu danych</string>
+    <string name="import_completed">Import danych zakończony</string>
+    <string name="grant_access">Musisz przyznać dostęp do pamięci zewnętrznej, aby skorzystać z tej funkcji</string>
 </resources>
