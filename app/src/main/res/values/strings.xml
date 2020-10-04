@@ -187,7 +187,7 @@
     <string name="application_icon">Application icon</string>
     <string name="random_welcome_icon">Random welcome icon</string>
     <string name="course_icon">Course icon</string>
-    <string name="add_button">Add button</string>
+    <string name="go_to_app_button">Go to app button</string>
 
     <string name="random_welcome_text_name" translatable="false">random_welcome_text_name</string>
     <string name="random_welcome_color_name" translatable="false">random_welcome_color_name</string>

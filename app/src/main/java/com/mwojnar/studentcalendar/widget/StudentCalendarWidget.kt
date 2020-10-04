@@ -35,7 +35,7 @@ internal fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManage
     val layout = if (darkTheme) { R.layout.student_calendar_widget_night } else { R.layout.student_calendar_widget }
 
     val views = RemoteViews(context.packageName, layout)
-    views.setOnClickPendingIntent(R.id.add_button, onClickPendingIntent)
+    views.setOnClickPendingIntent(R.id.top_bar, onClickPendingIntent)
     views.setRemoteAdapter(R.id.widget_list_view, adapterIntent)
 
     // Refresh data on widget update
