@@ -7,6 +7,7 @@ import com.mwojnar.studentcalendar.R
 import com.mwojnar.studentcalendar.database.CalendarDatabase
 import com.mwojnar.studentcalendar.database.YourDayItem
 import com.mwojnar.studentcalendar.helpers.getDayTime
+import com.mwojnar.studentcalendar.helpers.getIdentifier
 import java.util.*
 
 class StudentCalendarRemoteViewsFactory(private val context: Context) : RemoteViewsService.RemoteViewsFactory {
@@ -48,22 +49,14 @@ class StudentCalendarRemoteViewsFactory(private val context: Context) : RemoteVi
 
         val colorId =
             if (course?.colorName != null) {
-                context.resources.getIdentifier(
-                    course.colorName,
-                    context.getString(R.string.type_color),
-                    context.packageName
-                )
+                getIdentifier(context, course.colorName, R.string.type_color)
             } else {
                 R.color.recycler_view_item
             }
 
         val iconId =
             if (course?.iconName != null) {
-                context.resources.getIdentifier(
-                    course.iconName,
-                    context.getString(R.string.type_drawable),
-                    context.packageName
-                )
+                getIdentifier(context, course.iconName, R.string.type_drawable)
             } else {
                 android.R.color.transparent
             }

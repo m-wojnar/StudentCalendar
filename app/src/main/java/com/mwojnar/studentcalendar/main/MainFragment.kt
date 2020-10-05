@@ -19,6 +19,7 @@ import com.mwojnar.studentcalendar.database.ItemType
 import com.mwojnar.studentcalendar.database.YourDayItem
 import com.mwojnar.studentcalendar.databinding.FragmentMainBinding
 import com.mwojnar.studentcalendar.helpers.getDayTime
+import com.mwojnar.studentcalendar.helpers.getIdentifier
 
 class MainFragment : Fragment(), TabLayout.OnTabSelectedListener, View.OnTouchListener {
 
@@ -69,14 +70,14 @@ class MainFragment : Fragment(), TabLayout.OnTabSelectedListener, View.OnTouchLi
 
         // Set chosen color to the action bar and navigation drawer
         viewModel.color.observe(viewLifecycleOwner, {
-            val colorId = resources.getIdentifier(it, getString(R.string.type_color), context?.packageName)
+            val colorId = getIdentifier(requireContext(), it, R.string.type_color)
             binding.floatingActionButton.backgroundTintList = ContextCompat.getColorStateList(requireContext(), colorId)
             headerView?.setBackgroundResource(colorId)
         })
 
         // Set chosen text to the action bar
         viewModel.text.observe(viewLifecycleOwner, {
-            val textId = resources.getIdentifier(it, getString(R.string.type_string), context?.packageName)
+            val textId = getIdentifier(requireContext(), it, R.string.type_string)
             toolbarActivity.setActionBarText(textId)
         })
 

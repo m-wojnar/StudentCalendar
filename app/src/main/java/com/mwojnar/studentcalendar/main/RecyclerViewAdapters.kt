@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mwojnar.studentcalendar.R
 import com.mwojnar.studentcalendar.database.*
 import com.mwojnar.studentcalendar.databinding.*
+import com.mwojnar.studentcalendar.helpers.getIdentifier
 import com.mwojnar.studentcalendar.helpers.toDateString
 import com.mwojnar.studentcalendar.helpers.toDateTimeString
 import com.mwojnar.studentcalendar.helpers.toTimeString
@@ -38,15 +39,21 @@ fun setCourseColorAndIcon(
     imageView: ImageView,
     iconName: String?
 ) {
-    colorName?.let {
-        val colorId = context.resources.getIdentifier(it, context.getString(R.string.type_color), context.packageName)
-        layout.backgroundTintList = ContextCompat.getColorStateList(context, colorId)
-    }
+    val colorId =
+        if (colorName != null) {
+            getIdentifier(context, colorName, R.string.type_color)
+        } else {
+            R.color.recycler_view_item
+        }
+    layout.backgroundTintList = ContextCompat.getColorStateList(context, colorId)
 
-    iconName?.let {
-        val iconId = context.resources.getIdentifier(it, context.getString(R.string.type_drawable), context.packageName)
-        imageView.setImageResource(iconId)
-    }
+    val iconId =
+        if (iconName != null) {
+            getIdentifier(context, iconName, R.string.type_drawable)
+        } else {
+            android.R.color.transparent
+        }
+    imageView.setImageResource(iconId)
 }
 
 class CourseAdapter(private val clickListener: OnItemClickListener<Course>) :
@@ -265,7 +272,7 @@ class OnYourDayItemClickListener(val func: (id: Long?, type: ItemType) -> Unit) 
 
 class YourDayDiffCallback : DiffUtil.ItemCallback<YourDayItem>() {
     override fun areItemsTheSame(oldItem: YourDayItem, newItem: YourDayItem) =
-        oldItem == newItem
+        oldItem.itemId == newItem.itemId && oldItem.itemType == newItem.itemType
 
     override fun areContentsTheSame(oldItem: YourDayItem, newItem: YourDayItem) =
         oldItem == newItem

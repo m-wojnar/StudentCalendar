@@ -51,13 +51,13 @@ class CourseFragment : Fragment() {
         })
 
         // Setup adapter for color picker and save colorId in selectedColorId
-        binding.colorText.setAdapter(IconAdapter(requireContext(), viewModel.colorsItemsArray, getString(R.string.type_color)))
+        binding.colorText.setAdapter(IconAdapter(requireContext(), viewModel.colorsItemsArray, R.string.type_color))
         binding.colorText.setOnItemClickListener { adapterView, _, position, _ ->
             viewModel.setColor((adapterView.getItemAtPosition(position) as IconDropdownItem).resName)
         }
 
         // Setup adapter for icon picker and save iconId in selectedIconId
-        binding.iconText.setAdapter(IconAdapter(requireContext(), viewModel.iconsItemsArray, getString(R.string.type_drawable)))
+        binding.iconText.setAdapter(IconAdapter(requireContext(), viewModel.iconsItemsArray, R.string.type_drawable))
         binding.iconText.setOnItemClickListener { adapterView, _, position, _ ->
             viewModel.setIcon((adapterView.getItemAtPosition(position) as IconDropdownItem).resName)
         }

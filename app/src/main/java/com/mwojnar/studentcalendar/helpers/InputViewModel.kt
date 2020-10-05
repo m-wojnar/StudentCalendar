@@ -45,7 +45,7 @@ open class InputViewModel<T>(
         )
         _colorStateList.value = ContextCompat.getColorStateList(
             activity.applicationContext,
-            activity.resources.getIdentifier(colorName, activity.getString(R.string.type_color), activity.applicationContext.packageName)
+            getIdentifier(activity.applicationContext, colorName, R.string.type_color)
         )!!
 
         // If id != null, then user is updating data

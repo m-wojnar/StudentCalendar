@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.mwojnar.studentcalendar.R
 import com.mwojnar.studentcalendar.ToolbarActivity
 import com.mwojnar.studentcalendar.databinding.FragmentWelcomeBinding
+import com.mwojnar.studentcalendar.helpers.getIdentifier
 
 class WelcomeFragment : Fragment() {
     private lateinit var viewModel: WelcomeViewModel
@@ -31,18 +32,18 @@ class WelcomeFragment : Fragment() {
         binding.lifecycleOwner = this
 
         viewModel.color.observe(viewLifecycleOwner, {
-            val colorId = resources.getIdentifier(it, getString(R.string.type_color), context?.packageName)
+            val colorId = getIdentifier(requireContext(), it, R.string.type_color)
             binding.linearLayout.setBackgroundResource(colorId)
             toolbarActivity.setBackground(colorId)
         })
 
         viewModel.icon.observe(viewLifecycleOwner, {
-            val iconId = resources.getIdentifier(it, getString(R.string.type_drawable), context?.packageName)
+            val iconId = getIdentifier(requireContext(), it, R.string.type_drawable)
             binding.welcomeImage.setImageResource(iconId)
         })
 
         viewModel.text.observe(viewLifecycleOwner, {
-            val textId = resources.getIdentifier(it, getString(R.string.type_string), context?.packageName)
+            val textId = getIdentifier(requireContext(), it, R.string.type_string)
             binding.welcomeText.text = getString(textId)
         })
 

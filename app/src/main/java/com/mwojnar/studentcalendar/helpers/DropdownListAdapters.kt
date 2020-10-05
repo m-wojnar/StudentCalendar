@@ -13,7 +13,7 @@ data class IconDropdownItem(val name: String, val resName: String) {
     override fun toString() = name
 }
 
-class IconAdapter(context: Context, private val objects: Array<out IconDropdownItem>, private val type: String) :
+class IconAdapter(context: Context, private val objects: Array<out IconDropdownItem>, private val typeStringId: Int) :
     ArrayAdapter<IconDropdownItem>(context, R.layout.icon_dropdown_menu_item, objects) {
 
     override fun getCount() = objects.size
@@ -22,7 +22,7 @@ class IconAdapter(context: Context, private val objects: Array<out IconDropdownI
         val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.icon_dropdown_menu_item, parent, false)
 
         view.findViewById<ImageView>(R.id.dropdown_item_color).setBackgroundResource(
-            context.resources.getIdentifier(objects[position].resName, type, context.packageName)
+            getIdentifier(context, objects[position].resName, typeStringId)
         )
         view.findViewById<TextView>(R.id.dropdown_item_text).text = objects[position].name
 
