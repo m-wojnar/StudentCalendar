@@ -8,12 +8,15 @@ This tool is an open source project - feel free to explore the code and let me k
 
 ## Google Play
 
-Application is published on Google Play Store. Click the link below to try it!
-https://play.google.com/store/apps/details?id=com.mwojnar.studentcalendar
+Application is published on Google Play Store. Click [here](https://play.google.com/store/apps/details?id=com.mwojnar.studentcalendar) to try it!
 
 ## Installation and use
 
 The easiest way to use my application is to install it from the Google Play Store, but you can also download the source code and build it from your IDE (preferably Android Studio and Gradle build system).
+
+## Privacy Policy
+
+You can find our privacy policy [here](https://github.com/m-wojnar/StudentCalendar/blob/master/privacy.md).
 
 ## License and author
 
