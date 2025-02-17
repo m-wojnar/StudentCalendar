@@ -250,8 +250,8 @@ class MainFragment : Fragment(), TabLayout.OnTabSelectedListener, View.OnTouchLi
         }
     }
 
-    override fun onTouch(view: View?, event: MotionEvent?) : Boolean {
-        view?.performClick()
+    override fun onTouch(view: View, event: MotionEvent) : Boolean {
+        view.performClick()
         return gestureDetector.onTouchEvent(event)
     }
 
@@ -263,7 +263,7 @@ class MainFragment : Fragment(), TabLayout.OnTabSelectedListener, View.OnTouchLi
 
         override fun onFling(
             e1: MotionEvent?,
-            e2: MotionEvent?,
+            e2: MotionEvent,
             velocityX: Float,
             velocityY: Float
         ): Boolean {

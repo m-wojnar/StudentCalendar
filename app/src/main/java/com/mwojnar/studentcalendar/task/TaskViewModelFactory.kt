@@ -13,7 +13,7 @@ class TaskViewModelFactory(
     private val taskId: Long?
 ) :
     ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(TaskViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return TaskViewModel(activity, dao, coursesDao, taskId) as T

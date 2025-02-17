@@ -2,7 +2,7 @@ package com.mwojnar.studentcalendar.database
 
 import android.content.Context
 import androidx.room.*
-import androidx.room.ForeignKey.CASCADE
+import androidx.room.ForeignKey
 import com.mwojnar.studentcalendar.helpers.*
 import kotlinx.serialization.Serializable
 import java.util.*
@@ -85,13 +85,13 @@ data class Person(
             entity = Course::class,
             parentColumns = ["courseId"],
             childColumns = ["courseId"],
-            onDelete = CASCADE
+            onDelete = ForeignKey.CASCADE
         ),
         ForeignKey(
             entity = Person::class,
             parentColumns = ["personId"],
             childColumns = ["personId"],
-            onDelete = CASCADE
+            onDelete = ForeignKey.CASCADE
         )
     ]
 )
@@ -121,7 +121,7 @@ data class Schedule(
         entity = Course::class,
         parentColumns = ["courseId"],
         childColumns = ["courseId"],
-        onDelete = CASCADE
+        onDelete = ForeignKey.CASCADE
     )]
 )
 data class Test(
@@ -145,7 +145,7 @@ data class Test(
         entity = Course::class,
         parentColumns = ["courseId"],
         childColumns = ["courseId"],
-        onDelete = CASCADE
+        onDelete = ForeignKey.CASCADE
     )]
 )
 data class Task(

@@ -15,7 +15,7 @@ class ScheduleViewModelFactory(
     private val scheduleId: Long?
 ) :
     ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ScheduleViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return ScheduleViewModel(activity, dao, coursesDao, peopleDao, scheduleId) as T

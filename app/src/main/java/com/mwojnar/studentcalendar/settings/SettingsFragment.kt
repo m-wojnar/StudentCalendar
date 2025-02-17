@@ -69,7 +69,7 @@ class PreferencesFragment : PreferenceFragmentCompat() {
     }
 
     private class OnThemeChangeListener : Preference.OnPreferenceChangeListener {
-        override fun onPreferenceChange(preference: Preference?, newValue: Any?): Boolean {
+        override fun onPreferenceChange(preference: Preference, newValue: Any?): Boolean {
             val currentTheme = AppCompatDelegate.getDefaultNightMode()
 
             if (currentTheme == AppCompatDelegate.MODE_NIGHT_NO) {
@@ -85,7 +85,7 @@ class PreferencesFragment : PreferenceFragmentCompat() {
     private class OnImportClickListener(private val context: Context, private val fragment: Fragment) :
         Preference.OnPreferenceClickListener {
 
-        override fun onPreferenceClick(preference: Preference?): Boolean {
+        override fun onPreferenceClick(preference: Preference): Boolean {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
                 Toast.makeText(context, context.getString(R.string.not_supported), Toast.LENGTH_LONG).show()
                 return true
@@ -106,7 +106,7 @@ class PreferencesFragment : PreferenceFragmentCompat() {
     private class OnExportClickListener(private val context: Context, private val fragment: Fragment) :
         Preference.OnPreferenceClickListener {
 
-        override fun onPreferenceClick(preference: Preference?): Boolean {
+        override fun onPreferenceClick(preference: Preference): Boolean {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
                 Toast.makeText(context, context.getString(R.string.not_supported), Toast.LENGTH_LONG).show()
                 return true

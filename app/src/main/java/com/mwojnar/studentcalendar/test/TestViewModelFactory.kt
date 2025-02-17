@@ -12,7 +12,7 @@ class TestViewModelFactory(
     private val coursesDao: CoursesTableDao,
     private val testId: Long?
 ) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(TestViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return TestViewModel(activity, dao, coursesDao, testId) as T
